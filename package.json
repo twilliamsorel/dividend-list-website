@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+    "build": "ENVIRONMENT='production' npx @11ty/eleventy",
+    "dev": "npx @11ty/eleventy --serve",
+    "production": "ENVIRONMENT='production' npx @11ty/eleventy --serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "clean-css": "^5.3.2",
+    "terser": "^5.18.0"
+  }
+}
