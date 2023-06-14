@@ -1,0 +1,16 @@
+.search-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  border-bottom: 1px solid $neutral-500;
+  max-width: 260px;
+}
+
+input[type="text"].search {
+  border: none;
+  background: inherit;
+  font-weight: 300;
+  margin-left: $spacing-300;
+  width: 100%;
+}

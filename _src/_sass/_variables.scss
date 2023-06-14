@@ -1,0 +1,36 @@
+  /* SPACING */
+  $spacing-base: 4px;
+  $spacing-100: $spacing-base * 1;
+  $spacing-200: $spacing-base * 2;
+  $spacing-300: $spacing-base * 3;
+  $spacing-400: $spacing-base * 4;
+  $spacing-500: $spacing-base * 5;
+  $spacing-600: $spacing-base * 6;
+  $spacing-700: $spacing-base * 7;
+  $spacing-800: $spacing-base * 8;
+  $spacing-900: $spacing-base * 9;
+  $spacing-1000: $spacing-base * 10;
+  $spacing-1100: $spacing-base * 11;
+  $spacing-1200: $spacing-base * 12;
+
+  /* COLOR */
+  $primary-100: #1D7C2A;
+  $primary-200: #2AB63D;
+  $neutral-100: #121312;
+  $neutral-200: #343833;
+  $neutral-300: #525951;
+  $neutral-400: #707B6F;
+  $neutral-500: #959C94;
+  $neutral-600: #ABB2AA;
+  $neutral-700: #C7CCC7;
+  $neutral-800: #DEE3DE;
+  $neutral-900: #F4F6F3;
+  $neutral-1000: #F8FBF8;
+  $gradient-100: linear-gradient(180deg, #208D2F 0%, #2AB63D 100%);
+
+  /* BREAKPOINTS */
+  $screen-micro: 425px;
+  $screen-xs: 576px;
+  $screen-sm: 768px;
+  $screen-md: 992px;
+  $screen-lg: 1200px;

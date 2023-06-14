@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'type';
+@import 'nav';
+@import 'footer';
+@import 'inputs';
+
+// COMPONENTS
+@import 'components/header';
+@import 'components/table';
+
+body {
+  background: $neutral-1000;
+
+  main {
+    min-height: calc(100vh - 172px);
+  }
+}

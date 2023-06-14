@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: $spacing-1000 $spacing-400;
+
+  h2 {
+    margin-bottom: $spacing-600;
+  }
+
+  @media screen and (min-width: $screen-sm) {
+    padding: $spacing-1000 0;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $spacing-1100 0;
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+
+  .spacer {
+    height: $spacing-400;
+  }
+
+  .spacer-large {
+    height: $spacing-600;
+  }
+
+  td {
+    width: 25%;
+
+    a {
+      font-weight: 500;
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+}

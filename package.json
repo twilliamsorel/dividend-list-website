@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:sass": "sass _src/_sass:_src/assets/css",
+    "watch:sass": "sass --watch _src/_sass:_src/assets/css",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "build": "ENVIRONMENT='production' npx @11ty/eleventy",
-    "dev": "npx @11ty/eleventy --serve",
-    "production": "ENVIRONMENT='production' npx @11ty/eleventy --serve"
+    "dev": "npx @11ty/eleventy --serve & npm run watch:sass",
+    "production": "npm run build:sass & ENVIRONMENT='production' npx @11ty/eleventy --serve"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "clean-css": "^5.3.2",
+    "sass": "^1.63.4",
     "terser": "^5.18.0"
   }
 }
