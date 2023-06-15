@@ -1,6 +1,8 @@
 /* SPACING */
 /* COLOR */
 /* BREAKPOINTS */
+/* Z INDEXES */
+/* MISC */
 * {
   font-family: "Mukta", sans-serif;
 }
@@ -33,6 +35,17 @@ h2 {
   }
 }
 
+h3 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 300;
+}
+
 .label {
   font-size: 14px;
   font-weight: 600;
@@ -54,10 +67,27 @@ a:hover {
   color: #1D7C2A;
 }
 
+.nav-container {
+  position: relative;
+  height: 124px;
+}
+
 .main-nav {
-  padding: 40px 0;
+  padding: 36px 0;
   background: #1D7C2A;
   color: #F8FBF8;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+  transition: padding 400ms;
+}
+@media screen and (min-width: 992px) {
+  .main-nav {
+    padding: 40px 0;
+  }
+}
+.main-nav.sticky {
+  padding: 16px 0;
 }
 .main-nav .flex-container {
   display: flex;
@@ -131,47 +161,76 @@ input[type=text].search {
   width: 100%;
 }
 
-header {
+.component.header header {
   display: flex;
   flex-direction: column;
   justify-content: start;
   padding: 40px 16px;
 }
-header h2 {
-  margin-bottom: 24px;
-}
 @media screen and (min-width: 768px) {
-  header {
+  .component.header header {
     padding: 40px 0;
   }
 }
 @media screen and (min-width: 992px) {
-  header {
+  .component.header header {
     flex-direction: row;
     justify-content: space-between;
     padding: 44px 0;
   }
-  header h2 {
+  .component.header header h2 {
     margin-bottom: 0;
   }
 }
 
-table {
+.component.table {
+  padding: 0 16px;
+}
+@media screen and (min-width: 768px) {
+  .component.table {
+    padding: 0;
+  }
+}
+.component.table table {
   width: 100%;
 }
-table .spacer {
+.component.table table .spacer {
   height: 16px;
 }
-table .spacer-large {
+.component.table table .spacer-large {
   height: 24px;
 }
-table td {
+.component.table table td {
   width: 25%;
+  border: none;
+  border-bottom: 1px solid #DEE3DE;
+  padding: 20px 0;
 }
-table td a {
+.component.table table td a {
   font-weight: 500;
   color: inherit;
   text-decoration: underline;
+}
+.component.table table thead {
+  position: sticky;
+  top: 76px;
+  background: #F8FBF8;
+}
+.component.table table thead td {
+  padding: 24px 0;
+}
+
+.component.header-paragraph {
+  margin-bottom: 44px;
+  padding: 0 16px;
+}
+@media screen and (min-width: 768px) {
+  .component.header-paragraph {
+    padding: 0;
+  }
+}
+.component.header-paragraph h3 {
+  margin-bottom: 16px;
 }
 
 body {

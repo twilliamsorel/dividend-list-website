@@ -1,22 +1,25 @@
-<div class="main-nav">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 col-md-10 offset-md-1">
-        <div class="flex-container wrapper">
-          <div class="flex-container left">
-            <img src="/assets/img/logo.svg">
-            <a href="/">
-              <h1>Dividend Research</h1>
-            </a>
+<div class="nav-container">
+  <div class="main-nav">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+          <div class="flex-container wrapper">
+            <div class="flex-container left">
+              <img src="/assets/img/logo.svg">
+              <a href="/">
+                <h1>Dividend Research</h1>
+              </a>
+            </div>
+            <nav>
+              <ul class="interface d-none d-lg-block">
+                <li><a href="/" class="{% if title=='home' %}active{% endif %}">Home</a></li>
+                <li><a href="/about" class="{% if title=='about' %}active{% endif %}">About</a></li>
+                <li><a href="/saved-stocks" class="{% if title=='saved stocks' %}active{% endif %}">Saved stocks</a>
+                </li>
+              </ul>
+              <span class="material-symbols-outlined d-block d-lg-none" id="mobile-nav-button">menu</span>
+            </nav>
           </div>
-          <nav>
-            <ul class="interface d-none d-lg-block">
-              <li><a href="/" class="{% if title=='home' %}active{% endif %}">Home</a></li>
-              <li><a href="/about" class="{% if title=='about' %}active{% endif %}">About</a></li>
-              <li><a href="/saved-stocks" class="{% if title=='saved stocks' %}active{% endif %}">Saved stocks</a></li>
-            </ul>
-            <span class="material-symbols-outlined d-block d-lg-none" id="mobile-nav-button">menu</span>
-          </nav>
         </div>
       </div>
     </div>

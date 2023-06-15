@@ -1,21 +1,42 @@
-table {
-  width: 100%;
+.component.table {
+  padding: 0 $spacing-400;
 
-  .spacer {
-    height: $spacing-400;
+  @media screen and (min-width: $screen-sm) {
+    padding: 0;
   }
 
-  .spacer-large {
-    height: $spacing-600;
-  }
+  table {
+    width: 100%;
 
-  td {
-    width: 25%;
+    .spacer {
+      height: $spacing-400;
+    }
 
-    a {
-      font-weight: 500;
-      color: inherit;
-      text-decoration: underline;
+    .spacer-large {
+      height: $spacing-600;
+    }
+
+    td {
+      width: 25%;
+      border: none;
+      border-bottom: 1px solid $neutral-800;
+      padding: $spacing-500 0;
+
+      a {
+        font-weight: 500;
+        color: inherit;
+        text-decoration: underline;
+      }
+    }
+
+    thead {
+      position: sticky;
+      top: $nav-height-sticky;
+      background: $neutral-1000;
+
+      td {
+        padding: $spacing-600 0;
+      }
     }
   }
 }

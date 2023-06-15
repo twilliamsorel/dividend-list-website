@@ -4,3 +4,51 @@ title: about
 ---
 
 {% include components/header.html title: "About this site" %}
+
+
+{% capture paragraph %}
+In searching for information on dividend stocks, it can be hard to find a straightforward list of options,
+particularly one that is rank ordered by yield percentage. This site seeks to remedy that, and in so doing, make
+selecting the appropriate dividend stocks for your portfolio a little easier.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Why this site" paragraph: paragraph %}
+
+{% capture paragraph %}
+This site is intended to be a first stop in your research, and not a comprehensive toolkit. Use this site to
+identify interesting dividend stocks, then investigate further to determine if the stock is right for you.
+{% endcapture %}
+{% include components/header-paragraph.html header: "How to use this site" paragraph: paragraph %}
+
+{% capture paragraph %}
+<strong>This site only tracks dividend stocks with a monthly payout</strong>. This is intentional, as a monthly payout
+is desirable for an income-based investing strategy. Monthly payouts also tends to correlate with higher yield
+percentages.
+<br><br>
+Please be aware: this site updates its database weekly, so it is not perfectly up to date. However, dividend returns are
+constant enough to where this delayed indexing shouldn't be a problem in serving the intended purpose of this tool,
+which is discovery.
+<br><br>
+The stock saving feature is intended for your convenience. It utilizes local storage variables to save your selected
+stocks. Clearing your cache or otherwise deleting your local web data will disrupt this functionality.
+<br><br>
+While dividend yields are calculated as an annual return, all stocks listed on this site are monthly payouts. So, a 12%
+annual return will be split over 12 payments in the year, yielding a roughly 1% return a month... discounting any
+potential taxes or fees (do your research!).
+{% endcapture %}
+{% include components/header-paragraph.html header: "Important information" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+Have a feature request or other related feedback? I'd love to hear it. Reach out to me at trevor@coastlightdigital.com,
+and I'll do my best to get back to you.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Feedback" paragraph: paragraph %}
+
+{% capture paragraph %}
+This site does not give any financial advice, nor is it responsible for any actions taken by its users. Any trades,
+transactions, or financial dealings that users engage in are entirely their own responsibility.
+While Dividend Research strives to be an accurate and useful resource, it will not be held liable for any innacurate
+information posted on this site or any related services, nor shall it be held liable for its users' actions.
+<strong>In using this service, users agree to these terms</strong>.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Terms of use" paragraph: paragraph %}

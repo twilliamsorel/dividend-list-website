@@ -1,7 +1,24 @@
+.nav-container {
+  position: relative;
+  height: $nav-height;
+}
+
 .main-nav {
-  padding: $spacing-1000 0;
+  padding: $spacing-900 0;
   background: $primary-100;
   color: $neutral-1000;
+  position: fixed;
+  width: 100%;
+  z-index: $nav-index;
+  transition: padding 400ms;
+
+  @media screen and (min-width: $screen-md) {
+    padding: $spacing-1000 0;
+  }
+
+  &.sticky {
+    padding: $spacing-400 0;
+  }
 
   .flex-container {
     display: flex;
