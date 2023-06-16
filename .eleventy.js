@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+const fs = require("fs");
 const path = require("path");
 const CleanCSS = require("clean-css");
 const terser = require("terser");

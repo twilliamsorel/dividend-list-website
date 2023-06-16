@@ -60,9 +60,12 @@ p {
 
 .information {
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 300;
 }
 
+a {
+  color: inherit;
+}
 a:hover {
   color: #1D7C2A;
 }
@@ -142,6 +145,12 @@ a:hover {
 
 footer {
   padding: 12px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+footer a {
+  text-decoration: underline;
 }
 
 .search-wrapper {
@@ -182,6 +191,14 @@ input[type=text].search {
     margin-bottom: 0;
   }
 }
+.component.header header .search-wrapper {
+  margin-top: 24px;
+}
+@media screen and (min-width: 992px) {
+  .component.header header .search-wrapper {
+    margin-top: 0;
+  }
+}
 
 .component.table {
   padding: 0 16px;
@@ -199,6 +216,9 @@ input[type=text].search {
 }
 .component.table table .spacer-large {
   height: 24px;
+}
+.component.table table tr:last-child td {
+  border-bottom: none;
 }
 .component.table table td {
   width: 25%;

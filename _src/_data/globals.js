@@ -7,6 +7,6 @@ module.exports = function () {
     "description": "A simple tool for dividend stock discovery, focused on high yield income stocks that pay monthly.",
     "server_address": "tbd",
     "baseUrl": "https://dividendresearch.com",
-    "image": "tbd"
+    "image": "/assets/img/logo.svg"
   };
 };

@@ -18,5 +18,13 @@
         margin-bottom: 0;
       }
     }
+
+    .search-wrapper {
+      margin-top: $spacing-600;
+
+      @media screen and (min-width: $screen-md) {
+        margin-top: 0;
+      }
+    }
   }
 }

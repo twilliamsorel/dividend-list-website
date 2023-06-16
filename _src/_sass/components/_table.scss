@@ -16,6 +16,10 @@
       height: $spacing-600;
     }
 
+    tr:last-child td {
+      border-bottom: none;
+    }
+
     td {
       width: 25%;
       border: none;

@@ -53,9 +53,13 @@ p {
 
 .information {
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 300;
 }
 
-a:hover {
-  color: $primary-100;
+a {
+  color: inherit;
+
+  &:hover {
+    color: $primary-100;
+  }
 }
