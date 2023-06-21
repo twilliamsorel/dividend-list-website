@@ -11,6 +11,10 @@
             <input type="text" placeholder="search" class="search interface">
           </div>
           {% endif %}
+
+          {% if save_button %}
+          <button class="btn" data-id="{{ ticker }}">save</button>
+          {% endif %}
         </header>
       </div>
     </div>

@@ -1,0 +1,53 @@
+---
+layout: default
+---
+
+{% include components/header.html title: stock.company
+save_button: true
+ticker: stock.ticker %}
+
+<div class="layout stock">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        <h3>{{ stock.ticker }}</h3>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        <div class="information-container">
+          <div class="information-item">
+            <span class="label">stock price</span>
+            <span class="information">$ {{ stock.stock_price }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">dividend yield (dollar)</span>
+            <span class="information">$ {{ stock.dividend_price }}</span>
+          </div>
+
+          {% assign dividend_percent = stock.dividend_price | divided_by: stock.stock_price | times: 100 %}
+          <div class="information-item">
+            <span class="label">dividend yield (percent)</span>
+            <span class="information">% {{ dividend_percent | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">dividend history</span>
+            <span class="information"><a
+                href="https://www.nasdaq.com/market-activity/stocks/{{ stock.ticker }}/dividend-history"
+                target="_blank">NASDAQ</a></span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">more information</span>
+            <span class="information"><a href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">Yahoo
+                finance</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

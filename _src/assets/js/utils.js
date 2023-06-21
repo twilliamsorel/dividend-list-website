@@ -1,13 +1,25 @@
-export function initializePagination(data, template, target, range) {
+export function manageFilters(filter, direction) {
+  const setFilter = (filter, direction = "desc") => {
+    const temp = [filter, direction]
+    localStorage.setItem('filter', JSON.stringify(temp))
+    return temp
+  }
+  const output = filter ? setFilter(filter, direction) : JSON.parse(localStorage.getItem('filter')) || ['dividend_yield', 'desc']
+
+  return output
+}
+
+export function initializePagination(source, template, target, filter) {
   let iterator = 0
 
-  return () => {
-    const start = iterator * range
-    const end = (iterator + 1) * range
+  // TODO: add data from local storage (for users' saved stocks)
 
-    const set = data.slice(start, end)
+  return async () => {
+    const data = source === "localstorage" ? localData : JSON.parse(await getRequest(`http://localhost:5000/api/get-stocks?pagination=${iterator}&filter=${filter[0]}&direction=${filter[1]}`))
 
-    set.forEach((d) => {
+    if (data.length === 0) return
+
+    data.forEach((d) => {
       target.insertAdjacentHTML('beforeend', template(d))
     })
 
@@ -22,6 +34,8 @@ export function getRequest(url) {
     xhr.onreadystatechange = function () {
       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
         resolve(this.response)
+      } else if (this.readyState == XMLHttpRequest.DONE && this.status != 200) {
+        reject(this.response)
       }
     }
 

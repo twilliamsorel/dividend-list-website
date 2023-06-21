@@ -12,6 +12,7 @@
     @media screen and (min-width: $screen-md) {
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       padding: $spacing-1100 0;
 
       h2 {
@@ -19,7 +20,8 @@
       }
     }
 
-    .search-wrapper {
+    .search-wrapper,
+    button {
       margin-top: $spacing-600;
 
       @media screen and (min-width: $screen-md) {

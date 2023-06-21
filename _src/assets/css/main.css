@@ -36,8 +36,13 @@ h2 {
 }
 
 h3 {
-  font-size: 28px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 400;
+}
+@media screen and (min-width: 992px) {
+  h3 {
+    font-size: 28px;
+  }
 }
 
 p {
@@ -68,6 +73,20 @@ a {
 }
 a:hover {
   color: #1D7C2A;
+}
+
+.btn {
+  background: #F8FBF8;
+  color: #121312;
+  border: 1px solid #707B6F;
+  font-size: 24px;
+  font-weight: 400;
+  width: 140px;
+}
+.btn:hover {
+  background: #1D7C2A;
+  color: #F8FBF8;
+  border-color: #1D7C2A;
 }
 
 .nav-container {
@@ -170,6 +189,37 @@ input[type=text].search {
   width: 100%;
 }
 
+.layout.stock {
+  padding: 0 16px;
+}
+@media screen and (min-width: 768px) {
+  .layout.stock {
+    padding: 0;
+  }
+}
+.layout.stock .information-container {
+  margin: 44px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  flex-wrap: wrap;
+  max-width: 800px;
+  row-gap: 44px;
+}
+.layout.stock .information-container .information-item {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+@media screen and (min-width: 992px) {
+  .layout.stock .information-container .information-item {
+    width: 33%;
+  }
+}
+.layout.stock .information-container .information-item .label {
+  margin-bottom: 12px;
+}
+
 .component.header header {
   display: flex;
   flex-direction: column;
@@ -185,17 +235,20 @@ input[type=text].search {
   .component.header header {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 44px 0;
   }
   .component.header header h2 {
     margin-bottom: 0;
   }
 }
-.component.header header .search-wrapper {
+.component.header header .search-wrapper,
+.component.header header button {
   margin-top: 24px;
 }
 @media screen and (min-width: 992px) {
-  .component.header header .search-wrapper {
+  .component.header header .search-wrapper,
+  .component.header header button {
     margin-top: 0;
   }
 }
@@ -221,7 +274,7 @@ input[type=text].search {
   border-bottom: none;
 }
 .component.table table td {
-  width: 25%;
+  width: 20%;
   border: none;
   border-bottom: 1px solid #DEE3DE;
   padding: 20px 0;
@@ -238,6 +291,10 @@ input[type=text].search {
 }
 .component.table table thead td {
   padding: 24px 0;
+  cursor: pointer;
+}
+.component.table table thead td span {
+  pointer-events: none;
 }
 
 .component.header-paragraph {

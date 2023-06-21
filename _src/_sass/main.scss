@@ -1,8 +1,12 @@
 @import 'variables';
 @import 'type';
+@import 'btns';
 @import 'nav';
 @import 'footer';
 @import 'inputs';
+
+// LAYOUTS 
+@import 'layouts/stock';
 
 // COMPONENTS
 @import 'components/header';

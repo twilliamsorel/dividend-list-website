@@ -21,7 +21,7 @@
     }
 
     td {
-      width: 25%;
+      width: 20%;
       border: none;
       border-bottom: 1px solid $neutral-800;
       padding: $spacing-500 0;
@@ -40,6 +40,11 @@
 
       td {
         padding: $spacing-600 0;
+        cursor: pointer;
+
+        span {
+          pointer-events: none;
+        }
       }
     }
   }
