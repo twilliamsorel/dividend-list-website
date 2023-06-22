@@ -5,5 +5,6 @@ pagination:
   size: 1
   alias: stock
 permalink: stocks/{{ stock.ticker | slugify }}.html
-title: {{ stock.ticker }}
+eleventyComputed:
+  title: "{{ stock.ticker }}"
 ---

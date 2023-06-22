@@ -1,12 +1,12 @@
-const axios = require('axios')
-const fs = require('fs')
+const fetch = require('node-fetch');
 
 const data = (async function () {
   const results = await (() => {
     return new Promise((resolve, reject) => {
-      axios.get('http://localhost:5000/api/get-all-stocks', {
+      fetch('http://127.0.0.1:5000/api/get-all-stocks', {
+        method: 'GET',
         headers: {
-          'Accept': 'application/json',
+          'Accept': ['application/json', '*/*'],
           'Content-Type': 'application/json'
         }
       }).then((res, err) => {
@@ -17,9 +17,7 @@ const data = (async function () {
     })
   })()
 
-  // fs.writeFileSync('_src/assets/data/data.json', JSON.stringify(results.data))
-
-  return results.data
+  return results.json()
 }())
 
 module.exports = function () {
