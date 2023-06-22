@@ -293,8 +293,13 @@ input[type=text].search {
   padding: 24px 0;
   cursor: pointer;
 }
-.component.table table thead td.active::after {
-  content: url("/assets/img/down-arrow.svg");
+.component.table table thead td.active.desc::after {
+  content: url("/assets/img/ico-down-arrow.svg");
+  display: inline-block;
+  margin-left: 4px;
+}
+.component.table table thead td.active.asc::after {
+  content: url("/assets/img/ico-up-arrow.svg");
   display: inline-block;
   margin-left: 4px;
 }

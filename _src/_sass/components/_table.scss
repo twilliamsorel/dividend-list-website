@@ -42,10 +42,18 @@
         padding: $spacing-600 0;
         cursor: pointer;
 
-        &.active::after {
-          content: url("/assets/img/down-arrow.svg");
-          display: inline-block;
-          margin-left: $spacing-100;
+        &.active {
+          &.desc::after {
+            content: url("/assets/img/ico-down-arrow.svg");
+            display: inline-block;
+            margin-left: $spacing-100;
+          }
+
+          &.asc::after {
+            content: url("/assets/img/ico-up-arrow.svg");
+            display: inline-block;
+            margin-left: $spacing-100;
+          }
         }
 
         span {
