@@ -6,7 +6,7 @@ const data = (async function () {
       fetch('http://127.0.0.1:5000/api/get-all-stocks', {
         method: 'GET',
         headers: {
-          'Accept': ['application/json', '*/*'],
+          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
       }).then((res, err) => {
