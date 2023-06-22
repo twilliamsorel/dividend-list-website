@@ -1,8 +1,9 @@
-import getTable, { tableInterface, manageFilters } from './table.js'
+import Table from './table.js'
 import { stickyNav } from './nav.js'
 
-const filter = manageFilters()
+// const filter = manageFilters()
 
 stickyNav()
-tableInterface()
-getTable(filter)
+
+const table = new Table()
+table.initializeTable()
