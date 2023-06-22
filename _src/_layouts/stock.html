@@ -19,13 +19,18 @@ ticker: stock.ticker %}
       <div class="col-12 col-md-10 offset-md-1">
         <div class="information-container">
           <div class="information-item">
+            <span class="label">dividend volatility</span>
+            <span class="information">{{ stock.volatility | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
             <span class="label">stock price</span>
-            <span class="information">$ {{ stock.stock_price }}</span>
+            <span class="information">$ {{ stock.stock_price | round: 2 }}</span>
           </div>
 
           <div class="information-item">
             <span class="label">dividend yield (dollar)</span>
-            <span class="information">$ {{ stock.dividend_price }}</span>
+            <span class="information">$ {{ stock.dividend_price | round: 2 }}</span>
           </div>
 
           {% assign dividend_percent = stock.dividend_price | divided_by: stock.stock_price | times: 100 %}

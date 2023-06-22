@@ -11,7 +11,7 @@
     flex-direction: row;
     justify-content: start;
     flex-wrap: wrap;
-    max-width: 800px;
+    max-width: 880px;
     row-gap: $spacing-1100;
 
     .information-item {
@@ -20,7 +20,7 @@
       width: 50%;
 
       @media screen and (min-width: $screen-md) {
-        width: 33%;
+        width: 25%;
       }
 
       .label {

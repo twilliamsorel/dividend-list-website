@@ -42,8 +42,15 @@
         padding: $spacing-600 0;
         cursor: pointer;
 
+        &.active::after {
+          content: url("/assets/img/down-arrow.svg");
+          display: inline-block;
+          margin-left: $spacing-100;
+        }
+
         span {
           pointer-events: none;
+          display: inline-block;
         }
       }
     }

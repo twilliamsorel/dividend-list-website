@@ -203,7 +203,7 @@ input[type=text].search {
   flex-direction: row;
   justify-content: start;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 880px;
   row-gap: 44px;
 }
 .layout.stock .information-container .information-item {
@@ -213,7 +213,7 @@ input[type=text].search {
 }
 @media screen and (min-width: 992px) {
   .layout.stock .information-container .information-item {
-    width: 33%;
+    width: 25%;
   }
 }
 .layout.stock .information-container .information-item .label {
@@ -293,8 +293,14 @@ input[type=text].search {
   padding: 24px 0;
   cursor: pointer;
 }
+.component.table table thead td.active::after {
+  content: url("/assets/img/down-arrow.svg");
+  display: inline-block;
+  margin-left: 4px;
+}
 .component.table table thead td span {
   pointer-events: none;
+  display: inline-block;
 }
 
 .component.header-paragraph {
