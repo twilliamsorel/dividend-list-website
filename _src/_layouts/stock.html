@@ -14,7 +14,6 @@ ticker: stock.ticker %}
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
         <div class="information-container">
@@ -52,6 +51,70 @@ ticker: stock.ticker %}
                 finance</a></span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+
+        <div>
+          <canvas height="100" id="dividendHistory"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+          (async function () {
+            const ctx = document.getElementById('dividendHistory');
+
+            function getRequest(url) {
+              return new Promise((resolve, reject) => {
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                  if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                    resolve(this.response)
+                  } else if (this.readyState == XMLHttpRequest.DONE && this.status != 200) {
+                    reject(this.response)
+                  }
+                }
+
+                xhr.open("GET", url);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send();
+              })
+            }
+
+            const res = await getRequest('http://localhost:5000/api/get-dividend-history?ticker={{ stock.ticker }}')
+            const data = (await JSON.parse(res)).map((d) => d.cash_amount)
+            const labels = (await JSON.parse(res)).map((d) => d.pay_date)
+
+            new Chart(ctx, {
+              type: 'line',
+              resize: true,
+              data: {
+                labels: labels.reverse(),
+                datasets: [{
+                  label: 'dividend payout history',
+                  data: data,
+                  borderWidth: 2,
+                  backgroundColor: 'green',
+                  borderColor: 'green',
+                  color: 'green'
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+
+            window.addEventListener('resize', (e) => { ctx.style.width = '100%'; ctx.style.height = 'auto' })
+          }())
+        </script>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { getRequest } from './utils.js'
 export default class Table {
   constructor() {
     this.filter = JSON.parse(localStorage.getItem('filter')) || ['dividend_yield', 'desc']
-    this.table = document.querySelector('table')
+    this.table = document.querySelector('table.stocks')
     this.page = 0
   }
 
@@ -69,9 +69,9 @@ export default class Table {
     const rows = this.table.querySelectorAll('tr')
     this.page = 0
 
-    for (let row of rows) {
+    rows.forEach((row) => {
       row.remove()
-    }
+    })
   }
 
   async paginate() {

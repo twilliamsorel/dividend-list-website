@@ -219,6 +219,9 @@ input[type=text].search {
 .layout.stock .information-container .information-item .label {
   margin-bottom: 12px;
 }
+.layout.stock canvas {
+  margin-bottom: 48px;
+}
 
 .component.header header {
   display: flex;
