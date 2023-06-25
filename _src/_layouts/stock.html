@@ -100,13 +100,11 @@ ticker: stock.ticker %}
             }
 
             const res = await getRequest('http://localhost:5000/api/get-dividend-history?ticker={{ stock.ticker }}')
-            const dividend_yield = (await JSON.parse(res)).map((d) => d.cash_amount.toFixed(2))
-            const stock_price = (await JSON.parse(res)).map((d) => d.stock_price.toFixed(2))
-            const volume = (await JSON.parse(res)).map((d) => d.volume)
-            const labels = (await JSON.parse(res)).map((d) => d.pay_date)
-            const yield_percent = (await JSON.parse(res)).map((d) => (d.cash_amount / d.stock_price))
-
-            console.log(yield_percent)
+            const dividend_yield = (await JSON.parse(res)).map((d) => d.cash_amount.toFixed(2)).reverse()
+            const stock_price = (await JSON.parse(res)).map((d) => d.stock_price.toFixed(2)).reverse()
+            const volume = (await JSON.parse(res)).map((d) => d.volume).reverse()
+            const labels = (await JSON.parse(res)).map((d) => d.pay_date).reverse()
+            const yield_percent = (await JSON.parse(res)).map((d) => (d.cash_amount / d.stock_price)).reverse()
 
             if (labels.length < 12) {
               Array.from(document.querySelectorAll('[data-projected]')).forEach((e) => {
@@ -117,17 +115,19 @@ ticker: stock.ticker %}
               })
             }
 
+            console.log(labels)
+
             const stockChart = document.getElementById('stock-chart');
 
             new Chart(stockChart, {
               type: 'line',
               resize: true,
               data: {
-                labels: labels.reverse(),
+                labels: labels,
                 datasets: [
                   {
                     label: 'stock price',
-                    data: stock_price.reverse(),
+                    data: stock_price,
                     borderWidth: 2,
                     backgroundColor: 'green',
                     borderColor: 'green',
@@ -164,11 +164,11 @@ ticker: stock.ticker %}
               type: 'line',
               resize: true,
               data: {
-                labels: labels.reverse(),
+                labels: labels,
                 datasets: [
                   {
                     label: 'dividend yield',
-                    data: dividend_yield.reverse(),
+                    data: dividend_yield,
                     borderWidth: 2,
                     backgroundColor: 'green',
                     borderColor: 'green',
@@ -205,11 +205,11 @@ ticker: stock.ticker %}
               type: 'line',
               resize: true,
               data: {
-                labels: labels.reverse(),
+                labels: labels,
                 datasets: [
                   {
                     label: 'trade volume',
-                    data: volume.reverse(),
+                    data: volume,
                     borderWidth: 2,
                     backgroundColor: 'green',
                     borderColor: 'green',
@@ -218,6 +218,15 @@ ticker: stock.ticker %}
                 ],
               },
               options: {
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: (tooltipItem, data) => {
+                        return new Intl.NumberFormat('en-US').format(tooltipItem.raw)
+                      }
+                    }
+                  },
+                },
                 scales: {
                   y: {
                     beginAtZero: true
@@ -232,11 +241,11 @@ ticker: stock.ticker %}
               type: 'line',
               resize: true,
               data: {
-                labels: labels.reverse(),
+                labels: labels,
                 datasets: [
                   {
                     label: 'yield percentage by month',
-                    data: yield_percent.reverse(),
+                    data: yield_percent,
                     borderWidth: 2,
                     backgroundColor: 'green',
                     borderColor: 'green',

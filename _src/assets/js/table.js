@@ -12,17 +12,14 @@ export default class Table {
       <tr class="label">
         <td data-filter="ticker" class="${this.filter[0] === 'ticker' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
         <td class="d-none d-lg-table-cell ${this.filter[0] === 'stock_price' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="stock_price">stock price</td>
+        <td class="d-none d-lg-table-cell ${this.filter[0] === 'stock_volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="stock_volatility">stock volatility</td>
         <td data-filter="volatility" class="${this.filter[0] === 'volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
-          <span class="d-inline-block d-lg-none">div vol</span>
+          <span class="d-inline-block d-lg-none">div volatility</span>
           <span class="d-none d-lg-inline-block">dividend volatility</span>
         </td>
-        <td class="d-none d-md-table-cell ${this.filter[0] === 'dividend_price' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="dividend_price">
-          <span class="d-inline-block d-md-none">div yield ($)</span>
-          <span class="d-none d-md-inline-block">dividend yield ($)</span>
-        </td>
         <td data-filter="dividend_yield" class="${this.filter[0] === 'dividend_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
-          <span class="d-inline-block d-lg-none">div yield (%)</span>
-          <span class="d-none d-lg-inline-block">dividend yield (%)</span>
+          <span class="d-inline-block d-lg-none">APY</span>
+          <span class="d-none d-lg-inline-block">annual yield percent</span>
         </td>
       </tr>
     `
@@ -33,8 +30,8 @@ export default class Table {
       <tr>
         <td><a href="/stocks/${d.ticker}">${d.ticker}</a></td>
         <td class="d-none d-md-table-cell">$ ${d.stock_price.toFixed(2)}</td>
+        <td class="d-none d-lg-table-cell">${d.stock_volatility.toFixed(2)}</td>
         <td>${d.dividend_volatility.toFixed(2)}</td>
-        <td class="d-none d-lg-table-cell">$ ${d.dividend_price.toFixed(2)}</td>
         <td>% ${d.dividend_yield.toFixed(2)}</td>
       </tr>
     `
