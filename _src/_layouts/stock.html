@@ -18,31 +18,33 @@ ticker: stock.ticker %}
       <div class="col-12 col-md-10 offset-md-1">
         <div class="information-container">
           <div class="information-item">
-            <span class="label">dividend volatility</span>
-            <span class="information">{{ stock.volatility | round: 2 }}</span>
-          </div>
-
-          <div class="information-item">
             <span class="label">stock price</span>
             <span class="information">$ {{ stock.stock_price | round: 2 }}</span>
           </div>
 
           <div class="information-item">
-            <span class="label">dividend yield (dollar)</span>
-            <span class="information">$ {{ stock.dividend_price | round: 2 }}</span>
-          </div>
-
-          {% assign dividend_percent = stock.dividend_price | divided_by: stock.stock_price | times: 100 %}
-          <div class="information-item">
-            <span class="label">dividend yield (percent)</span>
-            <span class="information">% {{ dividend_percent | round: 2 }}</span>
+            <span class="label">stock volatility</span>
+            <span class="information">{{ stock.stock_volatility | round: 2 }}</span>
           </div>
 
           <div class="information-item">
-            <span class="label">dividend history</span>
-            <span class="information"><a
-                href="https://www.nasdaq.com/market-activity/stocks/{{ stock.ticker }}/dividend-history"
-                target="_blank">NASDAQ</a></span>
+            <span class="label">dividend volatility</span>
+            <span class="information">{{ stock.dividend_volatility | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">Annual dividend yield</span>
+            <span class="information" data-projected>$ {{ stock.dividend_price | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">Annual percentage yield</span>
+            <span class="information" data-projected>% {{ stock.dividend_yield | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">trade volume (last month)</span>
+            <span class="information">{{ stock.volume }}</span>
           </div>
 
           <div class="information-item">
@@ -50,23 +52,35 @@ ticker: stock.ticker %}
             <span class="information"><a href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">Yahoo
                 finance</a></span>
           </div>
+
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
+        <div class="chart-wrapper">
+          <div class="chart-container">
+            <canvas height="100" id="stock-chart"></canvas>
+          </div>
 
-        <div>
-          <canvas height="100" id="dividendHistory"></canvas>
+          <div class="chart-container">
+            <canvas height="100" id="dividend-chart"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <canvas height="100" id="percentage-chart"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <canvas height="100" id="volume-chart"></canvas>
+          </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script>
           (async function () {
-            const ctx = document.getElementById('dividendHistory');
-
             function getRequest(url) {
               return new Promise((resolve, reject) => {
                 var xhr = new XMLHttpRequest();
@@ -86,22 +100,122 @@ ticker: stock.ticker %}
             }
 
             const res = await getRequest('http://localhost:5000/api/get-dividend-history?ticker={{ stock.ticker }}')
-            const data = (await JSON.parse(res)).map((d) => d.cash_amount)
+            const dividend_yield = (await JSON.parse(res)).map((d) => d.cash_amount.toFixed(2))
+            const stock_price = (await JSON.parse(res)).map((d) => d.stock_price.toFixed(2))
+            const volume = (await JSON.parse(res)).map((d) => d.volume)
             const labels = (await JSON.parse(res)).map((d) => d.pay_date)
+            const yield_percent = (await JSON.parse(res)).map((d) => (d.cash_amount / d.stock_price))
 
-            new Chart(ctx, {
+            console.log(yield_percent)
+
+            if (labels.length < 12) {
+              Array.from(document.querySelectorAll('[data-projected]')).forEach((e) => {
+                const span = document.createElement('span')
+                span.innerHTML = "(YTD)"
+                span.classList.add('projected')
+                e.appendChild(span)
+              })
+            }
+
+            const stockChart = document.getElementById('stock-chart');
+
+            new Chart(stockChart, {
               type: 'line',
               resize: true,
               data: {
                 labels: labels.reverse(),
-                datasets: [{
-                  label: 'dividend payout history',
-                  data: data,
-                  borderWidth: 2,
-                  backgroundColor: 'green',
-                  borderColor: 'green',
-                  color: 'green'
-                }]
+                datasets: [
+                  {
+                    label: 'stock price',
+                    data: stock_price.reverse(),
+                    borderWidth: 2,
+                    backgroundColor: 'green',
+                    borderColor: 'green',
+                    color: 'green'
+                  },
+                ],
+              },
+              options: {
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: (tooltipItem, data) => {
+                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tooltipItem.raw)
+                      }
+                    }
+                  },
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      callback: (value, index, values) => {
+                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+                      }
+                    },
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+
+            const dividendChart = document.getElementById('dividend-chart');
+
+            new Chart(dividendChart, {
+              type: 'line',
+              resize: true,
+              data: {
+                labels: labels.reverse(),
+                datasets: [
+                  {
+                    label: 'dividend yield',
+                    data: dividend_yield.reverse(),
+                    borderWidth: 2,
+                    backgroundColor: 'green',
+                    borderColor: 'green',
+                    color: 'green'
+                  },
+                ],
+              },
+              options: {
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: (tooltipItem, data) => {
+                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tooltipItem.raw)
+                      }
+                    }
+                  },
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      callback: (value, index, values) => {
+                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+                      }
+                    },
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+
+            const volumeChart = document.getElementById('volume-chart');
+
+            new Chart(volumeChart, {
+              type: 'line',
+              resize: true,
+              data: {
+                labels: labels.reverse(),
+                datasets: [
+                  {
+                    label: 'trade volume',
+                    data: volume.reverse(),
+                    borderWidth: 2,
+                    backgroundColor: 'green',
+                    borderColor: 'green',
+                    color: 'green'
+                  },
+                ],
               },
               options: {
                 scales: {
@@ -112,7 +226,53 @@ ticker: stock.ticker %}
               }
             });
 
-            window.addEventListener('resize', (e) => { ctx.style.width = '100%'; ctx.style.height = 'auto' })
+            const percentageChart = document.getElementById('percentage-chart');
+
+            new Chart(percentageChart, {
+              type: 'line',
+              resize: true,
+              data: {
+                labels: labels.reverse(),
+                datasets: [
+                  {
+                    label: 'yield percentage by month',
+                    data: yield_percent.reverse(),
+                    borderWidth: 2,
+                    backgroundColor: 'green',
+                    borderColor: 'green',
+                    color: 'green'
+                  },
+                ],
+              },
+              options: {
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: (tooltipItem, data) => {
+                        return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(tooltipItem.raw)
+                      }
+                    }
+                  },
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      callback: (value, index, values) => {
+                        return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(value)
+                      }
+                    },
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+
+            window.addEventListener('resize', (e) => {
+              percentageChart.style.width = '100%'; percentageChart.style.height = 'auto'
+              volumeChart.style.width = '100%'; volumeChart.style.height = 'auto'
+              stockChart.style.width = '100%'; stockChart.style.height = 'auto'
+              dividendChart.style.width = '100%'; dividendChart.style.height = 'auto'
+            })
           }())
         </script>
       </div>

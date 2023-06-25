@@ -6,12 +6,12 @@
   }
 
   .information-container {
-    margin: $spacing-1100 0;
+    margin: $spacing-1100 0 80px;
     display: flex;
     flex-direction: row;
     justify-content: start;
     flex-wrap: wrap;
-    max-width: 880px;
+    max-width: 920px;
     row-gap: $spacing-1100;
 
     .information-item {
@@ -25,6 +25,34 @@
 
       .label {
         margin-bottom: $spacing-300;
+      }
+
+      .information {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+      }
+
+      .projected {
+        font-size: 16px;
+        color: $neutral-400;
+        margin-left: $spacing-200;
+      }
+    }
+  }
+
+  .chart-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .chart-container {
+      width: 100%;
+
+      @media screen and (min-width: $screen-lg) {
+        width: 50%;
       }
     }
   }
