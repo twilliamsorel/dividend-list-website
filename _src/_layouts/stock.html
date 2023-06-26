@@ -18,52 +18,60 @@ ticker: stock.ticker %}
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
         <div class="information-container">
-          <div class="information-item">
-            <span class="label">stock price</span>
-            <span class="information">$ {{ stock.stock_price | round: 2 }}</span>
+          <div class="information-block blue">
+            <div class="information-item">
+              <span class="label">stock price</span>
+              <span class="information">$ {{ stock.stock_price | round: 2 }}</span>
+            </div>
+
+            <div class="information-item">
+              <span class="label">stock volatility</span>
+              <span class="information">{{ stock.stock_volatility | round: 2 }}</span>
+            </div>
           </div>
 
-          <div class="information-item">
-            <span class="label">stock volatility</span>
-            <span class="information">{{ stock.stock_volatility | round: 2 }}</span>
+          <div class="information-block orange">
+            <div class="information-item">
+              <span class="label">trade volume</span>
+              <span class="information">{{ stock.volume }}</span>
+            </div>
+
+            <div class="information-item">
+              <span class="label">number of records</span>
+              <span class="information">
+                {{ stock.history_size }}
+                {% if stock.history_size > 48 %}
+                <span class="projected">(showing 48)</span>
+                {% endif %}
+              </span>
+            </div>
           </div>
 
-          <div class="information-item">
-            <span class="label">dividend volatility</span>
-            <span class="information">{{ stock.dividend_volatility | round: 2 }}</span>
+          <div class="information-block green">
+            <div class="information-item">
+              <span class="label">dividend volatility</span>
+              <span class="information">{{ stock.dividend_volatility | round: 2 }}</span>
+            </div>
+
+            <div class="information-item">
+              <span class="label">Annual dividend yield</span>
+              <span class="information" data-projected>$ {{ stock.dividend_yield | round: 2 }}</span>
+            </div>
+
+            <div class="information-item">
+              <span class="label d-none d-sm-block">Annual percentage yield</span>
+              <span class="label d-block d-sm-none">APY</span>
+              <span class="information" data-projected>{{ stock.percentage_yield | round: 2 }} %</span>
+            </div>
+
+            <div class="information-item">
+              <span class="label">Median APY</span>
+              <span class="information" data-projected>{{ stock.median_percentage_yield | round: 2
+                }} %</span>
+            </div>
           </div>
 
-          <div class="information-item">
-            <span class="label">Annual dividend yield</span>
-            <span class="information" data-projected>$ {{ stock.dividend_yield | round: 2 }}</span>
-          </div>
-
-          <div class="information-item">
-            <span class="label">Annual percentage yield</span>
-            <span class="information" data-projected>% {{ stock.percentage_yield | round: 2 }}</span>
-          </div>
-
-          <div class="information-item">
-            <span class="label">Median APY</span>
-            <span class="information" data-projected>% {{ stock.median_percentage_yield | round: 2
-              }}</span>
-          </div>
-
-          <div class="information-item">
-            <span class="label">trade volume (last month)</span>
-            <span class="information">{{ stock.volume }}</span>
-          </div>
-
-          <div class="information-item">
-            <span class="label">number of records</span>
-            <span class="information">
-              {{ stock.history_size }}
-              {% if stock.history_size > 48 %}
-              <span class="projected">(showing 48)</span>
-              {% endif %}
-            </span>
-          </div>
-
+          <!-- 
           <div class="information-item">
             <span class="label">more information</span>
             <span class="information">
@@ -71,6 +79,7 @@ ticker: stock.ticker %}
                 finance</a>
             </span>
           </div>
+          /-->
 
         </div>
       </div>
