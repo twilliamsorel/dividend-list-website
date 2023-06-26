@@ -30,9 +30,9 @@ export default async function initializeCharts() {
           label: 'stock price',
           data: stock_price,
           borderWidth: 2,
-          backgroundColor: 'green',
-          borderColor: 'green',
-          color: 'green'
+          backgroundColor: '#0099CA',
+          borderColor: '#0099CA',
+          color: '#0099CA'
         }
       ]
     },
@@ -124,9 +124,9 @@ export default async function initializeCharts() {
           label: 'trade volume',
           data: volume,
           borderWidth: 2,
-          backgroundColor: 'green',
-          borderColor: 'green',
-          color: 'green'
+          backgroundColor: '#E49B2D',
+          borderColor: '#E49B2D',
+          color: '#E49B2D'
         }
       ]
     },

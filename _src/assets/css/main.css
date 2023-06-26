@@ -204,31 +204,73 @@ input[type=text].search {
   justify-content: start;
   flex-wrap: wrap;
   max-width: 920px;
-  row-gap: 44px;
+  row-gap: 40px;
+  column-gap: 16px;
 }
-.layout.stock .information-container .information-item {
+.layout.stock .information-container .information-block {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 32px;
+  padding: 20px 24px;
+  width: 100%;
+}
+@media screen and (min-width: 992px) {
+  .layout.stock .information-container .information-block {
+    column-gap: 72px;
+    width: initial;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .layout.stock .information-container .information-block {
+    column-gap: 80px;
+  }
+}
+.layout.stock .information-container .information-block.blue .information-item, .layout.stock .information-container .information-block.orange .information-item {
   width: 50%;
 }
 @media screen and (min-width: 992px) {
-  .layout.stock .information-container .information-item {
-    width: 25%;
+  .layout.stock .information-container .information-block.blue .information-item, .layout.stock .information-container .information-block.orange .information-item {
+    width: initial;
   }
 }
-.layout.stock .information-container .information-item .label {
-  margin-bottom: 12px;
+.layout.stock .information-container .information-block.blue {
+  border: 1px solid #0099CA;
+  background: rgba(228, 247, 253, 0.1);
 }
-.layout.stock .information-container .information-item .information {
+.layout.stock .information-container .information-block.orange {
+  border: 1px solid #CC7C04;
+  background: rgba(255, 242, 223, 0.1);
+}
+.layout.stock .information-container .information-block.green {
+  border: 1px solid #1D7C2A;
+  background: #F8FBF8;
+}
+.layout.stock .information-container .information-block.green .information-item {
+  width: 50%;
+}
+@media screen and (min-width: 992px) {
+  .layout.stock .information-container .information-block.green .information-item {
+    width: initial;
+  }
+}
+.layout.stock .information-container .information-block .information-item {
+  display: flex;
+  flex-direction: column;
+}
+.layout.stock .information-container .information-block .information-item .label {
+  margin-bottom: 16px;
+}
+.layout.stock .information-container .information-block .information-item .information {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
 }
-.layout.stock .information-container .information-item .information span {
+.layout.stock .information-container .information-block .information-item .information span {
   margin-left: 8px;
 }
-.layout.stock .information-container .information-item .projected {
+.layout.stock .information-container .information-block .information-item .projected {
   font-size: 16px;
   color: #707B6F;
   margin-left: 8px;

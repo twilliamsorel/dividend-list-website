@@ -12,36 +12,86 @@
     justify-content: start;
     flex-wrap: wrap;
     max-width: 920px;
-    row-gap: $spacing-1100;
+    row-gap: $spacing-1000;
+    column-gap: $spacing-400;
 
-    .information-item {
+    .information-block {
       display: flex;
-      flex-direction: column;
-      width: 50%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      row-gap: $spacing-800;
+      padding: $spacing-500 $spacing-600;
+      width: 100%;
 
       @media screen and (min-width: $screen-md) {
-        width: 25%;
+        column-gap: 72px;
+        width: initial;
       }
 
-      .label {
-        margin-bottom: $spacing-300;
+      @media screen and (min-width: $screen-lg) {
+        column-gap: 80px;
       }
 
-      .information {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
+      &.blue,
+      &.orange {
+        .information-item {
+          width: 50%;
+        }
 
-        span {
-          margin-left: $spacing-200;
+        @media screen and (min-width: $screen-md) {
+          .information-item {
+            width: initial;
+          }
         }
       }
 
-      .projected {
-        font-size: 16px;
-        color: $neutral-400;
-        margin-left: $spacing-200;
+      &.blue {
+        border: 1px solid $blue-100;
+        background: $blue-200;
+      }
+
+      &.orange {
+        border: 1px solid $orange-100;
+        background: $orange-200;
+      }
+
+      &.green {
+        border: 1px solid $primary-100;
+        background: $neutral-1000;
+
+        .information-item {
+          width: 50%;
+
+          @media screen and (min-width: $screen-md) {
+            width: initial;
+          }
+        }
+      }
+
+      .information-item {
+        display: flex;
+        flex-direction: column;
+
+        .label {
+          margin-bottom: $spacing-400;
+        }
+
+        .information {
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          align-items: center;
+
+          span {
+            margin-left: $spacing-200;
+          }
+        }
+
+        .projected {
+          font-size: 16px;
+          color: $neutral-400;
+          margin-left: $spacing-200;
+        }
       }
     }
   }
