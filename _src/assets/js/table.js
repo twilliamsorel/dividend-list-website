@@ -11,16 +11,16 @@ export default class Table {
     return `
       <tr class="label">
         <td data-filter="ticker" class="${this.filter[0] === 'ticker' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
-        <td class="d-none d-lg-table-cell ${this.filter[0] === 'stock_price' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="stock_price">stock price</td>
-        <td class="d-none d-lg-table-cell ${this.filter[0] === 'stock_volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="stock_volatility">stock volatility</td>
-        <td data-filter="volatility" class="${this.filter[0] === 'volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
+        <td class="d-none d-lg-table-cell ${this.filter[0] === 'history_size' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="history_size">recorded payouts</td>
+        <td data-filter="dividend_volatility" class="d-none d-md-table-cell ${this.filter[0] === 'dividend_volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
           <span class="d-inline-block d-lg-none">div volatility</span>
           <span class="d-none d-lg-inline-block">dividend volatility</span>
         </td>
-        <td data-filter="dividend_yield" class="${this.filter[0] === 'dividend_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
-          <span class="d-inline-block d-lg-none">APY</span>
-          <span class="d-none d-lg-inline-block">annual yield percent</span>
+        <td data-filter="percentage_yield" class="${this.filter[0] === 'percentage_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
+          <span class="d-inline-block d-xl-none">APY</span>
+          <span class="d-none d-xl-inline-block">annual percentage yield</span>
         </td>
+        <td data-filter="median_percentage_yield" class="${this.filter[0] === 'median_percentage_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">Median APY</td>
       </tr>
     `
   }
@@ -29,10 +29,10 @@ export default class Table {
     return `
       <tr>
         <td><a href="/stocks/${d.ticker}">${d.ticker}</a></td>
-        <td class="d-none d-md-table-cell">$ ${d.stock_price.toFixed(2)}</td>
-        <td class="d-none d-lg-table-cell">${d.stock_volatility.toFixed(2)}</td>
-        <td>${d.dividend_volatility.toFixed(2)}</td>
-        <td>% ${d.dividend_yield.toFixed(2)}</td>
+        <td class="d-none d-lg-table-cell">${d.history_size}</td>
+        <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
+        <td>${d.percentage_yield.toFixed(2)} %</td>
+        <td>${d.median_percentage_yield.toFixed(2)} %</td>
       </tr>
     `
   }

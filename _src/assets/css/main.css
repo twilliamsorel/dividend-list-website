@@ -225,6 +225,9 @@ input[type=text].search {
   justify-content: start;
   align-items: center;
 }
+.layout.stock .information-container .information-item .information span {
+  margin-left: 8px;
+}
 .layout.stock .information-container .information-item .projected {
   font-size: 16px;
   color: #707B6F;
@@ -239,7 +242,7 @@ input[type=text].search {
 .layout.stock .chart-wrapper .chart-container {
   width: 100%;
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1400px) {
   .layout.stock .chart-wrapper .chart-container {
     width: 50%;
   }

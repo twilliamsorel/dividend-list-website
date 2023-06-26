@@ -34,12 +34,18 @@ ticker: stock.ticker %}
 
           <div class="information-item">
             <span class="label">Annual dividend yield</span>
-            <span class="information" data-projected>$ {{ stock.dividend_price | round: 2 }}</span>
+            <span class="information" data-projected>$ {{ stock.dividend_yield | round: 2 }}</span>
           </div>
 
           <div class="information-item">
             <span class="label">Annual percentage yield</span>
-            <span class="information" data-projected>% {{ stock.dividend_yield | round: 2 }}</span>
+            <span class="information" data-projected>% {{ stock.percentage_yield | round: 2 }}</span>
+          </div>
+
+          <div class="information-item">
+            <span class="label">Median APY</span>
+            <span class="information" data-projected>% {{ stock.median_percentage_yield | round: 2
+              }}</span>
           </div>
 
           <div class="information-item">
@@ -48,9 +54,21 @@ ticker: stock.ticker %}
           </div>
 
           <div class="information-item">
+            <span class="label">number of records</span>
+            <span class="information">
+              {{ stock.history_size }}
+              {% if stock.history_size > 48 %}
+              <span class="projected">(showing 48)</span>
+              {% endif %}
+            </span>
+          </div>
+
+          <div class="information-item">
             <span class="label">more information</span>
-            <span class="information"><a href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">Yahoo
-                finance</a></span>
+            <span class="information">
+              <a href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">Yahoo
+                finance</a>
+            </span>
           </div>
 
         </div>
@@ -115,8 +133,6 @@ ticker: stock.ticker %}
               })
             }
 
-            console.log(labels)
-
             const stockChart = document.getElementById('stock-chart');
 
             new Chart(stockChart, {
@@ -132,24 +148,30 @@ ticker: stock.ticker %}
                     backgroundColor: 'green',
                     borderColor: 'green',
                     color: 'green'
-                  },
-                ],
+                  }
+                ]
               },
               options: {
                 plugins: {
                   tooltip: {
                     callbacks: {
                       label: (tooltipItem, data) => {
-                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tooltipItem.raw)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD'
+                        }).format(tooltipItem.raw)
                       }
                     }
-                  },
+                  }
                 },
                 scales: {
                   y: {
                     ticks: {
                       callback: (value, index, values) => {
-                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD'
+                        }).format(value)
                       }
                     },
                     beginAtZero: true
@@ -173,24 +195,30 @@ ticker: stock.ticker %}
                     backgroundColor: 'green',
                     borderColor: 'green',
                     color: 'green'
-                  },
-                ],
+                  }
+                ]
               },
               options: {
                 plugins: {
                   tooltip: {
                     callbacks: {
                       label: (tooltipItem, data) => {
-                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tooltipItem.raw)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD'
+                        }).format(tooltipItem.raw)
                       }
                     }
-                  },
+                  }
                 },
                 scales: {
                   y: {
                     ticks: {
                       callback: (value, index, values) => {
-                        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD'
+                        }).format(value)
                       }
                     },
                     beginAtZero: true
@@ -214,8 +242,8 @@ ticker: stock.ticker %}
                     backgroundColor: 'green',
                     borderColor: 'green',
                     color: 'green'
-                  },
-                ],
+                  }
+                ]
               },
               options: {
                 plugins: {
@@ -225,7 +253,7 @@ ticker: stock.ticker %}
                         return new Intl.NumberFormat('en-US').format(tooltipItem.raw)
                       }
                     }
-                  },
+                  }
                 },
                 scales: {
                   y: {
@@ -250,24 +278,30 @@ ticker: stock.ticker %}
                     backgroundColor: 'green',
                     borderColor: 'green',
                     color: 'green'
-                  },
-                ],
+                  }
+                ]
               },
               options: {
                 plugins: {
                   tooltip: {
                     callbacks: {
                       label: (tooltipItem, data) => {
-                        return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(tooltipItem.raw)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'percent',
+                          maximumFractionDigits: 2
+                        }).format(tooltipItem.raw)
                       }
                     }
-                  },
+                  }
                 },
                 scales: {
                   y: {
                     ticks: {
                       callback: (value, index, values) => {
-                        return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(value)
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'percent',
+                          maximumFractionDigits: 2
+                        }).format(value)
                       }
                     },
                     beginAtZero: true
@@ -277,10 +311,14 @@ ticker: stock.ticker %}
             });
 
             window.addEventListener('resize', (e) => {
-              percentageChart.style.width = '100%'; percentageChart.style.height = 'auto'
-              volumeChart.style.width = '100%'; volumeChart.style.height = 'auto'
-              stockChart.style.width = '100%'; stockChart.style.height = 'auto'
-              dividendChart.style.width = '100%'; dividendChart.style.height = 'auto'
+              percentageChart.style.width = '100%';
+              percentageChart.style.height = 'auto'
+              volumeChart.style.width = '100%';
+              volumeChart.style.height = 'auto'
+              stockChart.style.width = '100%';
+              stockChart.style.height = 'auto'
+              dividendChart.style.width = '100%';
+              dividendChart.style.height = 'auto'
             })
           }())
         </script>
