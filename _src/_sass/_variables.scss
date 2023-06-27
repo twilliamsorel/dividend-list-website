@@ -16,6 +16,7 @@ $spacing-1200: $spacing-base * 12;
 /* COLOR */
 $primary-100: #1D7C2A;
 $primary-200: #2AB63D;
+$primary-300: #95d19d;
 $neutral-100: #121312;
 $neutral-200: #343833;
 $neutral-300: #525951;
@@ -29,10 +30,9 @@ $neutral-1000: #F8FBF8;
 $gradient-100: linear-gradient(180deg, #208D2F 0%, #2AB63D 100%);
 
 // STOCK UI COLORS
-$blue-100: #0099CA;
-$blue-200: rgba(228, 247, 253, 0.10);
-$orange-100: #CC7C04;
-$orange-200: rgba(255, 242, 223, 0.10);
+$blue-100: #a0cddc;
+$orange-100: #f1cb92;
+;
 
 /* BREAKPOINTS */
 $screen-micro: 425px;

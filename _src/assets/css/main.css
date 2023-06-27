@@ -235,16 +235,13 @@ input[type=text].search {
   }
 }
 .layout.stock .information-container .information-block.blue {
-  border: 1px solid #0099CA;
-  background: rgba(228, 247, 253, 0.1);
+  border: 1px solid #a0cddc;
 }
 .layout.stock .information-container .information-block.orange {
-  border: 1px solid #CC7C04;
-  background: rgba(255, 242, 223, 0.1);
+  border: 1px solid #f1cb92;
 }
 .layout.stock .information-container .information-block.green {
-  border: 1px solid #1D7C2A;
-  background: #F8FBF8;
+  border: 1px solid #95d19d;
 }
 .layout.stock .information-container .information-block.green .information-item {
   width: 50%;

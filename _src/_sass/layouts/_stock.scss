@@ -47,17 +47,14 @@
 
       &.blue {
         border: 1px solid $blue-100;
-        background: $blue-200;
       }
 
       &.orange {
         border: 1px solid $orange-100;
-        background: $orange-200;
       }
 
       &.green {
-        border: 1px solid $primary-100;
-        background: $neutral-1000;
+        border: 1px solid $primary-300;
 
         .information-item {
           width: 50%;
