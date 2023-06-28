@@ -2,15 +2,22 @@ import { getRequest } from "./utils.js"
 
 export default function initializeSearch() {
   const searchBar = document.querySelector('input.search')
+  let notFrozen = true
 
   if (!searchBar) return
 
-  searchBar.addEventListener('keyup', async (e) => {
-    const res = searchBar.value.length > 1 ? (await getRequest(`http://localhost:5000/api/search-stocks?search=${searchBar.value}`)) : False
+  const runSearch = () => {
+    notFrozen && setTimeout(async () => {
+      const res = searchBar.value.length > 1 ? (await getRequest(`http://localhost:5000/api/search-stocks?search=${searchBar.value}`)) : false
+      const searchEvent = new CustomEvent("search", { detail: { results: JSON.parse(res) } })
 
-    // create custom event emitter, that the table object listens for. 
-    // If result is not false, render new results. 
-    // Otherwise, clear and reset table.
-    console.log(JSON.parse(res))
-  })
+      window.dispatchEvent(searchEvent)
+      notFrozen = true
+    }, 1000)
+
+    notFrozen = false
+  }
+
+  searchBar.addEventListener('keyup', runSearch)
+  window.addEventListener('load', () => { if (searchBar.value.length > 1) runSearch() })
 }
