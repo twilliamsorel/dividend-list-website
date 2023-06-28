@@ -1,0 +1,17 @@
+.molecule.filter {
+  label {
+    text-transform: uppercase;
+    margin-bottom: $spacing-200;
+  }
+
+  .range-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    input {
+      width: 48%;
+    }
+  }
+}

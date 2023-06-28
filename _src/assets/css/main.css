@@ -88,6 +88,21 @@ a:hover {
   color: #F8FBF8;
   border-color: #1D7C2A;
 }
+.btn.filter {
+  text-align: left;
+  font-size: 14px;
+  text-transform: uppercase;
+  width: initial;
+  border-color: #959C94;
+}
+.btn.filter img {
+  margin-left: 8px;
+}
+.btn.filter:hover {
+  background: #F8FBF8;
+  color: initial;
+  border-color: initial;
+}
 
 .nav-container {
   position: relative;
@@ -187,6 +202,12 @@ input[type=text].search {
   font-weight: 300;
   margin-left: 12px;
   width: 100%;
+}
+
+input[type=number] {
+  background: inherit;
+  border: 1px solid #C7CCC7;
+  padding: 4px 8px;
 }
 
 .layout.stock {
@@ -389,6 +410,58 @@ input[type=text].search {
 }
 .component.header-paragraph h3 {
   margin-bottom: 16px;
+}
+
+.component.filters {
+  margin-bottom: 24px;
+  padding: 0 16px;
+}
+@media screen and (min-width: 768px) {
+  .component.filters {
+    padding: 0;
+  }
+}
+.component.filters .filters-container {
+  border: 1px solid #959C94;
+  padding: 44px;
+  margin-top: -16px;
+  grid-template-columns: 1fr;
+  column-gap: 40px;
+  row-gap: 32px;
+  opacity: 0;
+  display: none;
+  transition: 400ms opacity;
+}
+@media screen and (min-width: 992px) {
+  .component.filters .filters-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .component.filters .filters-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.component.filters.open .filter.btn img {
+  transform: rotate(180deg);
+}
+.component.filters.open .filters-container {
+  display: grid;
+  opacity: 1;
+}
+
+.molecule.filter label {
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.molecule.filter .range-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.molecule.filter .range-container input {
+  width: 48%;
 }
 
 body {

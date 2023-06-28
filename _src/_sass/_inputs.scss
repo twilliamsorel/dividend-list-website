@@ -14,3 +14,9 @@ input[type="text"].search {
   margin-left: $spacing-300;
   width: 100%;
 }
+
+input[type="number"] {
+  background: inherit;
+  border: 1px solid $neutral-700;
+  padding: $spacing-100 $spacing-200;
+}

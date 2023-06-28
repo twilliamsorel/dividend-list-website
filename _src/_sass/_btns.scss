@@ -11,4 +11,22 @@
     color: $neutral-1000;
     border-color: $primary-100;
   }
+
+  &.filter {
+    text-align: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: initial;
+    border-color: $neutral-500;
+
+    img {
+      margin-left: $spacing-200;
+    }
+
+    &:hover {
+      background: $neutral-1000;
+      color: initial;
+      border-color: initial;
+    }
+  }
 }

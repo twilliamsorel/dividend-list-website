@@ -1,0 +1,41 @@
+.component.filters {
+  margin-bottom: $spacing-600;
+  padding: 0 $spacing-400;
+
+  @media screen and (min-width: $screen-sm) {
+    padding: 0;
+  }
+
+  .filters-container {
+    border: 1px solid $neutral-500;
+    padding: $spacing-1100;
+    margin-top: -$spacing-400;
+    grid-template-columns: 1fr;
+    column-gap: $spacing-1000;
+    row-gap: $spacing-800;
+    opacity: 0;
+    display: none;
+    transition: 400ms opacity;
+
+    @media screen and (min-width: $screen-md) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+
+  &.open {
+    .filter.btn {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    .filters-container {
+      display: grid;
+      opacity: 1;
+    }
+  }
+}

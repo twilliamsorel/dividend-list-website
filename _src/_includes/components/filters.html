@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+      <div class="component filters">
+        <button class="filter btn" id="filter-toggle">filters <span id="filter-counter"></span> <img
+            src="/assets/img/ico-down-arrow.svg"></button>
+        <div class="filters-container">
+          {% include components/molecules/filter.html label: "dividend yield" %}
+          {% include components/molecules/filter.html label: "dividend volatility" %}
+          {% include components/molecules/filter.html label: "stock price" %}
+          {% include components/molecules/filter.html label: "stock volatility" %}
+          {% include components/molecules/filter.html label: "apy" %}
+          {% include components/molecules/filter.html label: "median apy" %}
+          {% include components/molecules/filter.html label: "records" %}
+          {% include components/molecules/filter.html label: "volume" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

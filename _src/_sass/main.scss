@@ -12,6 +12,10 @@
 @import 'components/header';
 @import 'components/table';
 @import 'components/header-paragraph';
+@import 'components/filters';
+
+// MOLECULES
+@import 'components/molecules/filter';
 
 body {
   background: $neutral-1000;
