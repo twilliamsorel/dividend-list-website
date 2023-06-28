@@ -50,16 +50,20 @@ export default class Table {
 
     this.table.querySelector('thead').addEventListener('click', (e) => {
       this.setFilter(e.target.getAttribute('data-filter'))
-      this.resetTable()
       this.updateTable()
+    })
+
+    window.addEventListener('search', (e) => {
+      this.updateTable(e.detail.results)
     })
   }
 
-  updateTable() {
+  updateTable(data = false) {
+    this.resetTable()
     const thead = this.header(this.filter)
     this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
 
-    this.paginate()
+    this.paginate(data)
   }
 
   resetTable() {
@@ -71,8 +75,8 @@ export default class Table {
     })
   }
 
-  async paginate() {
-    const data = JSON.parse(await getRequest(`http://localhost:5000/api/get-stocks?pagination=${this.page}&filter=${this.filter[0]}&direction=${this.filter[1]}`))
+  async paginate(passedData) {
+    const data = passedData ? passedData : JSON.parse(await getRequest(`http://localhost:5000/api/get-stocks?pagination=${this.page}&filter=${this.filter[0]}&direction=${this.filter[1]}`))
     if (data.length === 0) return
 
     data.forEach((d) => {
