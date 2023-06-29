@@ -1,78 +1,13 @@
 import { postRequest } from './utils.js'
+import { filterDefaults } from './filters.js'
 
 export default class Table {
   constructor() {
     this.sort = JSON.parse(localStorage.getItem('sort')) || ['dividend_yield', 'desc']
     this.table = document.querySelector('table.stocks')
-    this.filters = JSON.parse(localStorage.getItem('filters')) || {
-      dividendYield: {
-        min: 0,
-        max: 50000
-      },
-      dividendVolatility: {
-        min: 0,
-        max: 4
-      },
-      stockPrice: {
-        min: 0,
-        max: 50000
-      },
-      stockVolatility: {
-        min: 0,
-        max: 4
-      },
-      apy: {
-        min: 0,
-        max: 6000
-      },
-      medianApy: {
-        min: 0,
-        max: 6000
-      },
-      records: {
-        min: 0,
-        max: 5000
-      },
-      volume: {
-        min: 0,
-        max: 100000000000
-      }
-    }
-    this.defaults = {
-      dividendYield: {
-        min: 0,
-        max: 50000
-      },
-      dividendVolatility: {
-        min: 0,
-        max: 4
-      },
-      stockPrice: {
-        min: 0,
-        max: 50000
-      },
-      stockVolatility: {
-        min: 0,
-        max: 4
-      },
-      apy: {
-        min: 0,
-        max: 6000
-      },
-      medianApy: {
-        min: 0,
-        max: 6000
-      },
-      records: {
-        min: 0,
-        max: 5000
-      },
-      volume: {
-        min: 0,
-        max: 100000000000
-      }
-    }
+    this.filters = JSON.parse(localStorage.getItem('filters')) || filterDefaults
     this.page = 0
+    this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
   }
 
   header() {
@@ -153,10 +88,16 @@ export default class Table {
       pagination: this.page
     }
 
-    const data = passedData ? passedData : JSON.parse(await postRequest('http://localhost:5000/api/get-stocks', requestObj))
+    const isSavedTable = this.table.getAttribute('data-source')
+    const savedStocks = isSavedTable && JSON.parse(localStorage.getItem('stocks'))
+    const savedData = savedStocks ? JSON.parse(await postRequest('http://localhost:5000/api/get-saved', savedStocks)) : (isSavedTable && 'no saved data')
+    const data = savedData || passedData || JSON.parse(await postRequest('http://localhost:5000/api/get-stocks', requestObj))
+
+    console.log(await data)
+
     if (data.length === 0) return
 
-    data.forEach((d) => {
+    (data !== 'no saved data') && data.forEach((d) => {
       this.table.querySelector('tbody.information').insertAdjacentHTML('beforeend', this.body(d))
     })
 
@@ -176,7 +117,7 @@ export default class Table {
     const temp = detail.filter.split('-')
     const filter = temp.length > 2 ? temp[0] + temp[1].charAt(0).toUpperCase() + temp[1].slice(1) : temp[0]
     const boundary = temp.length > 2 ? temp[2] : temp[1]
-    const value = detail.value ? parseFloat(detail.value) : this.defaults[filter][boundary]
+    const value = detail.value ? parseFloat(detail.value) : filterDefaults[filter][boundary]
 
     this.filters[filter][boundary] = value
     localStorage.setItem('filters', JSON.stringify(this.filters))

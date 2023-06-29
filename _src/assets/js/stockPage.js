@@ -1,5 +1,28 @@
 import { getRequest } from './utils.js'
 
+// SAVE BUTTON
+(() => {
+  const button = document.querySelector('[data-save]')
+
+  if (!button) return
+
+  const value = button.getAttribute('data-save')
+  const currentStorage = JSON.parse(localStorage.getItem('stocks')) || false
+  const exists = (currentStorage && currentStorage.filter((item) => item === value)).length > 0
+
+  if (exists) {
+    button.innerHTML = 'unsave'
+  }
+
+  button.addEventListener('click', () => {
+    const temp = exists ? currentStorage.filter((item) => item !== value) : (currentStorage ? currentStorage.concat(value) : [value])
+    const newStorage = temp.length === 0 ? null : temp
+    localStorage.setItem('stocks', JSON.stringify(newStorage))
+
+    button.innerHTML = exists ? 'save' : 'unsave'
+  })
+})()
+
 export default async function initializeCharts() {
   const ticker = document.querySelector('#ticker-interface').value
   const res = await getRequest(`http://localhost:5000/api/get-dividend-history?ticker=${ticker}`)
