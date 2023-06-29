@@ -29,8 +29,9 @@ function bindInputs() {
 
   filtersContainer.addEventListener('keyup', (e) => {
     notFrozen && setTimeout(() => {
-      // on key up, emit custom event to update table
-      console.log(e.target.getAttribute('data-filter'), e.target.value)
+      const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
+      window.dispatchEvent(filterEvent)
+
       countFilters()
       notFrozen = true
     }, 600)

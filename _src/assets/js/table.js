@@ -1,26 +1,94 @@
-import { getRequest } from './utils.js'
+import { postRequest } from './utils.js'
 
 export default class Table {
   constructor() {
-    this.filter = JSON.parse(localStorage.getItem('filter')) || ['dividend_yield', 'desc']
+    this.sort = JSON.parse(localStorage.getItem('sort')) || ['dividend_yield', 'desc']
     this.table = document.querySelector('table.stocks')
+    this.filters = JSON.parse(localStorage.getItem('filters')) || {
+      dividendYield: {
+        min: 0,
+        max: 50000
+      },
+      dividendVolatility: {
+        min: 0,
+        max: 4
+      },
+      stockPrice: {
+        min: 0,
+        max: 50000
+      },
+      stockVolatility: {
+        min: 0,
+        max: 4
+      },
+      apy: {
+        min: 0,
+        max: 6000
+      },
+      medianApy: {
+        min: 0,
+        max: 6000
+      },
+      records: {
+        min: 0,
+        max: 5000
+      },
+      volume: {
+        min: 0,
+        max: 100000000000
+      }
+    }
+    this.defaults = {
+      dividendYield: {
+        min: 0,
+        max: 50000
+      },
+      dividendVolatility: {
+        min: 0,
+        max: 4
+      },
+      stockPrice: {
+        min: 0,
+        max: 50000
+      },
+      stockVolatility: {
+        min: 0,
+        max: 4
+      },
+      apy: {
+        min: 0,
+        max: 6000
+      },
+      medianApy: {
+        min: 0,
+        max: 6000
+      },
+      records: {
+        min: 0,
+        max: 5000
+      },
+      volume: {
+        min: 0,
+        max: 100000000000
+      }
+    }
     this.page = 0
   }
 
   header() {
     return `
       <tr class="label">
-        <td data-filter="ticker" class="${this.filter[0] === 'ticker' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
-        <td class="d-none d-lg-table-cell ${this.filter[0] === 'history_size' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}" data-filter="history_size">recorded payouts</td>
-        <td data-filter="dividend_volatility" class="d-none d-md-table-cell ${this.filter[0] === 'dividend_volatility' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
+        <td data-sort="ticker" class="${this.sort[0] === 'ticker' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
+        <td class="d-none d-lg-table-cell ${this.sort[0] === 'history_size' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}" data-sort="history_size">recorded payouts</td>
+        <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort[0] === 'dividend_volatility' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">
           <span class="d-inline-block d-lg-none">div volatility</span>
           <span class="d-none d-lg-inline-block">dividend volatility</span>
         </td>
-        <td data-filter="percentage_yield" class="${this.filter[0] === 'percentage_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">
+        <td data-sort="percentage_yield" class="${this.sort[0] === 'percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">
           <span class="d-inline-block d-xl-none">APY</span>
           <span class="d-none d-xl-inline-block">annual percentage yield</span>
         </td>
-        <td data-filter="median_percentage_yield" class="${this.filter[0] === 'median_percentage_yield' ? 'active' : ''} ${this.filter[1] === 'desc' ? 'desc' : 'asc'}">Median APY</td>
+        <td data-sort="median_percentage_yield" class="${this.sort[0] === 'median_percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">Median APY</td>
       </tr>
     `
   }
@@ -49,18 +117,21 @@ export default class Table {
     })
 
     this.table.querySelector('thead').addEventListener('click', (e) => {
-      this.setFilter(e.target.getAttribute('data-filter'))
-      this.updateTable()
+      this.setSort(e.target.getAttribute('data-sort'))
     })
 
     window.addEventListener('search', (e) => {
       this.updateTable(e.detail.results)
     })
+
+    window.addEventListener('filter', (e) => {
+      this.setFilter(e.detail)
+    })
   }
 
   updateTable(data = false) {
     this.resetTable()
-    const thead = this.header(this.filter)
+    const thead = this.header(this.sort)
     this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
 
     this.paginate(data)
@@ -76,7 +147,13 @@ export default class Table {
   }
 
   async paginate(passedData) {
-    const data = passedData ? passedData : JSON.parse(await getRequest(`http://localhost:5000/api/get-stocks?pagination=${this.page}&filter=${this.filter[0]}&direction=${this.filter[1]}`))
+    const requestObj = {
+      filters: this.filters,
+      sort: this.sort,
+      pagination: this.page
+    }
+
+    const data = passedData ? passedData : JSON.parse(await postRequest('http://localhost:5000/api/get-stocks', requestObj))
     if (data.length === 0) return
 
     data.forEach((d) => {
@@ -86,11 +163,23 @@ export default class Table {
     this.page++
   }
 
-  setFilter(filter) {
-    const currentFilter = JSON.parse(localStorage.getItem('filter'))
-    const direction = currentFilter[1] === 'desc' ? 'asc' : 'desc'
-    const temp = currentFilter[0] === filter ? [filter, direction] : [filter, 'desc']
-    this.filter = temp
-    localStorage.setItem('filter', JSON.stringify(temp))
+  setSort(sort) {
+    const currentSort = JSON.parse(localStorage.getItem('sort'))
+    const direction = currentSort && currentSort[1] === 'desc' ? 'asc' : 'desc'
+    const temp = [sort, direction]
+    this.sort = temp
+    localStorage.setItem('sort', JSON.stringify(temp))
+    this.updateTable()
+  }
+
+  setFilter(detail) {
+    const temp = detail.filter.split('-')
+    const filter = temp.length > 2 ? temp[0] + temp[1].charAt(0).toUpperCase() + temp[1].slice(1) : temp[0]
+    const boundary = temp.length > 2 ? temp[2] : temp[1]
+    const value = detail.value ? parseFloat(detail.value) : this.defaults[filter][boundary]
+
+    this.filters[filter][boundary] = value
+    localStorage.setItem('filters', JSON.stringify(this.filters))
+    this.updateTable()
   }
 }

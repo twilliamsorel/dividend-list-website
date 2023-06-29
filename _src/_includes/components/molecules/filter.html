@@ -1,7 +1,7 @@
 <div class="molecule filter">
   <label>{{ label }}</label>
   <div class="range-container">
-    <input data-filter="{{ label | slugify }}-min" type="number" placeholder="min">
-    <input data-filter="{{ label | slugify }}-max" type="number" placeholder="max">
+    <input data-filter="{{ label | slugify }}-min" type="number" placeholder="min" min="0">
+    <input data-filter="{{ label | slugify }}-max" type="number" placeholder="max" min="0">
   </div>
 </div>
