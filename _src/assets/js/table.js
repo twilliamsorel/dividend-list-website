@@ -93,8 +93,6 @@ export default class Table {
     const savedData = savedStocks ? JSON.parse(await postRequest('http://localhost:5000/api/get-saved', savedStocks)) : (isSavedTable && 'no saved data')
     const data = savedData || passedData || JSON.parse(await postRequest('http://localhost:5000/api/get-stocks', requestObj))
 
-    console.log(await data)
-
     if (data.length === 0) return
 
     (data !== 'no saved data') && data.forEach((d) => {
