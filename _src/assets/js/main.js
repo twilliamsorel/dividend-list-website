@@ -1,10 +1,11 @@
 import Table from './table.js'
-import { stickyNav } from './nav.js'
+import { initializeStickyNav, initializeMobileNav } from './nav.js'
 import initializeCharts from './stockPage.js'
 import initializeSearch from './search.js'
 import initializeFilters from './filters.js'
 
-stickyNav()
+initializeStickyNav()
+initializeMobileNav()
 
 const table = new Table()
 table.initializeTable()

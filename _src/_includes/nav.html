@@ -15,11 +15,25 @@
                 <li><a href="/saved-stocks" class="{% if title=='saved stocks' %}active{% endif %}">Saved stocks</a>
                 </li>
               </ul>
-              <span class="material-symbols-outlined d-block d-lg-none" id="mobile-nav-button">menu</span>
+              <span class="material-symbols-outlined d-block d-lg-none" data-bind="mobile-nav-button">menu_open</span>
             </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="mobile-nav" data-bind="mobile-nav">
+  <nav>
+    <header>
+      <h2>Menu</h2>
+      <span class="material-symbols-outlined" data-bind="mobile-nav-button">menu_open</span>
+    </header>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/saved-stocks">Saved Stocks</a></li>
+    </ul>
+  </nav>
 </div>
