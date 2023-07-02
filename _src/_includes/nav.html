@@ -6,16 +6,26 @@
           <div class="flex-container wrapper">
             <a class="flex-container left" href="/">
               <img src="/assets/img/logo.svg">
-              <h1>Dividend Research</h1>
+              <h1>Dividend List</h1>
             </a>
             <nav>
-              <ul class="interface d-none d-lg-block">
-                <li><a href="/" class="{% if title=='home' %}active{% endif %}">Home</a></li>
-                <li><a href="/about" class="{% if title=='about' %}active{% endif %}">About</a></li>
-                <li><a href="/saved-stocks" class="{% if title=='saved stocks' %}active{% endif %}">Saved stocks</a>
+              <ul class="interface d-none d-xl-block">
+                <li>
+                  <a href="/" class="{% if title == 'home' %}active{% endif %}">Home</a>
+                </li>
+                <li>
+                  <a href="/about" class="{% if title == 'about' %}active{% endif %}">About</a>
+                </li>
+                <li>
+                  <a href="/about/glossary"
+                    class="{% if title == 'glossary and methodology' %}active{% endif %}">Glossary and
+                    methodology</a>
+                </li>
+                <li>
+                  <a href="/saved-stocks" class="{% if title == 'saved stocks' %}active{% endif %}">Saved stocks</a>
                 </li>
               </ul>
-              <span class="material-symbols-outlined d-block d-lg-none" data-bind="mobile-nav-button">menu_open</span>
+              <span class="material-symbols-outlined d-block d-xl-none" data-bind="mobile-nav-button">menu_open</span>
             </nav>
           </div>
         </div>
@@ -33,6 +43,7 @@
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about">About</a></li>
+      <li><a href="/about/glossary">Glossary and methodology</a></li>
       <li><a href="/saved-stocks">Saved Stocks</a></li>
     </ul>
   </nav>

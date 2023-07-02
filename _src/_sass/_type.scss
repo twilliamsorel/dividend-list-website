@@ -37,10 +37,21 @@ h3 {
   }
 }
 
-p {
+p,
+ol {
   font-size: 18px;
   line-height: 32px;
   font-weight: 300;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+ol {
+  li:not(:last-child) {
+    margin-bottom: $spacing-400;
+  }
 }
 
 .label {

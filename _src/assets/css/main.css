@@ -45,10 +45,19 @@ h3 {
   }
 }
 
-p {
+p,
+ol {
   font-size: 18px;
   line-height: 32px;
   font-weight: 300;
+}
+p strong,
+ol strong {
+  font-weight: 600;
+}
+
+ol li:not(:last-child) {
+  margin-bottom: 16px;
 }
 
 .label {
@@ -137,6 +146,14 @@ a:hover {
 .main-nav .flex-container.wrapper {
   justify-content: space-between;
 }
+.main-nav .flex-container h1 {
+  font-size: 32px;
+}
+@media screen and (min-width: 1200px) {
+  .main-nav .flex-container h1 {
+    font-size: 36px;
+  }
+}
 .main-nav .flex-container img {
   margin-right: 16px;
   width: 60px;
@@ -160,13 +177,21 @@ a:hover {
 .main-nav ul li {
   display: inline-block;
   margin-left: 20px;
+  font-size: 20px;
 }
-.main-nav ul li a:hover, .main-nav ul li.active {
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
   text-decoration: underline;
 }
 @media screen and (min-width: 1200px) {
   .main-nav ul li {
-    margin-left: 48px;
+    margin-left: 24px;
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .main-nav ul li {
+    margin-left: 44px;
   }
 }
 .main-nav [data-bind=mobile-nav-button] {

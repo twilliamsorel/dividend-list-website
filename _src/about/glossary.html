@@ -1,0 +1,93 @@
+---
+layout: default
+title: glossary and methodology
+---
+
+{% include components/header.html title: "Glossary of terms and methodology" %}
+
+{% capture paragraph %}
+The current value of the stock, <strong>pulled once daily using data from the previous day's close</strong>.
+This value is not accurate up to the minute.
+<br><br>
+The historical stock price in the chart grabs the stock value at the close of the day on the given date.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Stock price" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The volatility of the stock, calculated at a monthly interval.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Stock volatility" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The total trade volume for the given stock in the prior month.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Last trade volume" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The number of historical records in the database for the given stock. The historical records are
+based on when the dividend payout is recorded (monthly).
+{% endcapture %}
+{% include components/header-paragraph.html header: "Number of records (records)" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The volatility of the dividend payouts, calculated from the monthly cash amount.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Dividend volatility" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The annualized dividend payout for a stock, <strong>calculated by adding the past twelve months of payouts.
+  Where there are not twelve months of dividend history, the value is displayed as a year to date (YTD) value,
+  meaning it is lower than the actual number will be with a full year's payout. If this is the
+  case, it will be marked as such next to the value on the stock's detail page</strong>.
+<br><br>
+I considered predicting the annualized return, but such a prediction may not be accurate and I didn't
+want to include misleading data.
+<br><br>
+Because the annual dividend yield is calculated by adding the last 12 months of dividend payouts, <strong>there
+  are cases where the annual dividend yield will over-represent the stock's typical performance</strong>.
+For instance, this can happen when a large outlier payout has been distributed within the last twelve
+months. Use the dividend volatility value, median APY, and the historical information in the provided charts, to
+account for this.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Annual dividend yield" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+The annual percentage yield of the stock's dividend payout. This value is calculated by dividing the current
+stock price by the annual dividend yield. A few things to keep in mind, here:
+<br><br>
+<ol>
+  <li>
+    The APY is based on the annual dividend yield. <strong>If the dividend yield is a year to date value (YTD), then so
+      is the APY</strong>. That means this value could be lower than the actual end of year value will be. If this is
+    the case, it will be marked as such next to the value on the stock's detail page.
+  </li>
+  <li>
+    Also, <strong>because the APY is derived from the annual dividend yield, it may over-represent a stock's typical
+      performance</strong>. This happens for the same reasons as are listed in the annual dividend yield description.
+    Please see that section for more information.
+  </li>
+</ol>
+{% endcapture %}
+{% include components/header-paragraph.html header: "Annual percentage yield (APY)" paragraph: paragraph %}
+
+{% capture paragraph %}
+To help account for the volatility of the Annual percentage yield (APY), I've included the Median APY value,
+which extrapolates an annualized percentage yield based off of the median dividend payout value over the Last
+year. <strong>This value tends to be more representative of an expected return, but isn't perfect, especially for
+  highly volatile stocks</strong>.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Median APY" paragraph: paragraph %}
+
+
+{% capture paragraph %}
+This value is calculated by dividing the stock values at the given dates by their respective dividend yields
+distributed on those days. <strong>The percentage yields in the chart are not annualized</strong>, but still give an
+accurate depiction of the fluctuation in returns.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Yield percentage by month" paragraph: paragraph %}

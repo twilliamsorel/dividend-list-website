@@ -33,6 +33,14 @@
       justify-content: space-between;
     }
 
+    h1 {
+      font-size: 32px;
+
+      @media screen and (min-width: $screen-lg) {
+        font-size: 36px;
+      }
+    }
+
     img {
       margin-right: $spacing-400;
       width: 60px;
@@ -56,14 +64,21 @@
     li {
       display: inline-block;
       margin-left: $spacing-500;
+      font-size: 20px;
 
       a:hover,
-      &.active {
+      a.active {
         text-decoration: underline;
       }
 
       @media screen and (min-width: $screen-lg) {
-        margin-left: $spacing-1200;
+        margin-left: $spacing-600;
+        font-size: 24px;
+      }
+
+      @media screen and (min-width: $screen-xl) {
+        // font-size: 24px;
+        margin-left: $spacing-1100;
       }
     }
   }
