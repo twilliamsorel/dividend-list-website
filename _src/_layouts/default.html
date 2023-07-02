@@ -15,7 +15,16 @@
   {% include og-tags.html %}
 
   {% if globals.environment == "production" %}
-  <!-- production specific environment links and scripts go here /-->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPRRQNQ2Y7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-NPRRQNQ2Y7');
+  </script>
   {% endif %}
 
   <!-- fonts /-->
