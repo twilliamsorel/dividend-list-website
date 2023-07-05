@@ -16,17 +16,15 @@ module.exports = function (eleventyConfig) {
   // MINIFYING CSS AND JS
   eleventyConfig.on('eleventy.before', async () => {
     if (process.env.ENVIRONMENT === 'production') {
-      await fs
-        .readFile(path.resolve(__dirname, "_src/assets/css/main.css"))
-        .then((data) => {
-          let minifiedCSS = new CleanCSS().minify(data).styles;
-          fs.writeFile('_src/assets/css/main-min.css', minifiedCSS, (err) => {
-            console.log(err);
-          });
-        });
+      let cssData = fs.readFileSync(path.resolve(__dirname, "_src/assets/css/main.css"))
+      let minifiedCSS = new CleanCSS().minify(cssData).styles;
+      fs.writeFile('_src/assets/css/main-min.css', minifiedCSS, (err) => {
+        console.log(err);
+      });
 
-      let data = await fs.readFile(path.resolve(__dirname, "_src/assets/js/main.js"), 'utf-8');
-      let minifiedJS = await terser.minify(data);
+
+      let jsData = fs.readFileSync(path.resolve(__dirname, "_src/assets/js/main.js"), 'utf-8');
+      let minifiedJS = await terser.minify(jsData);
       fs.writeFile('_src/assets/js/main-min.js', minifiedJS.code, (err) => {
         console.log(err);
       });

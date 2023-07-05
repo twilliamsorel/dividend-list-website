@@ -1,8 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Frontend for the Dividend List stock research platform",
   "scripts": {
     "build:sass": "sass _src/_sass:_src/assets/css",
     "watch:sass": "sass --watch _src/_sass:_src/assets/css",
