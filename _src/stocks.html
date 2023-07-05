@@ -4,7 +4,7 @@ pagination:
   data: stocks
   size: 1
   alias: stock
-permalink: stocks/{{ stock.ticker | slugify }}.html
+permalink: stocks/{{ stock.ticker | slugify }}/index.html
 eleventyComputed:
   title: "{{ stock.ticker }}"
 ---
