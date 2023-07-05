@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const baseUrl = process.env.ENVIRONMENT === 'production' ? 'https://dividendlist.com' : 'http://127.0.0.1:5000'
+const baseUrl = process.env.ENVIRONMENT === 'production' ? 'http://localhost:8000' : 'http://127.0.0.1:5000'
 
 const data = (async function () {
   const results = await (() => {
