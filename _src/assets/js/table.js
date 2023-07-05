@@ -32,7 +32,7 @@ export default class Table {
   body(d) {
     return `
       <tr>
-        <td><a href="/stocks/${d.ticker}">${d.ticker}</a></td>
+        <td><a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a></td>
         <td class="d-none d-lg-table-cell">${d.history_size}</td>
         <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
         <td>${d.percentage_yield.toFixed(2)} %</td>
