@@ -2,6 +2,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
+        <div class="d-block d-lg-none">
+          <p class="alert">
+            <strong>Please note</strong>: this table is currently truncated (hiding some data columns)
+            in order to fit this screen.
+          </p>
+        </div>
         <table class="stocks" cellspacing="0" cellpadding="0" {% if source %}data-source="{{ source }}" {% endif %}>
           <thead></thead>
           <tbody class="information"></tbody>

@@ -52,6 +52,13 @@ ol {
   }
 }
 
+p.alert {
+  font-size: 16px;
+  line-height: normal;
+  border: 1px solid $neutral-600;
+  padding: $spacing-400;
+}
+
 ol {
   li:not(:last-child) {
     margin-bottom: $spacing-400;
