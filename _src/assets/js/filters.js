@@ -48,7 +48,7 @@ function countFilters() {
 function updateState() {
   const filtersContainer = document.querySelector('.filters-container')
   const filters = Array.from(filtersContainer.querySelectorAll('[data-filter]'))
-  const filtersState = JSON.parse(localStorage.getItem('filters'))
+  const filtersState = JSON.parse(localStorage.getItem('filters')) || filterDefaults
 
   filters.forEach((filter) => {
     const tag = filter.getAttribute('data-filter')
