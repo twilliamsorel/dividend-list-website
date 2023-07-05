@@ -55,6 +55,10 @@ p strong,
 ol strong {
   font-weight: 600;
 }
+p a,
+ol a {
+  text-decoration: underline;
+}
 
 ol li:not(:last-child) {
   margin-bottom: 16px;
