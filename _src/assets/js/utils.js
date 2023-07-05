@@ -35,9 +35,9 @@ export function postRequest(url, data) {
 }
 
 export function getBaseUrl() {
-  const env = document.querySelector('[data-bind="environment"]').value
+  const el = document.querySelector('[data-bind="environment"]')
+  const env = el ? el.value : false
   const baseUrl = env === 'development' ? 'http://localhost:5000' : "http://127.0.0.1:8000"
-  console.log(env)
 
   return baseUrl
 }
