@@ -33,3 +33,11 @@ export function postRequest(url, data) {
     xhr.send(JSON.stringify(data));
   })
 }
+
+export function getBaseUrl() {
+  const env = document.querySelector('[data-bind="environment"]').value
+  const baseUrl = env === 'development' ? 'http://localhost:5000' : ""
+  console.log(env)
+
+  return baseUrl
+}

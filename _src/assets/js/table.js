@@ -1,4 +1,4 @@
-import { postRequest } from './utils.js'
+import { postRequest, getBaseUrl } from './utils.js'
 import { filterDefaults } from './filters.js'
 
 export default class Table {
@@ -8,6 +8,7 @@ export default class Table {
     this.filters = JSON.parse(localStorage.getItem('filters')) || filterDefaults
     this.page = 0
     this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
+    this.baseUrl = getBaseUrl()
   }
 
   header() {
@@ -90,8 +91,8 @@ export default class Table {
 
     const isSavedTable = this.table.getAttribute('data-source')
     const savedStocks = isSavedTable && JSON.parse(localStorage.getItem('stocks'))
-    const savedData = savedStocks ? JSON.parse(await postRequest('http://localhost:5000/api/get-saved', savedStocks)) : (isSavedTable && 'no saved data')
-    const data = savedData || passedData || JSON.parse(await postRequest('http://localhost:5000/api/get-stocks', requestObj))
+    const savedData = savedStocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, savedStocks)) : (isSavedTable && 'no saved data')
+    const data = savedData || passedData || JSON.parse(await postRequest(`${this.baseUrl}/api/get-stocks`, requestObj))
 
     if (data.length === 0) return
 

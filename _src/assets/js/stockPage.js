@@ -1,4 +1,4 @@
-import { getRequest } from './utils.js'
+import { getRequest, getBaseUrl } from './utils.js'
 
 // SAVE BUTTON
 (() => {
@@ -24,8 +24,9 @@ import { getRequest } from './utils.js'
 })()
 
 export default async function initializeCharts() {
+  const baseUrl = getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
-  const res = await getRequest(`http://localhost:5000/api/get-dividend-history?ticker=${ticker}`)
+  const res = await getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`)
   const dividend_yield = (await JSON.parse(res)).map((d) => d.cash_amount.toFixed(2)).reverse()
   const stock_price = (await JSON.parse(res)).map((d) => d.stock_price.toFixed(2)).reverse()
   const volume = (await JSON.parse(res)).map((d) => d.volume).reverse()

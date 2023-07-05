@@ -1,14 +1,15 @@
-import { getRequest } from "./utils.js"
+import { getRequest, getBaseUrl } from "./utils.js"
 
 export default function initializeSearch() {
   const searchBar = document.querySelector('input.search')
   let notFrozen = true
+  const baseUrl = getBaseUrl()
 
   if (!searchBar) return
 
   const runSearch = () => {
     notFrozen && setTimeout(async () => {
-      const res = searchBar.value.length > 1 ? (await getRequest(`http://localhost:5000/api/search-stocks?search=${searchBar.value}`)) : false
+      const res = searchBar.value.length > 1 ? (await getRequest(`${baseUrl}/api/search-stocks?search=${searchBar.value}`)) : false
       const searchEvent = new CustomEvent("search", { detail: { results: JSON.parse(res) } })
 
       window.dispatchEvent(searchEvent)

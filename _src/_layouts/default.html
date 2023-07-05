@@ -15,7 +15,6 @@
   {% include og-tags.html %}
 
   {% if globals.environment == "production" %}
-
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPRRQNQ2Y7"></script>
   <script>
@@ -52,6 +51,10 @@
   {% include footer.html %}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="/assets/js/main.js"></script>
+
+  {% if globals.environment == "development" %}
+  <input type="hidden" value="development" data-bind="environment">
+  {% endif %}
 
   <!-- bootstrap JS /-->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
