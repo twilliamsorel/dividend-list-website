@@ -10,6 +10,7 @@ export default class Table {
     this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
     this.baseUrl = getBaseUrl()
     this.freezeScroll = false
+    this.isSavedTable = this.table.getAttribute('data-source')
   }
 
   header() {
@@ -47,12 +48,14 @@ export default class Table {
 
     this.updateTable()
 
-    window.addEventListener('scroll', (e) => {
-      if ((window.scrollY + window.innerHeight) + 1 >= document.body.clientHeight - 300) {
-        !this.freezeScroll && this.paginate()
-        this.freezeScroll = true
-      }
-    })
+    if (!this.isSavedTable) {
+      window.addEventListener('scroll', (e) => {
+        if ((window.scrollY + window.innerHeight) + 1 >= document.body.clientHeight - 300) {
+          !this.freezeScroll && this.paginate()
+          this.freezeScroll = true
+        }
+      })
+    }
 
     this.table.querySelector('thead').addEventListener('click', (e) => {
       this.setSort(e.target.getAttribute('data-sort'))
@@ -91,9 +94,8 @@ export default class Table {
       pagination: this.page
     }
 
-    const isSavedTable = this.table.getAttribute('data-source')
-    const savedStocks = isSavedTable && JSON.parse(localStorage.getItem('stocks'))
-    const savedData = savedStocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, savedStocks)) : (isSavedTable && 'no saved data')
+    const savedStocks = this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
+    const savedData = savedStocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, savedStocks)) : (this.isSavedTable && 'no saved data')
     const data = savedData || passedData || JSON.parse(await postRequest(`${this.baseUrl}/api/get-stocks`, requestObj))
 
     if (data.length === 0) return
