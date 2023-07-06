@@ -47,7 +47,7 @@ export default class Table {
     this.updateTable()
 
     window.addEventListener('scroll', (e) => {
-      if ((window.scrollY + window.innerHeight) + 1 >= document.body.clientHeight) {
+      if ((window.scrollY + window.innerHeight) + 1 >= document.body.clientHeight - 300) {
         this.paginate()
       }
     })
