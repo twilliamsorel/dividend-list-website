@@ -6,20 +6,41 @@ import { getRequest, getBaseUrl } from './utils.js'
 
   if (!button) return
 
-  const value = button.getAttribute('data-save')
-  const currentStorage = JSON.parse(localStorage.getItem('stocks')) || false
-  const exists = (currentStorage && currentStorage.filter((item) => item === value)).length > 0
+  const ticker = button.getAttribute('data-save')
+  const getCurrentStorage = () => JSON.parse(localStorage.getItem('stocks')) || false
 
-  if (exists) {
-    button.innerHTML = 'unsave'
+  const getButtonStatus = (value) => {
+    const currentStorage = getCurrentStorage()
+    const exists = (currentStorage && currentStorage.filter((item) => item === value)).length > 0
+
+    return exists
   }
 
-  button.addEventListener('click', () => {
-    const temp = exists ? currentStorage.filter((item) => item !== value) : (currentStorage ? currentStorage.concat(value) : [value])
-    const newStorage = temp.length === 0 ? null : temp
-    localStorage.setItem('stocks', JSON.stringify(newStorage))
+  const setButtonState = (status) => {
+    button.innerHTML = status ? 'unsave' : 'save'
+  }
 
-    button.innerHTML = exists ? 'save' : 'unsave'
+  const updateStorage = (f) => {
+    const currentStorage = getCurrentStorage()
+    const temp = f(currentStorage)
+    const newStorage = temp.length === 0 ? null : temp
+
+    localStorage.setItem('stocks', JSON.stringify(newStorage))
+  }
+
+  const removeItem = (value) => {
+    updateStorage((currentStorage) => currentStorage && currentStorage.filter((item) => item !== value))
+  }
+
+  const addItem = (value) => {
+    updateStorage((currentStorage) => currentStorage ? currentStorage.concat(value) : [value])
+  }
+
+  setButtonState(getButtonStatus(ticker))
+
+  button.addEventListener('click', () => {
+    getButtonStatus(ticker) ? removeItem(ticker) : addItem(ticker)
+    setButtonState(getButtonStatus(ticker))
   })
 })()
 
