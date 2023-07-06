@@ -16,17 +16,21 @@ export default class Table {
   header() {
     return `
       <tr class="label">
-        <td data-sort="ticker" class="${this.sort[0] === 'ticker' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
-        <td class="d-none d-lg-table-cell ${this.sort[0] === 'history_size' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}" data-sort="history_size">recorded payouts</td>
-        <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort[0] === 'dividend_volatility' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">
+        <td data-sort="ticker" data-tooltip="<span>ticker</span>The stock's ticker value; a shorthand code used to identify the stock." class="${this.sort[0] === 'ticker' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
+        <td class="d-none d-lg-table-cell ${this.sort[0] === 'history_size' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}" data-sort="history_size"
+          data-tooltip="<span>records</span>This value represents the total number of historical records in the database for this stock, taken at monthly intervals.">recorded payouts</td>
+        <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort[0] === 'dividend_volatility' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
+          data-tooltip="<span>dividend volatility</span>A numeric value representing the volatility of monthly dividend payments. Compare this value to the dividend yield charts to calibrate to it.">
           <span class="d-inline-block d-lg-none">div volatility</span>
           <span class="d-none d-lg-inline-block">dividend volatility</span>
         </td>
-        <td data-sort="percentage_yield" class="${this.sort[0] === 'percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">
+        <td data-sort="percentage_yield" class="${this.sort[0] === 'percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
+          data-tooltip="<span>annual percentage yield</span>The annual percentage yield, calculated by dividing the sum of dividend payments by the current stock price. See 'About > Glossary and methodology' for more information.">
           <span class="d-inline-block d-xl-none">APY</span>
           <span class="d-none d-xl-inline-block">annual percentage yield</span>
         </td>
-        <td data-sort="median_percentage_yield" class="${this.sort[0] === 'median_percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">Median APY</td>
+        <td data-sort="median_percentage_yield" class="${this.sort[0] === 'median_percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
+          data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See About > Glossary and methodology' for more information.">Median APY</td>
       </tr>
     `
   }

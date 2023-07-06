@@ -554,4 +554,21 @@ body main {
   min-height: calc(100vh - 172px);
 }
 
+.tooltip {
+  position: absolute;
+  border: 1px solid #ABB2AA;
+  background: #F8FBF8;
+  z-index: 4;
+  opacity: 1;
+  padding: 8px 12px;
+  pointer-events: none;
+  border-radius: 4px;
+  max-width: 300px;
+}
+.tooltip span {
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+}
+
 /*# sourceMappingURL=main.css.map */

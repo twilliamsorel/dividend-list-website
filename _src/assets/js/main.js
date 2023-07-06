@@ -3,6 +3,7 @@ import { initializeStickyNav, initializeMobileNav } from './nav.js'
 import initializeCharts from './stockPage.js'
 import initializeSearch from './search.js'
 import initializeFilters from './filters.js'
+import { initializeTooltips } from './tooltips.js'
 
 initializeStickyNav()
 initializeMobileNav()
@@ -15,3 +16,4 @@ if (window.location.pathname.includes('/stocks/')) {
 }
 initializeSearch()
 initializeFilters()
+initializeTooltips()
