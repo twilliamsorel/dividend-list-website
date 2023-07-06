@@ -10,7 +10,7 @@ export default class Table {
     this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
     this.baseUrl = getBaseUrl()
     this.freezeScroll = false
-    this.isSavedTable = this.table.getAttribute('data-source')
+    this.isSavedTable = this.table && this.table.getAttribute('data-source')
   }
 
   header() {
