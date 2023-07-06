@@ -30,7 +30,7 @@ export default class Table {
           <span class="d-none d-xl-inline-block">annual percentage yield</span>
         </td>
         <td data-sort="median_percentage_yield" class="${this.sort[0] === 'median_percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
-          data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See About > Glossary and methodology' for more information.">Median APY</td>
+          data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See 'About > Glossary and methodology' for more information.">Median APY</td>
       </tr>
     `
   }
