@@ -4,7 +4,7 @@ export function initializeTooltips() {
 
   const positionTooltip = (e) => {
     div.style.left = (e.clientX + 10) + 'px'
-    div.style.top = (e.clientY + 10) + 'px'
+    div.style.top = (e.clientY + window.scrollY + 10) + 'px'
   }
 
   const removeTooltip = () => {
@@ -35,6 +35,8 @@ export function initializeTooltips() {
       }
     }
   })
+
+  window.addEventListener('scroll', removeTooltip)
 
   document.body.addEventListener('mouseout', (e) => {
     if (e.target.getAttribute('data-tooltip')) {
