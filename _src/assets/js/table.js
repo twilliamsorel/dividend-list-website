@@ -9,6 +9,7 @@ export default class Table {
     this.page = 0
     this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
     this.baseUrl = getBaseUrl()
+    this.freezeScroll = false
   }
 
   header() {
@@ -48,7 +49,8 @@ export default class Table {
 
     window.addEventListener('scroll', (e) => {
       if ((window.scrollY + window.innerHeight) + 1 >= document.body.clientHeight - 300) {
-        this.paginate()
+        !this.freezeScroll && this.paginate()
+        this.freezeScroll = true
       }
     })
 
@@ -101,6 +103,7 @@ export default class Table {
     })
 
     this.page++
+    this.freezeScroll = false
   }
 
   setSort(sort) {
