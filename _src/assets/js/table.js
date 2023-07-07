@@ -95,11 +95,12 @@ export default class Table {
     const requestObj = {
       filters: this.filters,
       sort: this.sort,
-      pagination: this.page
+      pagination: this.page,
+      stocks: this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
     }
 
-    const savedStocks = this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
-    const savedData = savedStocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, savedStocks)) : (this.isSavedTable && 'no saved data')
+    // const savedStocks = this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
+    const savedData = requestObj.stocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, requestObj)) : (this.isSavedTable && 'no saved data')
     const data = savedData || passedData || JSON.parse(await postRequest(`${this.baseUrl}/api/get-stocks`, requestObj))
 
     if (data.length === 0) return
