@@ -452,11 +452,28 @@ input[type=number] {
   border: none;
   border-bottom: 1px solid #DEE3DE;
   padding: 20px 0;
+  vertical-align: middle;
 }
 .component.table table td a {
   font-weight: 500;
   color: inherit;
   text-decoration: underline;
+}
+.component.table table td .subtitle {
+  font-size: 16px;
+  color: #707B6F;
+  margin-right: 16px;
+}
+@media screen and (min-width: 576px) {
+  .component.table table td:first-child {
+    width: 25%;
+  }
+  .component.table table td {
+    width: 20%;
+  }
+  .component.table table td:last-child {
+    width: 10%;
+  }
 }
 .component.table table thead {
   position: sticky;

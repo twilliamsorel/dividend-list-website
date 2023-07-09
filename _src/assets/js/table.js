@@ -21,8 +21,8 @@ export default class Table {
           data-tooltip="<span>records</span>This value represents the total number of historical records in the database for this stock, taken at monthly intervals.">recorded payouts</td>
         <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort[0] === 'dividend_volatility' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
           data-tooltip="<span>dividend volatility</span>A numeric value representing the volatility of monthly dividend payments. Compare this value to the dividend yield charts to calibrate to it.">
-          <span class="d-inline-block d-lg-none">div volatility</span>
-          <span class="d-none d-lg-inline-block">dividend volatility</span>
+          <span class="d-inline-block d-xl-none">div volatility</span>
+          <span class="d-none d-xl-inline-block">dividend volatility</span>
         </td>
         <td data-sort="percentage_yield" class="${this.sort[0] === 'percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
           data-tooltip="<span>annual percentage yield</span>The annual percentage yield, calculated by dividing the sum of dividend payments by the current stock price. See 'About > Glossary and methodology' for more information.">
@@ -38,7 +38,10 @@ export default class Table {
   body(d) {
     return `
       <tr>
-        <td><a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a></td>
+        <td>
+          <a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a>
+          <span class="subtitle d-none d-sm-block">${d.company}</span>
+        </td>
         <td class="d-none d-lg-table-cell">${d.history_size}</td>
         <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
         <td>${d.percentage_yield.toFixed(2)} %</td>
