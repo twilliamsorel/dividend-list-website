@@ -95,6 +95,16 @@ a:hover {
   color: #1D7C2A;
 }
 
+time {
+  font-weight: 300;
+  font-size: 18px;
+}
+@media screen and (min-width: 992px) {
+  time {
+    font-size: 20px;
+  }
+}
+
 .btn {
   background: #F8FBF8;
   color: #121312;
@@ -548,6 +558,34 @@ input[type=number] {
 .component.filters.open .filters-container {
   display: grid;
   opacity: 1;
+}
+
+.component.changelog-entry {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 12px;
+  border-bottom: 1px solid #ABB2AA;
+  padding: 16px;
+  max-width: 680px;
+}
+.component.changelog-entry header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 16px;
+}
+@media screen and (min-width: 768px) {
+  .component.changelog-entry header {
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .component.changelog-entry {
+    padding: 24px 0;
+  }
 }
 
 .molecule.filter label {

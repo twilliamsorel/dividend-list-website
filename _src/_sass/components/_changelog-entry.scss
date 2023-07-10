@@ -1,0 +1,26 @@
+.component.changelog-entry {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: $spacing-300;
+  border-bottom: 1px solid $neutral-600;
+  padding: $spacing-400;
+  max-width: 680px;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: $spacing-400;
+
+    @media screen and (min-width: $screen-sm) {
+      flex-direction: row;
+      align-items: center;
+      column-gap: $spacing-400;
+    }
+  }
+
+  @media screen and (min-width: $screen-sm) {
+    padding: $spacing-600 0;
+  }
+}

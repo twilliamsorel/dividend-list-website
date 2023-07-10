@@ -1,0 +1,12 @@
+---
+layout: default
+title: changelog
+---
+
+{% include components/header.html title: "Changelog" %}
+
+{% for entry in changelog %}
+  {% include components/changelog-entry.html title: entry.title
+   date: entry.date
+   description: entry.description %}
+{% endfor %}
