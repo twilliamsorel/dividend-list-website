@@ -1,5 +1,10 @@
 [
   {
+    "title": "Added stock type to DB and stock pages",
+    "date": "July 10, 2023",
+    "description": "Added a stock type field to the db, which indicates whether a stock is an ETF, ETS, Common stock, and more. This value has been added to the individual stock pages for now. A filter will be added to search for specific stock types soon."
+  },
+  {
     "title": "Added announcements",
     "date": "July 10, 2023",
     "description": "Added an announcements pane to notify users of new features and changes."
