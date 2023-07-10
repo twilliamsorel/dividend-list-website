@@ -1,5 +1,11 @@
 [
   {
+    "id": 4,
+    "title": "New feature",
+    "date": "July 10, 2023",
+    "description": "Added stock types to individual stock pages. More to come soon."
+  },
+  {
     "id": 3,
     "title": "New feature",
     "date": "July 10, 2023",
