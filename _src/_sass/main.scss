@@ -14,9 +14,11 @@
 @import 'components/header-paragraph';
 @import 'components/filters';
 @import 'components/changelog-entry';
+@import 'components/popup';
 
 // MOLECULES
 @import 'components/molecules/filter';
+@import 'components/molecules/popup-announcement';
 
 body {
   background: $neutral-1000;

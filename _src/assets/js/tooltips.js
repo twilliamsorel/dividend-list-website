@@ -7,7 +7,7 @@ export function initializeTooltips() {
     div.style.top = (e.clientY + window.scrollY + 10) + 'px'
   }
 
-  const removeTooltip = () => {
+  const removeTooltip = (e) => {
     shown = false
     div.remove()
   }
@@ -44,5 +44,9 @@ export function initializeTooltips() {
     }
   })
 
-  window.addEventListener('click', removeTooltip)
+  window.addEventListener('click', (e) => {
+    if (e.target.getAttribute('data-tooltip')) {
+      removeTooltip()
+    }
+  })
 }

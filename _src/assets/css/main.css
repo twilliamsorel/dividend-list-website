@@ -45,6 +45,12 @@ h3 {
   }
 }
 
+h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+}
+
 p,
 ol {
   font-size: 18px;
@@ -98,11 +104,6 @@ a:hover {
 time {
   font-weight: 300;
   font-size: 18px;
-}
-@media screen and (min-width: 992px) {
-  time {
-    font-size: 20px;
-  }
 }
 
 .btn {
@@ -275,6 +276,12 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+footer .right-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 16px;
 }
 footer a {
   text-decoration: underline;
@@ -588,6 +595,54 @@ input[type=number] {
   }
 }
 
+body.popup {
+  overflow: hidden;
+}
+body.popup .component.popup {
+  display: block;
+}
+
+.component.popup {
+  display: none;
+}
+.component.popup .popup-bg {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(52, 56, 51, 0.2392156863);
+  z-index: 4;
+}
+.component.popup .popup {
+  position: fixed;
+  width: 92%;
+  z-index: 5;
+  background: #F8FBF8;
+  border: 1px solid #ABB2AA;
+  padding: 24px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 15%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  max-width: 600px;
+}
+.component.popup .popup > header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.component.popup .popup > header [data-action=close] {
+  cursor: pointer;
+}
+.component.popup .popup .entries {
+  overflow: scroll;
+  max-height: 300px;
+}
+
 .molecule.filter label {
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -600,6 +655,20 @@ input[type=number] {
 }
 .molecule.filter .range-container input {
   width: 48%;
+}
+
+.molecule.popup-announcement {
+  padding: 0 16px;
+}
+.molecule.popup-announcement header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.molecule.popup-announcement p {
+  line-height: 28px;
 }
 
 body {

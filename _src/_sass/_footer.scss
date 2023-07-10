@@ -4,6 +4,13 @@ footer {
   flex-direction: row;
   justify-content: space-between;
 
+  .right-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: $spacing-400;
+  }
+
   a {
     text-decoration: underline;
   }

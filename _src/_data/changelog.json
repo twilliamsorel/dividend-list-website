@@ -1,8 +1,13 @@
 [
   {
+    "title": "Added announcements",
+    "date": "July 10, 2023",
+    "description": "Added an announcements pane to notify users of new features and changes."
+  },
+  {
     "title": "Added changelog page",
     "date": "July 10, 2023",
-    "description": "Added expanded (full) stock titles to tables"
+    "description": "See title."
   },
   {
     "title": "Full stock titles",
