@@ -20,6 +20,11 @@ ticker: stock.ticker %}
         <div class="information-container">
           <div class="information-block blue">
             <div class="information-item">
+              <span class="label">stock type</span>
+              <span class="information" data-tooltip="{% mapStockType stock.stock_type %}">{{ stock.stock_type }}</span>
+            </div>
+
+            <div class="information-item">
               <span class="label">stock price</span>
               <span class="information">$ {{ stock.stock_price | round: 2 }}</span>
             </div>

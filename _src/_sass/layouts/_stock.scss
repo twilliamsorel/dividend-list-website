@@ -84,6 +84,12 @@
           }
         }
 
+        .sub-text {
+          text-transform: uppercase;
+          color: $neutral-500;
+          font-size: 14px;
+        }
+
         .projected {
           font-size: 16px;
           color: $neutral-400;

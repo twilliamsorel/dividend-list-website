@@ -388,6 +388,11 @@ input[type=number] {
 .layout.stock .information-container .information-block .information-item .information span {
   margin-left: 8px;
 }
+.layout.stock .information-container .information-block .information-item .sub-text {
+  text-transform: uppercase;
+  color: #959C94;
+  font-size: 14px;
+}
 .layout.stock .information-container .information-block .information-item .projected {
   font-size: 16px;
   color: #707B6F;
@@ -693,6 +698,12 @@ body main {
   font-weight: 500;
   text-transform: uppercase;
   display: block;
+}
+
+[data-tooltip]:not(td) {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dashed;
 }
 
 /*# sourceMappingURL=main.css.map */

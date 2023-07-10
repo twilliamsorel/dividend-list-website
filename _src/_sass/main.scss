@@ -45,3 +45,9 @@ body {
     display: block;
   }
 }
+
+[data-tooltip]:not(td) {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const CleanCSS = require("clean-css");
-const terser = require("terser");
+const tickerCodes = require("./tickerCodes.js")
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("_src/assets");
@@ -13,7 +13,7 @@ module.exports = function (eleventyConfig) {
     strict_filters: true
   });
 
-  // MINIFYING CSS AND JS
+  // MINIFYING CSS
   eleventyConfig.on('eleventy.before', async () => {
     if (process.env.ENVIRONMENT === 'production') {
       let cssData = fs.readFileSync(path.resolve(__dirname, "_src/assets/css/main.css"))
@@ -21,15 +21,16 @@ module.exports = function (eleventyConfig) {
       fs.writeFile('_src/assets/css/main-min.css', minifiedCSS, (err) => {
         console.log(err);
       });
-
-
-      let jsData = fs.readFileSync(path.resolve(__dirname, "_src/assets/js/main.js"), 'utf-8');
-      let minifiedJS = await terser.minify(jsData);
-      fs.writeFile('_src/assets/js/main-min.js', minifiedJS.code, (err) => {
-        console.log(err);
-      });
     }
   });
+
+  // SHORT CODES
+  eleventyConfig.addShortcode("mapStockType", function (code) {
+    const match = tickerCodes.filter((t) => t.code === code)
+
+    return match[0].description
+  });
+
 
   return {
     dir: {
