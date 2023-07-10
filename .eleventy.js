@@ -28,7 +28,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("mapStockType", function (code) {
     const match = tickerCodes.filter((t) => t.code === code)
 
-    return match[0].description
+    return match && match[0].description
   });
 
 
