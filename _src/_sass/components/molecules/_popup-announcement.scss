@@ -1,0 +1,15 @@
+.molecule.popup-announcement {
+  padding: 0 $spacing-400;
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-100;
+  }
+
+  p {
+    line-height: 28px;
+  }
+}
