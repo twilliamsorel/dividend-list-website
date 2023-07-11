@@ -13,5 +13,20 @@
     input {
       width: 48%;
     }
+
+    select {
+      background: $neutral-1000;
+      border: 1px solid $neutral-700;
+      width: 100%;
+
+      option {
+        padding: $spacing-100 $spacing-200;
+
+        &:checked {
+          background: $primary-200;
+          color: $neutral-1000
+        }
+      }
+    }
   }
 }

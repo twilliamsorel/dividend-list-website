@@ -661,6 +661,18 @@ body.popup .component.popup {
 .molecule.filter .range-container input {
   width: 48%;
 }
+.molecule.filter .range-container select {
+  background: #F8FBF8;
+  border: 1px solid #C7CCC7;
+  width: 100%;
+}
+.molecule.filter .range-container select option {
+  padding: 4px 8px;
+}
+.molecule.filter .range-container select option:checked {
+  background: #2AB63D;
+  color: #F8FBF8;
+}
 
 .molecule.popup-announcement {
   padding: 0 16px;

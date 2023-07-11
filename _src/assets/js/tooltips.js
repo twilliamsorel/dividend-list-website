@@ -7,7 +7,8 @@ export function initializeTooltips() {
     div.style.top = (e.clientY + window.scrollY + 10) + 'px'
   }
 
-  const removeTooltip = (e) => {
+  const removeTooltip = () => {
+    if (!div) return
     shown = false
     div.remove()
   }

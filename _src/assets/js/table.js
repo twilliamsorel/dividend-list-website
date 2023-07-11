@@ -126,6 +126,7 @@ export default class Table {
   }
 
   setFilter(detail) {
+    // THIS WILL NEED TO BE MODIFIED TO ACCEPT NON MIN/MAX VALUES, AND ARRAYS
     const temp = detail.filter.split('-')
     const filter = temp.length > 2 ? temp[0] + temp[1].charAt(0).toUpperCase() + temp[1].slice(1) : temp[0]
     const boundary = temp.length > 2 ? temp[2] : temp[1]

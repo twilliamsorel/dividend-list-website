@@ -1,7 +1,39 @@
 <div class="molecule filter">
   <label>{{ label }}</label>
+  {% if label == 'stock types' %}
+  <div class="range-container">
+    <select data-filter="stock-types" multiple>
+      <option selected value="ALL">all</option>
+      <option value="ADRC">american depository receipt common</option>
+      <option value="ADRP">american depository receipt preferred</option>
+      <option value="ADRR">american depository receipt rights</option>
+      <option value="ADRW">american depository reciept warrants</option>
+      <option value="AGEN">agency bonds</option>
+      <option value="BASKET">baskets</option>
+      <option value="BOND">corporate bond</option>
+      <option value="CS">common stocks</option>
+      <option value="ETF">exchange traded funds</option>
+      <option value="ETN">exchange traded notes</option>
+      <option value="ETS">single-security etf</option>
+      <option value="ETV">exchange traded vehicles</option>
+      <option value="EQLK">equity linked bonds</option>
+      <option value="FUND">funds</option>
+      <option value="GDR">global depository receipts</option>
+      <option value="LT">liquidating trust</option>
+      <option value="NYRS">new york registry shares</option>
+      <option value="OS">ordinary shares</option>
+      <option value="PFD">preferred stocks</option>
+      <option value="RIGHT">rights</option>
+      <option value="SP">structured product</option>
+      <option value="UNIT">units</option>
+      <option value="WARRANT">warrants</option>
+      <option value="OTHER">other security type</option>
+    </select>
+  </div>
+  {% else %}
   <div class="range-container">
     <input data-filter="{{ label | slugify }}-min" type="number" placeholder="min" min="0">
     <input data-filter="{{ label | slugify }}-max" type="number" placeholder="max" min="0">
   </div>
+  {% endif %}
 </div>

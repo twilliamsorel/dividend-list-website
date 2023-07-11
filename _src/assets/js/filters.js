@@ -30,7 +30,8 @@ export const filterDefaults = {
   volume: {
     min: 0,
     max: 100000000000
-  }
+  },
+  stockTypes: []
 }
 
 function countFilters() {
@@ -39,7 +40,10 @@ function countFilters() {
 
   const countFilters = (() => {
     const inputs = Array.from(component.querySelectorAll('input'))
-    return inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
+    const selects = Array.from(component.querySelectorAll('select'))
+    const inputCount = inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
+    const selectsCount = selects.map((select) => select.value !== 'ALL' ? 1 : 0).reduce((acc, c) => acc + c, 0)
+    return inputCount + selectsCount
   })()
 
   button.querySelector('#filter-counter').innerHTML = countFilters > 0 ? `(${countFilters})` : ''
@@ -52,11 +56,18 @@ function updateState() {
 
   filters.forEach((filter) => {
     const tag = filter.getAttribute('data-filter')
-    const filterName = tag.split('-').map((s, i) => i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s).slice(0, -1).join('')
+    const arrayFromTag = (tag.split('-')).pop().match(/[max|min]/) ? (tag.split('-')).slice(0, -1) : (tag.split('-'))
+    const filterName = arrayFromTag.map((s, i) => i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s).join('')
     const boundary = tag.split('-').slice(-1).toString()
 
-    if (filtersState[filterName][boundary] != filterDefaults[filterName][boundary]) {
-      filter.value = filtersState[filterName][boundary]
+    if (filtersState[filterName][boundary]) {
+      if (filtersState[filterName][boundary] != filterDefaults[filterName][boundary]) {
+        filter.value = filtersState[filterName][boundary]
+      }
+    } else {
+      if (filtersState[filterName] != filterDefaults[filterName]) {
+        filter.value = filtersState[filterName]
+      }
     }
   })
 
@@ -69,7 +80,7 @@ function bindButton() {
 
   countFilters()
 
-  filterButton.addEventListener('click', (e) => {
+  filterButton.addEventListener('click', () => {
     filtersComponent.classList.toggle('open')
   })
 }
@@ -92,5 +103,14 @@ export default function initializeFilters() {
     }, 600)
 
     notFrozen = false
+  })
+
+  filtersContainer.addEventListener('click', (e) => {
+    if (e.target.tagName === "OPTION") {
+      const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
+      window.dispatchEvent(filterEvent)
+
+      countFilters()
+    }
   })
 }
