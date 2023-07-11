@@ -8,10 +8,8 @@ import initializePopup from './popup.js'
 
 // TEMP CLEANERS
 const filters = JSON.parse(localStorage.getItem('filters'))
-const hasStockType = filters.stockTypes
+const hasStockType = filters && filters.stockTypes
 if (!hasStockType) localStorage.removeItem('filters')
-
-console.log(hasStockType)
 
 initializeStickyNav()
 initializeMobileNav()

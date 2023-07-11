@@ -1,5 +1,11 @@
 [
   {
+    "id": 5,
+    "title": "New feature",
+    "date": "July 11, 2023",
+    "description": "Added filters for stock types to the search table."
+  },
+  {
     "id": 4,
     "title": "New feature",
     "date": "July 10, 2023",
