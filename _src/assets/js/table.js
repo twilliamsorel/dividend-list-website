@@ -1,4 +1,4 @@
-import { postRequest, getBaseUrl } from './utils.js'
+import { postRequest, getBaseUrl, convertSlug } from './utils.js'
 import { filterDefaults } from './filters.js'
 
 export default class Table {
@@ -126,13 +126,22 @@ export default class Table {
   }
 
   setFilter(detail) {
-    // THIS WILL NEED TO BE MODIFIED TO ACCEPT NON MIN/MAX VALUES, AND ARRAYS
-    const temp = detail.filter.split('-')
-    const filter = temp.length > 2 ? temp[0] + temp[1].charAt(0).toUpperCase() + temp[1].slice(1) : temp[0]
-    const boundary = temp.length > 2 ? temp[2] : temp[1]
-    const value = detail.value ? parseFloat(detail.value) : filterDefaults[filter][boundary]
+    const [filter, boundary] = convertSlug(detail.filter)
+    const value = (() => {
+      if (boundary) {
+        if (!detail.value) return filterDefaults[filter][boundary]
+        return parseFloat(detail.value)
+      } else {
+        return detail.value
+      }
+    })()
 
-    this.filters[filter][boundary] = value
+    if (boundary) {
+      this.filters[filter][boundary] = value
+    } else {
+      this.filters[filter] = value
+    }
+
     localStorage.setItem('filters', JSON.stringify(this.filters))
     this.updateTable()
   }

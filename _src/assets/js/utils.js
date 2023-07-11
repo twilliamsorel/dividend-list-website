@@ -41,3 +41,11 @@ export function getBaseUrl() {
 
   return baseUrl
 }
+
+export function convertSlug(string) {
+  const temp = string.split('-')
+  const boundary = temp.at(-1).match(/[max|min]/) ? temp.pop() : false
+  const filter = temp.map((s, i) => i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s).join('')
+
+  return [filter, boundary]
+}

@@ -1,3 +1,5 @@
+import { convertSlug } from "./utils.js"
+
 export const filterDefaults = {
   dividendYield: {
     min: 0,
@@ -31,7 +33,16 @@ export const filterDefaults = {
     min: 0,
     max: 100000000000
   },
-  stockTypes: []
+  stockTypes: ['ALL']
+}
+
+function applyMultiSelectValues(select, values) {
+  const options = Array.from(select.options)
+  options.forEach((option) => {
+    if (values.includes(option.value)) {
+      option.selected = true
+    }
+  })
 }
 
 function countFilters() {
@@ -42,7 +53,7 @@ function countFilters() {
     const inputs = Array.from(component.querySelectorAll('input'))
     const selects = Array.from(component.querySelectorAll('select'))
     const inputCount = inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
-    const selectsCount = selects.map((select) => select.value !== 'ALL' ? 1 : 0).reduce((acc, c) => acc + c, 0)
+    const selectsCount = selects.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0)
     return inputCount + selectsCount
   })()
 
@@ -56,17 +67,15 @@ function updateState() {
 
   filters.forEach((filter) => {
     const tag = filter.getAttribute('data-filter')
-    const arrayFromTag = (tag.split('-')).pop().match(/[max|min]/) ? (tag.split('-')).slice(0, -1) : (tag.split('-'))
-    const filterName = arrayFromTag.map((s, i) => i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s).join('')
-    const boundary = tag.split('-').slice(-1).toString()
+    const [filterName, boundary] = convertSlug(tag)
 
     if (filtersState[filterName][boundary]) {
       if (filtersState[filterName][boundary] != filterDefaults[filterName][boundary]) {
         filter.value = filtersState[filterName][boundary]
       }
-    } else {
+    } else if (filter.tagName === "SELECT") {
       if (filtersState[filterName] != filterDefaults[filterName]) {
-        filter.value = filtersState[filterName]
+        applyMultiSelectValues(filter, filtersState[filterName])
       }
     }
   })
@@ -93,7 +102,9 @@ export default function initializeFilters() {
 
   updateState()
 
-  filtersContainer.addEventListener('keyup', (e) => {
+  window.addEventListener('keyup', (e) => {
+    if (!e.key.match(/[0-9]/)) return
+
     notFrozen && setTimeout(() => {
       const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
       window.dispatchEvent(filterEvent)
@@ -107,7 +118,11 @@ export default function initializeFilters() {
 
   filtersContainer.addEventListener('click', (e) => {
     if (e.target.tagName === "OPTION") {
-      const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
+      const select = e.target.parentElement;
+      const options = select && Array.from(select.options)
+      const values = options.filter((option) => option.selected).map((option) => option.value)
+
+      const filterEvent = new CustomEvent("filter", { detail: { filter: select.getAttribute('data-filter'), value: values } })
       window.dispatchEvent(filterEvent)
 
       countFilters()
