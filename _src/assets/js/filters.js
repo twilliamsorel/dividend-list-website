@@ -96,9 +96,7 @@ function bindButton() {
 
 export default function initializeFilters() {
   const filtersContainer = document.querySelector('.filters-container')
-  const filters = Array.from(filtersContainer.querySelectorAll('[data-filter]'))
-
-  console.log(filters)
+  const filters = filtersContainer && Array.from(filtersContainer.querySelectorAll('[data-filter]'))
 
   if (!filtersContainer) return
 
