@@ -1,5 +1,11 @@
 [
   {
+    "id": 6,
+    "title": "New feature",
+    "date": "July 11, 2023",
+    "description": "Added year values to recorded payouts column."
+  },
+  {
     "id": 5,
     "title": "New feature",
     "date": "July 11, 2023",

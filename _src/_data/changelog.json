@@ -1,5 +1,10 @@
 [
   {
+    "title": "Added year display to the record column on tables",
+    "date": "July 11, 2023",
+    "description": "To assist in interpretting the recorded payout column on tables, I've added a year value, which translates the number of records in to years."
+  },
+  {
     "title": "Added stock type filters to search table",
     "date": "July 11, 2023",
     "description": "Database queries are now filterable by stock type. Use the multi-select in the filters section on the homepage to apply the new feature."
