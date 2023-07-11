@@ -39,6 +39,10 @@
         margin-right: $spacing-400;
       }
 
+      .year {
+        margin-left: $spacing-100;
+      }
+
       @media screen and (min-width: $screen-xs) {
         &:first-child {
           width: 25%;

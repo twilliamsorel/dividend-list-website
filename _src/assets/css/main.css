@@ -486,6 +486,9 @@ input[type=number] {
   color: #707B6F;
   margin-right: 16px;
 }
+.component.table table td .year {
+  margin-left: 4px;
+}
 @media screen and (min-width: 576px) {
   .component.table table td:first-child {
     width: 25%;

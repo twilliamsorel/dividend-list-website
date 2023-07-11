@@ -42,7 +42,7 @@ export default class Table {
           <a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a>
           <span class="subtitle d-none d-sm-block">${d.company}</span>
         </td>
-        <td class="d-none d-lg-table-cell">${d.history_size}</td>
+        <td class="d-none d-lg-table-cell">${d.history_size} <span class="subtitle year">| ${Math.round((d.history_size / 12) * 10) / 10} years</span></td>
         <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
         <td>${d.percentage_yield.toFixed(2)} %</td>
         <td>${d.median_percentage_yield.toFixed(2)} %</td>
@@ -102,7 +102,6 @@ export default class Table {
       stocks: this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
     }
 
-    // const savedStocks = this.isSavedTable && JSON.parse(localStorage.getItem('stocks'))
     const savedData = requestObj.stocks ? JSON.parse(await postRequest(`${this.baseUrl}/api/get-saved`, requestObj)) : (this.isSavedTable && 'no saved data')
     const data = savedData || passedData || JSON.parse(await postRequest(`${this.baseUrl}/api/get-stocks`, requestObj))
 
