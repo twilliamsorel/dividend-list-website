@@ -103,7 +103,7 @@ export default function initializeFilters() {
   updateState()
 
   window.addEventListener('keyup', (e) => {
-    if (!e.key.match(/[0-9]/)) return
+    if (!e.key.match(/[0-9|backspace]/)) return
 
     notFrozen && setTimeout(() => {
       const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
