@@ -47,12 +47,15 @@ import { getRequest, getBaseUrl } from './utils.js'
 export default async function initializeCharts() {
   const baseUrl = getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
-  const res = await getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`)
-  const dividend_yield = (await JSON.parse(res)).map((d) => d.cash_amount.toFixed(2)).reverse()
-  const stock_price = (await JSON.parse(res)).map((d) => d.stock_price.toFixed(2)).reverse()
-  const volume = (await JSON.parse(res)).map((d) => d.volume).reverse()
-  const labels = (await JSON.parse(res)).map((d) => d.pay_date).reverse()
-  const yield_percent = (await JSON.parse(res)).map((d) => (d.cash_amount / d.stock_price)).reverse()
+  const res = JSON.parse(await getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`))
+  const numRecords = res.length
+  const recordSkip = Math.ceil(numRecords / 48)
+  const truncatedRes = res.filter((r, i) => (i === 0) || (i === numRecords - 1) || (i % recordSkip) === 0)
+  const dividend_yield = truncatedRes.map((d) => d.cash_amount.toFixed(2)).reverse()
+  const stock_price = truncatedRes.map((d) => d.stock_price.toFixed(2)).reverse()
+  const volume = truncatedRes.map((d) => d.volume).reverse()
+  const labels = truncatedRes.map((d) => d.pay_date).reverse()
+  const yield_percent = truncatedRes.map((d) => (d.cash_amount / d.stock_price)).reverse()
 
   if (labels.length < 12) {
     Array.from(document.querySelectorAll('[data-projected]')).forEach((e) => {

@@ -45,9 +45,7 @@ ticker: stock.ticker %}
               <span class="label">number of records</span>
               <span class="information">
                 {{ stock.history_size }}
-                {% if stock.history_size > 48 %}
-                <span class="projected">(showing 48)</span>
-                {% endif %}
+                <span class="projected">{{ stock.history_size | divided_by: 12 | round: 1 }} years</span>
               </span>
             </div>
           </div>
