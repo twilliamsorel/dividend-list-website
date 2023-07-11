@@ -96,36 +96,28 @@ function bindButton() {
 
 export default function initializeFilters() {
   const filtersContainer = document.querySelector('.filters-container')
-  let notFrozen = true
+  const filters = Array.from(filtersContainer.querySelectorAll('[data-filter]'))
+
+  console.log(filters)
 
   if (!filtersContainer) return
 
   updateState()
 
-  window.addEventListener('keyup', (e) => {
-    if (!e.key.match(/[0-9|backspace]/)) return
+  filters.forEach((filter) => {
+    filter.addEventListener('change', (e) => {
+      let values;
+      if (e.target.tagName === 'SELECT') {
+        const options = e.target && Array.from(e.target.options)
+        values = options.filter((option) => option.selected).map((option) => option.value)
+      } else {
+        values = e.target.value
+      }
 
-    notFrozen && setTimeout(() => {
-      const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: e.target.value } })
+      const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: values } })
       window.dispatchEvent(filterEvent)
 
       countFilters()
-      notFrozen = true
-    }, 600)
-
-    notFrozen = false
-  })
-
-  filtersContainer.addEventListener('click', (e) => {
-    if (e.target.tagName === "OPTION") {
-      const select = e.target.parentElement;
-      const options = select && Array.from(select.options)
-      const values = options.filter((option) => option.selected).map((option) => option.value)
-
-      const filterEvent = new CustomEvent("filter", { detail: { filter: select.getAttribute('data-filter'), value: values } })
-      window.dispatchEvent(filterEvent)
-
-      countFilters()
-    }
+    })
   })
 }
