@@ -6,6 +6,13 @@ import initializeFilters from './filters.js'
 import { initializeTooltips } from './tooltips.js'
 import initializePopup from './popup.js'
 
+// TEMP CLEANERS
+const filters = JSON.parse(localStorage.getItem('filters'))
+const hasStockType = filters.stockTypes
+if (!hasStockType) localStorage.removeItem('filters')
+
+console.log(hasStockType)
+
 initializeStickyNav()
 initializeMobileNav()
 
