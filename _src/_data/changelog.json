@@ -1,5 +1,10 @@
 [
   {
+    "title": "Increased chart sizes to encompass all records for the respective stock",
+    "date": "July 11, 2023",
+    "description": "I've modified the charts so that the respective stock's full history is visibile. Priorly, the charts cut off after 48 results. To achieve this, I've truncated the data fed to the graph, so that for charts with > 48 data points, they skip data points at even intervals to create a lower resolution (but accurate) full representation. If you think there's a better way, send me a message at <a href='mailto:support@coastlightdigital.com'>support@coastlightdigital.com</a>"
+  },
+  {
     "title": "Added year display to the record column on tables",
     "date": "July 11, 2023",
     "description": "To assist in interpretting the recorded payout column on tables, I've added a year value, which translates the number of records in to years."

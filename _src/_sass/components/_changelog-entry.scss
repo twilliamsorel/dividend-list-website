@@ -13,9 +13,12 @@
     justify-content: space-between;
     row-gap: $spacing-400;
 
+    h3 {
+      max-width: 80%;
+    }
+
     @media screen and (min-width: $screen-sm) {
       flex-direction: row;
-      align-items: center;
       column-gap: $spacing-400;
     }
   }

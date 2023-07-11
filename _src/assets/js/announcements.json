@@ -1,5 +1,11 @@
 [
   {
+    "id": 7,
+    "title": "New feature",
+    "date": "July 11, 2023",
+    "description": "Increased chart sizes to encompass all records for the respective stock."
+  },
+  {
     "id": 6,
     "title": "New feature",
     "date": "July 11, 2023",
