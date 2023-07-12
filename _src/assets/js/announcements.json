@@ -1,5 +1,11 @@
 [
   {
+    "id": 8,
+    "title": "New feature",
+    "date": "July 11, 2023",
+    "description": "Split dividend records into two categories. Read more in the <a href='/changelog'>changelog</a>."
+  },
+  {
     "id": 7,
     "title": "New feature",
     "date": "July 11, 2023",

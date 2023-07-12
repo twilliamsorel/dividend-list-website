@@ -17,8 +17,8 @@ export default class Table {
     return `
       <tr class="label">
         <td data-sort="ticker" data-tooltip="<span>ticker</span>The stock's ticker value; a shorthand code used to identify the stock." class="${this.sort[0] === 'ticker' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}">ticker</td>
-        <td class="d-none d-lg-table-cell ${this.sort[0] === 'history_size' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}" data-sort="history_size"
-          data-tooltip="<span>records</span>This value represents the total number of historical records in the database for this stock, taken at monthly intervals.">recorded payouts</td>
+        <td class="d-none d-lg-table-cell ${this.sort[0] === 'dividend_records' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}" data-sort="dividend_records"
+          data-tooltip="<span>dividend records</span>The total number of historical dividend records in the database for this stock, taken at monthly intervals.">dividend records</td>
         <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort[0] === 'dividend_volatility' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
           data-tooltip="<span>dividend volatility</span>A numeric value representing the volatility of monthly dividend payments. Compare this value to the dividend yield charts to calibrate to it.">
           <span class="d-inline-block d-xl-none">div volatility</span>
@@ -42,7 +42,7 @@ export default class Table {
           <a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a>
           <span class="subtitle d-none d-sm-block">${d.company}</span>
         </td>
-        <td class="d-none d-lg-table-cell">${d.history_size} <span class="subtitle year">| ${Math.round((d.history_size / 12) * 10) / 10} years</span></td>
+        <td class="d-none d-lg-table-cell">${d.dividend_records} <span class="subtitle year">| ${Math.round((d.dividend_records / 12) * 10) / 10} years</span></td>
         <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
         <td>${d.percentage_yield.toFixed(2)} %</td>
         <td>${d.median_percentage_yield.toFixed(2)} %</td>

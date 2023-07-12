@@ -42,10 +42,18 @@ ticker: stock.ticker %}
             </div>
 
             <div class="information-item">
-              <span class="label">number of records</span>
+              <span class="label">dividend records</span>
               <span class="information">
-                {{ stock.history_size }}
-                <span class="projected">{{ stock.history_size | divided_by: 12 | round: 1 }} years</span>
+                {{ stock.dividend_records }}
+                <span class="projected">{{ stock.dividend_records | divided_by: 12 | round: 1 }} years</span>
+              </span>
+            </div>
+
+            <div class="information-item">
+              <span class="label">stock records</span>
+              <span class="information">
+                {{ stock.stock_records }}
+                <span class="projected">{{ stock.stock_records | divided_by: 12 | round: 1 }} years</span>
               </span>
             </div>
           </div>

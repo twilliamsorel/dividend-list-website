@@ -27,10 +27,19 @@ The total trade volume for the given stock in the prior month.
 
 
 {% capture paragraph %}
-The number of historical records in the database for the given stock. The historical records are
-based on when the dividend payout is recorded (monthly).
+The total number of historical dividend records in the database for the given stock. This value differs from the stock
+history, as many of the dividend records do not have associated stock data, such as the stock value in that given
+month, or trade volume. I didn't want to discard the utility of the incomplete dividend records, which often include
+many more years of data, so I created two separate (and overlapping) metrics.
 {% endcapture %}
-{% include components/header-paragraph.html header: "Number of records (records)" paragraph: paragraph %}
+{% include components/header-paragraph.html header: "Dividend records" paragraph: paragraph %}
+
+{% capture paragraph %}
+The total number of historical stock records in the database for the given stock, taken at monthly intervals at the
+time of the dividend payout. These records overlap with the dividend records, but include more information, such as
+the trade volume in the given month, as well as the stock value. There are usually fewer of these than dividend records.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Stock records" paragraph: paragraph %}
 
 
 {% capture paragraph %}
