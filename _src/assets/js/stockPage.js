@@ -47,7 +47,7 @@ import { getRequest, getBaseUrl } from './utils.js'
 export default async function initializeCharts() {
   const baseUrl = getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
-  const res = JSON.parse(await getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`))
+  const res = JSON.parse(await getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`))
   const numRecords = res.length
   const recordSkip = Math.ceil(numRecords / 48)
   const truncatedRes = res.filter((r, i) => (i === 0) || (i === numRecords - 1) || (i % recordSkip) === 0)
