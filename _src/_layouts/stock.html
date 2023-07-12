@@ -82,16 +82,6 @@ ticker: stock.ticker %}
             </div>
           </div>
 
-          <!-- 
-          <div class="information-item">
-            <span class="label">more information</span>
-            <span class="information">
-              <a href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">Yahoo
-                finance</a>
-            </span>
-          </div>
-          /-->
-
         </div>
       </div>
     </div>
@@ -100,11 +90,21 @@ ticker: stock.ticker %}
       <div class="col-12 col-md-10 offset-md-1">
         <div class="chart-wrapper">
           <div class="chart-container">
-            <canvas height="100" id="stock-chart"></canvas>
+            <canvas height="100" id="full-dividend-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        <div class="chart-wrapper">
+          <div class="chart-container">
+            <canvas height="100" id="dividend-chart"></canvas>
           </div>
 
           <div class="chart-container">
-            <canvas height="100" id="dividend-chart"></canvas>
+            <canvas height="100" id="stock-chart"></canvas>
           </div>
 
           <div class="chart-container">

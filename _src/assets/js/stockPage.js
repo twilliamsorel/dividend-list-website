@@ -44,18 +44,27 @@ import { getRequest, getBaseUrl } from './utils.js'
   })
 })()
 
+function truncateRecords(data) {
+  const numRecords = data.length
+  const recordSkip = Math.ceil(numRecords / 48)
+  return data.filter((r, i) => (i === 0) || (i === numRecords - 1) || (i % recordSkip) === 0)
+}
+
 export default async function initializeCharts() {
   const baseUrl = getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
-  const res = JSON.parse(await getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`))
-  const numRecords = res.length
-  const recordSkip = Math.ceil(numRecords / 48)
-  const truncatedRes = res.filter((r, i) => (i === 0) || (i === numRecords - 1) || (i % recordSkip) === 0)
-  const dividend_yield = truncatedRes.map((d) => d.cash_amount.toFixed(2)).reverse()
-  const stock_price = truncatedRes.map((d) => d.stock_price.toFixed(2)).reverse()
-  const volume = truncatedRes.map((d) => d.volume).reverse()
-  const labels = truncatedRes.map((d) => d.pay_date).reverse()
-  const yield_percent = truncatedRes.map((d) => (d.cash_amount / d.stock_price)).reverse()
+  const stockRes = JSON.parse(await getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`))
+  const truncatedStocks = truncateRecords(stockRes)
+  const dividend_yield = truncatedStocks.map((d) => d.cash_amount.toFixed(2)).reverse()
+  const stock_price = truncatedStocks.map((d) => d.stock_price.toFixed(2)).reverse()
+  const volume = truncatedStocks.map((d) => d.volume).reverse()
+  const labels = truncatedStocks.map((d) => d.pay_date).reverse()
+  const yield_percent = truncatedStocks.map((d) => (d.cash_amount / d.stock_price)).reverse()
+
+  const dividendRes = JSON.parse(await getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`))
+  const truncatedDividends = truncateRecords(dividendRes)
+  const allDividends = truncatedDividends.map((d) => d.cash_amount.toFixed(2)).reverse()
+  const allDividendDates = truncatedDividends.map((d) => d.pay_date).reverse()
 
   if (labels.length < 12) {
     Array.from(document.querySelectorAll('[data-projected]')).forEach((e) => {
@@ -65,6 +74,53 @@ export default async function initializeCharts() {
       e.appendChild(span)
     })
   }
+
+  const fullDividendChart = document.getElementById('full-dividend-chart');
+
+  new Chart(fullDividendChart, {
+    type: 'line',
+    resize: true,
+    data: {
+      labels: allDividendDates,
+      datasets: [
+        {
+          label: 'dividend yield, all records',
+          data: allDividends,
+          borderWidth: 2,
+          backgroundColor: 'green',
+          borderColor: 'green',
+          color: 'green'
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+              }).format(tooltipItem.raw)
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            callback: (value, index, values) => {
+              return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+              }).format(value)
+            }
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
   const stockChart = document.getElementById('stock-chart');
 
@@ -122,7 +178,7 @@ export default async function initializeCharts() {
       labels: labels,
       datasets: [
         {
-          label: 'dividend yield',
+          label: 'dividend yield, with stock info',
           data: dividend_yield,
           borderWidth: 2,
           backgroundColor: 'green',
