@@ -1,5 +1,11 @@
 [
   {
+    "id": 9,
+    "title": "New feature",
+    "date": "July 12, 2023",
+    "description": "Added a graph to the stock pages for full dividend history. Read more in the <a href='/changelog'>changelog</a>."
+  },
+  {
     "id": 8,
     "title": "New feature",
     "date": "July 11, 2023",

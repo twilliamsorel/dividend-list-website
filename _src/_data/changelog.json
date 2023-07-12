@@ -1,5 +1,10 @@
 [
   {
+    "title": "Added graph for full dividend history",
+    "date": "July 12, 2023",
+    "description": "I've added a new chart to take advantage of the availability of full dividend history records. The first chart on the stock page is now a full dividend history, followed by the collection of charts that represent the stock records (overlapping data with more information)."
+  },
+  {
     "title": "Splitting records into two categories",
     "date": "July 11, 2023",
     "description": "While stocks tend to have many dividend payout records, they often have far fewer records that include other stock information, such as the stock value at the given time, or trade volume. Before, to account for this, I was filtering out records that didn't include all data. However, this meant getting rid of useful dividend price data. To address this, I've created two different record values to guide users in the hopes of providing as much information as possible. I'll be adding full dividend record charts soon."
