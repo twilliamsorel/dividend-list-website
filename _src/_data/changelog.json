@@ -2,7 +2,7 @@
   {
     "title": "Splitting records into two categories",
     "date": "July 11, 2023",
-    "description": "While stocks tend to have many dividend payout records, they often have far fewer records that include other stock information, such as the stock value at the given time, or trade volume. Before, to account for this, I was filtering out records that didn't include all data. However, this meant getting rid of useful dividend price data. To address this, I've created two different record values to guide users in the hopes of providing as much information as possible."
+    "description": "While stocks tend to have many dividend payout records, they often have far fewer records that include other stock information, such as the stock value at the given time, or trade volume. Before, to account for this, I was filtering out records that didn't include all data. However, this meant getting rid of useful dividend price data. To address this, I've created two different record values to guide users in the hopes of providing as much information as possible. I'll be adding full dividend record charts soon."
   },
   {
     "title": "Increased chart sizes to encompass all records for the respective stock",
