@@ -19,6 +19,12 @@ The volatility of the stock, calculated at a monthly interval.
 {% endcapture %}
 {% include components/header-paragraph.html header: "Stock volatility" paragraph: paragraph %}
 
+{% capture paragraph %}
+The volatility of the dividend payouts, calculated from the monthly cash amount. This value takes all dividend records
+into account.
+{% endcapture %}
+{% include components/header-paragraph.html header: "Dividend volatility" paragraph: paragraph %}
+
 
 {% capture paragraph %}
 The total trade volume for the given stock in the prior month.
@@ -40,12 +46,6 @@ time of the dividend payout. These records overlap with the dividend records, bu
 the trade volume in the given month, as well as the stock value. There are usually fewer of these than dividend records.
 {% endcapture %}
 {% include components/header-paragraph.html header: "Stock records" paragraph: paragraph %}
-
-
-{% capture paragraph %}
-The volatility of the dividend payouts, calculated from the monthly cash amount.
-{% endcapture %}
-{% include components/header-paragraph.html header: "Dividend volatility" paragraph: paragraph %}
 
 
 {% capture paragraph %}
