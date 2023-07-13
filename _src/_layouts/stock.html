@@ -7,6 +7,7 @@ save_button: true
 ticker: stock.ticker %}
 
 <input type="hidden" value="{{ stock.ticker }}" id="ticker-interface">
+<input type="hidden" value="{{ stock.frequency }}" id="frequency-interface">
 <div class="layout stock">
   <div class="container-fluid">
     <div class="row">
@@ -45,7 +46,13 @@ ticker: stock.ticker %}
               <span class="label">dividend records</span>
               <span class="information">
                 {{ stock.dividend_records }}
-                <span class="projected">{{ stock.dividend_records | divided_by: 12 | round: 1 }} years</span>
+                <span class="projected">
+                  {% if stock.frequency == 12 %}
+                  {{ stock.dividend_records | divided_by: 12 | round: 1 }}
+                  {% else %}
+                  {{ stock.dividend_records | divided_by: 4 | round: 1 }}
+                  {% endif %}
+                  years</span>
               </span>
             </div>
 
@@ -53,12 +60,24 @@ ticker: stock.ticker %}
               <span class="label">stock records</span>
               <span class="information">
                 {{ stock.stock_records }}
-                <span class="projected">{{ stock.stock_records | divided_by: 12 | round: 1 }} years</span>
+                <span class="projected">
+                  {% if stock.frequency == 12 %}
+                  {{ stock.dividend_records | divided_by: 12 | round: 1 }}
+                  {% else %}
+                  {{ stock.dividend_records | divided_by: 4 | round: 1 }}
+                  {% endif %}
+                  years</span>
               </span>
             </div>
           </div>
 
           <div class="information-block green">
+            <div class="information-item">
+              <span class="label">dividend frequency</span>
+              <span class="information">{{ stock.frequency }}</span>
+            </div>
+
+
             <div class="information-item">
               <span class="label">dividend volatility</span>
               <span class="information">{{ stock.dividend_volatility | round: 2 }}</span>

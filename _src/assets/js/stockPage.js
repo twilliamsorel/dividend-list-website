@@ -53,6 +53,7 @@ function truncateRecords(data) {
 export default async function initializeCharts() {
   const baseUrl = getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
+  const frequency = document.querySelector('#frequency-interface').value
   const stockRes = JSON.parse(await getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`))
   const truncatedStocks = truncateRecords(stockRes)
   const dividend_yield = truncatedStocks.map((d) => d.cash_amount.toFixed(2)).reverse()
@@ -66,7 +67,7 @@ export default async function initializeCharts() {
   const allDividends = truncatedDividends.map((d) => d.cash_amount.toFixed(2)).reverse()
   const allDividendDates = truncatedDividends.map((d) => d.pay_date).reverse()
 
-  if (labels.length < 12) {
+  if (labels.length < frequency) {
     Array.from(document.querySelectorAll('[data-projected]')).forEach((e) => {
       const span = document.createElement('span')
       span.innerHTML = "(YTD)"

@@ -19,6 +19,10 @@
       border: 1px solid $neutral-700;
       width: 100%;
 
+      &.single {
+        padding: $spacing-100 $spacing-200;
+      }
+
       option {
         padding: $spacing-100 $spacing-200;
 
