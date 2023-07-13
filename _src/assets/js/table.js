@@ -42,7 +42,7 @@ export default class Table {
           <a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a>
           <span class="subtitle d-none d-sm-block">${d.company}</span>
         </td>
-        <td class="d-none d-lg-table-cell">${d.dividend_records} <span class="subtitle year">| ${Math.round((d.dividend_records / 12) * 10) / 10} years</span></td>
+        <td class="d-none d-lg-table-cell">${d.dividend_records} <span class="subtitle year">| ${Math.round((d.dividend_records / parseFloat(d.frequency)) * 10) / 10} years</span></td>
         <td class="d-none d-md-table-cell">${d.dividend_volatility.toFixed(2)}</td>
         <td>${d.percentage_yield.toFixed(2)} %</td>
         <td>${d.median_percentage_yield.toFixed(2)} %</td>

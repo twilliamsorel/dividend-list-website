@@ -671,6 +671,9 @@ body.popup .component.popup {
   border: 1px solid #C7CCC7;
   width: 100%;
 }
+.molecule.filter .range-container select.single {
+  padding: 4px 8px;
+}
 .molecule.filter .range-container select option {
   padding: 4px 8px;
 }

@@ -1,5 +1,15 @@
 [
   {
+    "title": "Added filtering for payout frequency",
+    "date": "July 13, 2023",
+    "description": "Stock payout frequency is now a filter option on the main table, making it easy to find specific stock types, based on user preferences."
+  },
+  {
+    "title": "Added stocks with quarterly payouts to the database",
+    "date": "July 13, 2023",
+    "description": "All stocks with a quarterly payout have been added to the database, increasing the number of available stocks by over 600%!"
+  },
+  {
     "title": "Added graph for full dividend history",
     "date": "July 12, 2023",
     "description": "I've added a new chart to take advantage of the availability of full dividend history records. The first chart on the stock page is now a full dividend history, followed by the collection of charts that represent the stock records (overlapping data with more information)."

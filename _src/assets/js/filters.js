@@ -33,7 +33,8 @@ export const filterDefaults = {
     min: 0,
     max: 100000000000
   },
-  stockTypes: ['ALL']
+  stockTypes: ['ALL'],
+  frequency: ['ALL']
 }
 
 function applyMultiSelectValues(select, values) {

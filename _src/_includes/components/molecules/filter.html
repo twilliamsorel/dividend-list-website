@@ -1,7 +1,7 @@
 <div class="molecule filter">
   <label>{{ label }}</label>
-  {% if label == 'stock types' %}
   <div class="range-container">
+    {% if label == 'stock types' %}
     <select data-filter="stock-types" size="4" multiple>
       <option value="ALL">all</option>
       <option value="ADRC">american depository receipt common</option>
@@ -29,11 +29,15 @@
       <option value="WARRANT">warrants</option>
       <option value="OTHER">other security type</option>
     </select>
-  </div>
-  {% else %}
-  <div class="range-container">
+    {% elsif label == 'frequency' %}
+    <select multiple size="3" data-filter="frequency">
+      <option value="ALL">all</option>
+      <option value="4">quarterly</option>
+      <option value="12">monthly</option>
+    </select>
+    {% else %}
     <input data-filter="{{ label | slugify }}-min" type="number" placeholder="min" min="0">
     <input data-filter="{{ label | slugify }}-max" type="number" placeholder="max" min="0">
+    {% endif %}
   </div>
-  {% endif %}
 </div>

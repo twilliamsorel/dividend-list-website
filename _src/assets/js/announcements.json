@@ -1,5 +1,17 @@
 [
   {
+    "id": 11,
+    "title": "New feature",
+    "date": "July 13, 2023",
+    "description": "Stock payout frequency is now a filter option on the main table."
+  },
+  {
+    "id": 10,
+    "title": "New (BIG) feature",
+    "date": "July 13, 2023",
+    "description": "All stocks with a quarterly payout have been added to the database, increasing the number of available stocks by over 600%!"
+  },
+  {
     "id": 9,
     "title": "New feature",
     "date": "July 12, 2023",
