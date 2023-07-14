@@ -7,14 +7,8 @@ import { initializeTooltips } from './tooltips.js'
 import initializePopup from './popup.js'
 
 // TEMP CLEANERS
-const filters = JSON.parse(localStorage.getItem('filters'))
-const hasStockType = filters && filters.stockTypes
-const hasFrequency = filters && filters.frequency
-if (!hasStockType || !hasFrequency) localStorage.removeItem('filters')
-
-const sorts = JSON.parse(localStorage.getItem('sort'))
-const hasHistorySize = sorts && sorts[0] === 'history_size'
-if (hasHistorySize) localStorage.removeItem('sort')
+localStorage.removeItem('filters')
+localStorage.removeItem('sort')
 
 initializeStickyNav()
 initializeMobileNav()
