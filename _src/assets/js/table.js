@@ -3,9 +3,9 @@ import { filterDefaults } from './filters.js'
 
 export default class Table {
   constructor() {
-    this.sort = JSON.parse(localStorage.getItem('sort')) || ['dividend_yield', 'desc']
+    this.sort = JSON.parse(sessionStorage.getItem('sort')) || ['dividend_yield', 'desc']
     this.table = document.querySelector('table.stocks')
-    this.filters = JSON.parse(localStorage.getItem('filters')) || filterDefaults
+    this.filters = JSON.parse(sessionStorage.getItem('filters')) || filterDefaults
     this.page = 0
     this.savedStocks = JSON.parse(localStorage.getItem('stocks')) || null
     this.baseUrl = getBaseUrl()
@@ -116,11 +116,11 @@ export default class Table {
   }
 
   setSort(sort) {
-    const currentSort = JSON.parse(localStorage.getItem('sort'))
+    const currentSort = JSON.parse(sessionStorage.getItem('sort'))
     const direction = currentSort && currentSort[1] === 'desc' ? 'asc' : 'desc'
     const temp = [sort, direction]
     this.sort = temp
-    localStorage.setItem('sort', JSON.stringify(temp))
+    sessionStorage.setItem('sort', JSON.stringify(temp))
     this.updateTable()
   }
 
@@ -141,7 +141,7 @@ export default class Table {
       this.filters[filter] = value
     }
 
-    localStorage.setItem('filters', JSON.stringify(this.filters))
+    sessionStorage.setItem('filters', JSON.stringify(this.filters))
     this.updateTable()
   }
 }
