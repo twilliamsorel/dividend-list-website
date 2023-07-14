@@ -46,12 +46,7 @@ ticker: stock.ticker %}
               <span class="label">dividend records</span>
               <span class="information">
                 {{ stock.dividend_records }}
-                <span class="projected">
-                  {% if stock.frequency == 12 %}
-                  {{ stock.dividend_records | divided_by: 12 | round: 1 }}
-                  {% else %}
-                  {{ stock.dividend_records | divided_by: 4 | round: 1 }}
-                  {% endif %}
+                <span class="projected">{{ stock.dividend_records | divided_by: stock.frequency | round: 1 }}
                   years</span>
               </span>
             </div>
@@ -60,13 +55,7 @@ ticker: stock.ticker %}
               <span class="label">stock records</span>
               <span class="information">
                 {{ stock.stock_records }}
-                <span class="projected">
-                  {% if stock.frequency == 12 %}
-                  {{ stock.dividend_records | divided_by: 12 | round: 1 }}
-                  {% else %}
-                  {{ stock.dividend_records | divided_by: 4 | round: 1 }}
-                  {% endif %}
-                  years</span>
+                <span class="projected">{{ stock.stock_records | divided_by: stock.frequency | round: 1 }} years</span>
               </span>
             </div>
           </div>
