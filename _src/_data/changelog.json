@@ -1,5 +1,10 @@
 [
   {
+    "title": "Added public roadmap",
+    "date": "July 24, 2023",
+    "description": "Added a public roadmap, that displays my current plans for future features as well as provides functionality for users / visitors to the site to add their own suggested features. Check it out <a href='https://changemap.co/coastlight-digital/the-dividend-list/' target='_blank'>here</a>."
+  },
+  {
     "title": "Added guides section to site",
     "date": "July 24, 2023",
     "description": "Added a new guides section to the site, and moved the glossary of terms there, in preperation for more articles and content."

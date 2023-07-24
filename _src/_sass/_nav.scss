@@ -61,7 +61,7 @@
     margin: 0;
     padding: 0;
 
-    li {
+    &>li {
       display: inline-block;
       margin-left: $spacing-500;
       font-size: 20px;
@@ -69,6 +69,34 @@
       a:hover,
       a.active {
         text-decoration: underline;
+      }
+
+      &:hover ul {
+        display: block;
+      }
+
+      ul {
+        background: $neutral-800;
+        position: absolute;
+        border: 1px solid $neutral-600;
+        display: none;
+
+        li {
+          display: block;
+          margin-left: 0;
+
+          a {
+            color: $neutral-100;
+            display: block;
+            font-size: 20px;
+            padding: $spacing-300 $spacing-600;
+            font-weight: 300;
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px solid $neutral-600;
+          }
+        }
       }
 
       @media screen and (min-width: $screen-lg) {

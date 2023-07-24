@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-md-10 offset-md-1">
-      <div class="component changelog-entry">
+      <div class="component changelog-entry {% if index == 1 %}first{% endif %}">
         <header>
           <h3>{{ title }}</h3>
           <time>{{ date }}</time>

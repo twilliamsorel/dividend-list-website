@@ -196,23 +196,46 @@ time {
   margin: 0;
   padding: 0;
 }
-.main-nav ul li {
+.main-nav ul > li {
   display: inline-block;
   margin-left: 20px;
   font-size: 20px;
 }
-.main-nav ul li a:hover,
-.main-nav ul li a.active {
+.main-nav ul > li a:hover,
+.main-nav ul > li a.active {
   text-decoration: underline;
 }
+.main-nav ul > li:hover ul {
+  display: block;
+}
+.main-nav ul > li ul {
+  background: #DEE3DE;
+  position: absolute;
+  border: 1px solid #ABB2AA;
+  display: none;
+}
+.main-nav ul > li ul li {
+  display: block;
+  margin-left: 0;
+}
+.main-nav ul > li ul li a {
+  color: #121312;
+  display: block;
+  font-size: 20px;
+  padding: 12px 24px;
+  font-weight: 300;
+}
+.main-nav ul > li ul li:not(:last-child) {
+  border-bottom: 1px solid #ABB2AA;
+}
 @media screen and (min-width: 1200px) {
-  .main-nav ul li {
+  .main-nav ul > li {
     margin-left: 24px;
     font-size: 24px;
   }
 }
 @media screen and (min-width: 1400px) {
-  .main-nav ul li {
+  .main-nav ul > li {
     margin-left: 44px;
   }
 }
@@ -581,7 +604,7 @@ input[type=number] {
   justify-content: space-between;
   row-gap: 12px;
   border-bottom: 1px solid #ABB2AA;
-  padding: 16px;
+  padding: 32px 16px;
   max-width: 680px;
 }
 .component.changelog-entry header {
@@ -601,8 +624,11 @@ input[type=number] {
 }
 @media screen and (min-width: 768px) {
   .component.changelog-entry {
-    padding: 24px 0;
+    padding: 36px 0;
   }
+}
+.component.changelog-entry.first {
+  padding-top: 0;
 }
 
 body.popup {

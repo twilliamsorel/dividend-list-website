@@ -4,7 +4,7 @@
   justify-content: space-between;
   row-gap: $spacing-300;
   border-bottom: 1px solid $neutral-600;
-  padding: $spacing-400;
+  padding: $spacing-800 $spacing-400;
   max-width: 680px;
 
   header {
@@ -24,6 +24,10 @@
   }
 
   @media screen and (min-width: $screen-sm) {
-    padding: $spacing-600 0;
+    padding: $spacing-900 0;
+  }
+
+  &.first {
+    padding-top: 0;
   }
 }
