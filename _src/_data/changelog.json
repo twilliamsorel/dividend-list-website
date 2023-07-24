@@ -1,5 +1,10 @@
 [
   {
+    "title": "Added guides section to site",
+    "date": "July 24, 2023",
+    "description": "Added a new guides section to the site, and moved the glossary of terms there, in preperation for more articles and content."
+  },
+  {
     "title": "Added filtering for payout frequency",
     "date": "July 13, 2023",
     "description": "Stock payout frequency is now a filter option on the main table, making it easy to find specific stock types, based on user preferences."

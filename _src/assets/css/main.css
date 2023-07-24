@@ -653,6 +653,26 @@ body.popup .component.popup {
   max-height: 300px;
 }
 
+.component.guide-entry {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  border-bottom: 1px solid #ABB2AA;
+  padding: 36px 16px;
+}
+@media screen and (min-width: 768px) {
+  .component.guide-entry {
+    padding: 36px 0;
+  }
+}
+.component.guide-entry.first {
+  padding-top: 0;
+}
+.component.guide-entry a {
+  text-decoration: underline;
+  font-weight: 300;
+}
+
 .molecule.filter label {
   text-transform: uppercase;
   margin-bottom: 8px;

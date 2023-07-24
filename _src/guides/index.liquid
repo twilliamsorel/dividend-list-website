@@ -1,0 +1,13 @@
+---
+layout: default
+title: guides
+---
+
+{% include components/header.html title: "Guides" % %}
+
+{% for guide in collections.guide %}
+  {% include components/guide-entry.html title: guide.data.title
+   index: forloop.index
+   description: guide.data.description
+   link: guide.url %}
+{% endfor %}

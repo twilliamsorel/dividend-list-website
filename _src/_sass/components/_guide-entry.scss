@@ -1,0 +1,20 @@
+.component.guide-entry {
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-600;
+  border-bottom: 1px solid $neutral-600;
+  padding: $spacing-900 $spacing-400;
+
+  @media screen and (min-width: $screen-sm) {
+    padding: $spacing-900 0;
+  }
+
+  &.first {
+    padding-top: 0;
+  }
+
+  a {
+    text-decoration: underline;
+    font-weight: 300;
+  }
+}

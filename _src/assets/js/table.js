@@ -25,12 +25,12 @@ export default class Table {
           <span class="d-none d-xl-inline-block">dividend volatility</span>
         </td>
         <td data-sort="percentage_yield" class="${this.sort[0] === 'percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
-          data-tooltip="<span>annual percentage yield</span>The annual percentage yield, calculated by dividing the sum of dividend payments by the current stock price. See 'About > Glossary and methodology' for more information.">
+          data-tooltip="<span>annual percentage yield</span>The annual percentage yield, calculated by dividing the sum of dividend payments by the current stock price. See 'Guides > Glossary and methodology' for more information.">
           <span class="d-inline-block d-xl-none">APY</span>
           <span class="d-none d-xl-inline-block">annual percentage yield</span>
         </td>
         <td data-sort="median_percentage_yield" class="${this.sort[0] === 'median_percentage_yield' ? 'active' : ''} ${this.sort[1] === 'desc' ? 'desc' : 'asc'}"
-          data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See 'About > Glossary and methodology' for more information.">Median APY</td>
+          data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See 'Guides > Glossary and methodology' for more information.">Median APY</td>
       </tr>
     `
   }
