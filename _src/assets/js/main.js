@@ -9,7 +9,6 @@ import initializePopup from './popup.js'
 // TEMP CLEANERS
 localStorage.removeItem('filters')
 localStorage.removeItem('sort')
-localStorage.removeItem('announcements')
 
 initializeStickyNav()
 initializeMobileNav()
