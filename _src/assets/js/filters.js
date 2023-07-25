@@ -110,8 +110,10 @@ export default function initializeFilters() {
         const options = e.target && Array.from(e.target.options)
         values = options.filter((option) => option.selected).map((option) => option.value)
       } else {
-        values = e.target.value
+        values = e.target.value | null
       }
+
+      console.log(values)
 
       const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: values } })
       window.dispatchEvent(filterEvent)
