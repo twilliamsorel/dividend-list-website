@@ -113,8 +113,6 @@ export default function initializeFilters() {
         values = e.target.value | null
       }
 
-      console.log(values)
-
       const filterEvent = new CustomEvent("filter", { detail: { filter: e.target.getAttribute('data-filter'), value: values } })
       window.dispatchEvent(filterEvent)
 

@@ -126,14 +126,14 @@ export default class Table {
 
   setFilter(detail) {
     const [filter, boundary] = convertSlug(detail.filter)
-    const value = (() => {
-      if (boundary) {
-        if (!detail.value) return filterDefaults[filter][boundary]
-        return parseFloat(detail.value)
-      } else {
-        return detail.value
-      }
-    })()
+    let value;
+
+    if (boundary) {
+      if (!detail.value) value = filterDefaults[filter][boundary]
+      value = parseFloat(detail.value)
+    } else {
+      value = detail.value
+    }
 
     if (boundary) {
       this.filters[filter][boundary] = value
