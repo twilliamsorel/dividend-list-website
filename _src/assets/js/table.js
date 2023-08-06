@@ -39,7 +39,7 @@ export default class Table {
     return `
       <tr>
         <td>
-          <a href="/stocks/${d.ticker.toLowerCase()}">${d.ticker}</a>
+          <a href="/stocks/${d.ticker.toLowerCase().replace('.', '-')}">${d.ticker}</a>
           <span class="subtitle d-none d-sm-block">${d.company}</span>
         </td>
         <td class="d-none d-lg-table-cell">${d.dividend_records} <span class="subtitle year">| ${Math.round((d.dividend_records / parseFloat(d.frequency)) * 10) / 10} years</span></td>
