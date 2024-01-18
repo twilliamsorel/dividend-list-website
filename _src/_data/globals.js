@@ -5,7 +5,7 @@ module.exports = function () {
     jsPath: '/assets/js/main.js',
     "title": "Dividend List",
     "description": "A tool for dividend stock discovery, focused on high yield income stocks. The Dividend List tracks US stocks that have a monthly and quarterly dividend payout.",
-    "baseUrl": process.env.ENVIRONMENT === 'production' ? "https://thedividendlist.com" : "localhost:8080",
+    "baseUrl": process.env.ENVIRONMENT === 'production' ? "https://thedividendlist.com" : "http://localhost:5000",
     "image": "/assets/img/logo.svg"
   };
 };
