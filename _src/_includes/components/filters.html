@@ -4,7 +4,7 @@
       <div class="component filters">
         <button class="filter btn" id="filter-toggle">filters <span id="filter-counter"></span> <img
             src="/assets/img/ico-down-arrow.svg"></button>
-        <div class="filters-container">
+        <form class="filters-container">
           {% include components/molecules/filter.html label: "dividend yield" %}
           {% include components/molecules/filter.html label: "dividend volatility" %}
           {% include components/molecules/filter.html label: "stock price" %}
@@ -15,8 +15,14 @@
           {% include components/molecules/filter.html label: "volume" %}
           {% include components/molecules/filter.html label: "stock types" %}
           {% include components/molecules/filter.html label: "frequency" %}
-        </div>
+          <input type="submit" value="apply">
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<script type="module">
+import Filters from '/interfaces/Filters.js'
+new Filters('form.filters-container')
+</script>
