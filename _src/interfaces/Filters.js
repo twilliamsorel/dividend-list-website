@@ -32,9 +32,9 @@ export default class Filters {
         const modifiedData = data.map((item) => {
             if (item[1].length < 1) {
                 if (item[0].includes('min')) {
-                return [item[0], '0']
+                    return [item[0], '0']
                 } else if (item[0].includes('max')) {
-                return [item[0], '99999999999']
+                    return [item[0], '99999999999']
                 }
             } else {
                 return [item[0], item[1]]
@@ -44,7 +44,7 @@ export default class Filters {
         return modifiedData.reduce((acc, data) => { 
             if (acc[data[0]]) {
                 if (!Array.isArray(acc[data[0]])) {
-                acc[data[0]] = [acc[data[0]]]
+                    acc[data[0]] = [acc[data[0]]]
                 }
                 acc[data[0]].push(data[1])
             } else {
