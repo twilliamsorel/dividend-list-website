@@ -2,8 +2,8 @@
   <label>{{ label }}</label>
   <div class="range-container">
     {% if label == 'stock types' %}
-    <select data-filter="stock-types" size="4" multiple>
-      <option value="ALL">all</option>
+    <select name="stock-types" size="4" multiple>
+      <option selected="selected" value="ALL">all</option>
       <option value="ADRC">american depository receipt common</option>
       <option value="ADRP">american depository receipt preferred</option>
       <option value="ADRR">american depository receipt rights</option>
@@ -30,14 +30,14 @@
       <option value="OTHER">other security type</option>
     </select>
     {% elsif label == 'frequency' %}
-    <select multiple size="3" data-filter="frequency">
-      <option value="ALL">all</option>
+    <select multiple size="3" name="frequency">
+      <option selected="selected" value="ALL">all</option>
       <option value="4">quarterly</option>
       <option value="12">monthly</option>
     </select>
     {% else %}
-    <input data-filter="{{ label | slugify }}-min" type="number" placeholder="min" min="0">
-    <input data-filter="{{ label | slugify }}-max" type="number" placeholder="max" min="0">
+    <input name="{{ label | slugify }}-min" type="number" step=".01" placeholder="min" min="0">
+    <input name="{{ label | slugify }}-max" type="number" step=".01" placeholder="max" min="0">
     {% endif %}
   </div>
 </div>

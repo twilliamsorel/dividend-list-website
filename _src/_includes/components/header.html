@@ -6,10 +6,7 @@
           <h2>{{ title }}</h2>
 
           {% if searchbox %}
-          <div class="search-wrapper">
-            <span class="material-symbols-outlined">search</span>
-            <input type="text" placeholder="search" class="search interface">
-          </div>
+            {% include components/Search.html %}
           {% endif %}
 
           {% if save_button %}

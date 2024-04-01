@@ -573,28 +573,37 @@ input[type=number] {
   border: 1px solid #959C94;
   padding: 44px;
   margin-top: -16px;
-  grid-template-columns: 1fr;
-  column-gap: 40px;
-  row-gap: 32px;
   opacity: 0;
   display: none;
   transition: 400ms opacity;
 }
+.component.filters .filters-container .filters-inner-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 40px;
+  row-gap: 32px;
+}
 @media screen and (min-width: 992px) {
-  .component.filters .filters-container {
+  .component.filters .filters-container .filters-inner-wrapper {
     grid-template-columns: 1fr 1fr;
   }
 }
 @media screen and (min-width: 1200px) {
-  .component.filters .filters-container {
+  .component.filters .filters-container .filters-inner-wrapper {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+}
+.component.filters .filters-container .btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-top: 40px;
 }
 .component.filters.open .filter.btn img {
   transform: rotate(180deg);
 }
 .component.filters.open .filters-container {
-  display: grid;
+  display: block;
   opacity: 1;
 }
 

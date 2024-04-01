@@ -44,8 +44,7 @@
 </head>
 
 <body class="{{ title | slugify }}">
-  {% include components/popup.html %}
-  {% include nav.html %}
+  {% include components/Nav.html %}
 
   <main>
     {{ content }}
@@ -53,7 +52,10 @@
 
   {% include footer.html %}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="{{ globals.jsPath }}"></script>
+  <script type="module">
+    import Tooltips from '/interfaces/Tooltips.js'
+    new Tooltips()
+  </script>
 
   {% if globals.environment == "development" %}
   <input type="hidden" value="development" data-bind="environment">

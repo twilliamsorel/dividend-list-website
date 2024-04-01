@@ -10,9 +10,14 @@
         </div>
         <table class="stocks" cellspacing="0" cellpadding="0" {% if source %}data-source="{{ source }}" {% endif %}>
           <thead></thead>
-          <tbody class="information"></tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
+
+<script type="module">
+import Table from '/interfaces/Table.js'
+new Table('table.stocks')
+</script>
