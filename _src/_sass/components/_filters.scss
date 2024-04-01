@@ -10,19 +10,30 @@
     border: 1px solid $neutral-500;
     padding: $spacing-1100;
     margin-top: -$spacing-400;
-    grid-template-columns: 1fr;
-    column-gap: $spacing-1000;
-    row-gap: $spacing-800;
     opacity: 0;
     display: none;
     transition: 400ms opacity;
 
-    @media screen and (min-width: $screen-md) {
-      grid-template-columns: 1fr 1fr;
+    .filters-inner-wrapper{
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: $spacing-1000;
+      row-gap: $spacing-800;
+
+      @media screen and (min-width: $screen-md) {
+        grid-template-columns: 1fr 1fr;
+      }
+  
+      @media screen and (min-width: $screen-lg) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
     }
 
-    @media screen and (min-width: $screen-lg) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      margin-top: $spacing-1000;
     }
   }
 
@@ -34,7 +45,7 @@
     }
 
     .filters-container {
-      display: grid;
+      display: block;
       opacity: 1;
     }
   }
