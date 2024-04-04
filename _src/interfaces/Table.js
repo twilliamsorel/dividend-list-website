@@ -88,7 +88,6 @@ export default class Table {
     }
 
     async #getData() {
-        console.log('fired getData', this.tableType)
         const requestObj = {
             sort: this.sort,
             sortDirection: this.sortDirection,
