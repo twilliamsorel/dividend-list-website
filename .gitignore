@@ -2,3 +2,4 @@ node_modules
 _site
 _src/assets/css/main-min.css
 _src/assets/js/main-min.js
+.sass_cache

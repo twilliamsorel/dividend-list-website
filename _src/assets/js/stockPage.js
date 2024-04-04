@@ -1,4 +1,5 @@
 import Utils from '/interfaces/utils.js'
+import StorageManager from '/interfaces/StorageManager.js'
 
 // SAVE BUTTON
 (() => {
@@ -7,12 +8,10 @@ import Utils from '/interfaces/utils.js'
   if (!button) return
 
   const ticker = button.getAttribute('data-save')
-  const getCurrentStorage = () => JSON.parse(localStorage.getItem('stocks')) || false
+  const storage = new StorageManager('stocks')
 
   const getButtonStatus = (value) => {
-    const currentStorage = getCurrentStorage()
-    const exists = (currentStorage && currentStorage.filter((item) => item === value)).length > 0
-
+    const exists = storage.getById(value)
     return exists
   }
 
@@ -20,26 +19,10 @@ import Utils from '/interfaces/utils.js'
     button.innerHTML = status ? 'unsave' : 'save'
   }
 
-  const updateStorage = (f) => {
-    const currentStorage = getCurrentStorage()
-    const temp = f(currentStorage)
-    const newStorage = temp.length === 0 ? null : temp
-
-    localStorage.setItem('stocks', JSON.stringify(newStorage))
-  }
-
-  const removeItem = (value) => {
-    updateStorage((currentStorage) => currentStorage && currentStorage.filter((item) => item !== value))
-  }
-
-  const addItem = (value) => {
-    updateStorage((currentStorage) => currentStorage ? currentStorage.concat(value) : [value])
-  }
-
   setButtonState(getButtonStatus(ticker))
 
   button.addEventListener('click', () => {
-    getButtonStatus(ticker) ? removeItem(ticker) : addItem(ticker)
+    getButtonStatus(ticker) ? storage.remove(ticker) : storage.add({ id: ticker })
     setButtonState(getButtonStatus(ticker))
   })
 })()

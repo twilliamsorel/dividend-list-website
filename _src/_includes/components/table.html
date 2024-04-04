@@ -8,7 +8,7 @@
             in order to fit this screen.
           </p>
         </div>
-        <table class="stocks" cellspacing="0" cellpadding="0" {% if source %}data-source="{{ source }}" {% endif %}>
+        <table class="stocks" cellspacing="0" cellpadding="0" {% if type %}data-type="{{ type }}"{% endif %}>
           <thead></thead>
           <tbody></tbody>
         </table>
@@ -19,5 +19,5 @@
 
 <script type="module">
 import Table from '/interfaces/Table.js'
-new Table('table.stocks')
+new Table('table.stocks');
 </script>

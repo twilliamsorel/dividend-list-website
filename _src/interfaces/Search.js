@@ -1,4 +1,4 @@
-import Utils from "/interfaces/utils.js"
+import Utils from "/interfaces/Utils.js"
 
 export default class Search {
     constructor(selectorString) {

@@ -1,8 +1,10 @@
-import Utils from '/interfaces/utils.js'
+import Utils from '/interfaces/Utils.js'
+import StorageManager from '/interfaces/StorageManager.js'
 
 export default class Table {
     constructor(selectorString) {
         this.table = document.querySelector(selectorString)
+        this.tableType = this.table.getAttribute('data-type') ? this.table.getAttribute('data-type') : undefined 
         this.sort = 'ticker'
         this.sortDirection = 'desc'
         this.filters = undefined
@@ -77,21 +79,34 @@ export default class Table {
         })
     }
 
-    #updateTable(data = false) {
-        this.#clearTable()
+    async #updateTable() {
         const thead = this.#header()
+        const data = await this.#getData()
+        this.#clearTable()
         this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
         this.#paginate(data)
     }
 
-    async #paginate(passedData) {
+    async #getData() {
+        console.log('fired getData', this.tableType)
         const requestObj = {
             sort: this.sort,
             sortDirection: this.sortDirection,
             pagination: this.page,
         }
         if (this.filters) { requestObj.filters = this.filters }
-        const data = passedData || JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-stocks`, requestObj))
+
+        if (this.tableType === 'localstorage') {
+            const storage = new StorageManager('stocks')
+            const tickers = storage.read.reduce((acc, cur) => { acc.push(cur.id); return acc }, [])
+            requestObj.tickers = tickers
+            return JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-saved`, requestObj))
+        } else {
+            return JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-stocks`, requestObj))
+        }
+    }
+
+    #paginate(data) {
         if (data.length === 0) return;
         data.forEach((d) => {
             if (!d.percentage_yield) return;
