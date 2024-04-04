@@ -1,4 +1,4 @@
-import Utils from '/interfaces/utils.js'
+import Utils from '/interfaces/Utils.js'
 import StorageManager from '/interfaces/StorageManager.js'
 
 // SAVE BUTTON
