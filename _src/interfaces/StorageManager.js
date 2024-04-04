@@ -25,14 +25,13 @@ export default class StorageManager {
         this.data = this.data.filter((item) => !(item.id === id))
         this.#setStorage()
         return this
-
     }
 
     #setStorage () {
         localStorage.setItem(this.name, JSON.stringify(this.data))
     }
 
-    get delete() {
+    delete() {
         localStorage.removeItem(this.name)
         this.data = undefined
         this.name = undefined
