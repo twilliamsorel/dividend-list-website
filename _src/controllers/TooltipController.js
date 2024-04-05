@@ -1,4 +1,4 @@
-export default class Tooltips {
+export default class TooltipController {
     constructor() {
         this.div = undefined
         this.shown = false

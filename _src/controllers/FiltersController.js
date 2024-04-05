@@ -1,4 +1,4 @@
-export default class Filters {
+export default class FiltersController {
     constructor(selectorString) {
         this.form = document.querySelector(selectorString)
         this.button = document.querySelector('#filter-toggle')
@@ -9,6 +9,7 @@ export default class Filters {
             const formattedData = this.#formatFiltersData(rawData)
             const filterEvent = new CustomEvent('filter', { detail: { results: formattedData } })
             window.dispatchEvent(filterEvent)
+            this.form.parentElement.classList.toggle('open')
         })
         this.button.addEventListener('click', () => {
             this.form.parentElement.classList.toggle('open')
