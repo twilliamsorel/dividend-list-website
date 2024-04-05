@@ -8,7 +8,8 @@
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "build": "ENVIRONMENT='production' npx @11ty/eleventy",
     "dev": "npx @11ty/eleventy --serve & npm run watch:sass",
-    "production": "npm run build:sass & ENVIRONMENT='production' npx @11ty/eleventy"
+    "production": "npm run build:sass & ENVIRONMENT='production' npx @11ty/eleventy",
+    "test": "echo fired test"
   },
   "keywords": [],
   "author": "",
