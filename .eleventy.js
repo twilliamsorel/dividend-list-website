@@ -5,7 +5,9 @@ const tickerCodes = require("./tickerCodes.js")
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("_src/assets");
-  eleventyConfig.addPassthroughCopy("_src/interfaces");
+  eleventyConfig.addPassthroughCopy("_src/controllers");
+  eleventyConfig.addPassthroughCopy("_src/models");
+  eleventyConfig.addPassthroughCopy("_src/Utils.js");
   eleventyConfig.addPassthroughCopy("_src/favicon-32x32.png");
   eleventyConfig.addPassthroughCopy("_src/favicon-16x16.png");
 
@@ -37,8 +39,8 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "_src",
-      includes: "_includes",
-      layouts: "_layouts",
+      includes: "views/_includes",
+      layouts: "views/_layouts",
       data: "_data"
     }
   }

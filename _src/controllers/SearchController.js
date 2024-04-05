@@ -1,5 +1,3 @@
-import Utils from "/interfaces/Utils.js"
-
 export default class Search {
     constructor(selectorString) {
         this.input = document.querySelector(selectorString)
@@ -11,8 +9,7 @@ export default class Search {
 
     #runSearch() {
         !this.frozen && setTimeout(async () => {
-            const res = this.input.value.length > 0 ? (await Utils.getRequest(`${Utils.getBaseUrl()}/api/search-stocks?search=${this.input.value}`)) : false
-            const searchEvent = new CustomEvent("search", { detail: { results: JSON.parse(res), length: this.input.value.length } })
+            const searchEvent = new CustomEvent("search", { detail: { results: this.input.value } })
             window.dispatchEvent(searchEvent)
             this.frozen = false
         }, this.throttleTime)

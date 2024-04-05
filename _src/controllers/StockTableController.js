@@ -1,14 +1,12 @@
-import Utils from '/interfaces/Utils.js'
-import StorageManager from '/interfaces/StorageManager.js'
+import StockTable from '/models/StockTable.js'
+import StorageManager from '/models/StorageManager.js'
+import Utils from '/Utils.js'
 
-export default class Table {
+export default class StockTableController {
     constructor(selectorString) {
+        this.stockTable = new StockTable()
         this.table = document.querySelector(selectorString)
         this.tableType = this.table.getAttribute('data-type') ? this.table.getAttribute('data-type') : undefined 
-        this.sort = 'ticker'
-        this.sortDirection = 'desc'
-        this.filters = undefined
-        this.page = 0
         this.freezeScroll = false
         this.#updateTable()
         this.searchLengthRef = 0
@@ -20,7 +18,8 @@ export default class Table {
             }
         })
         this.table.querySelector('thead').addEventListener('click', (e) => {
-            this.#setSort(e.target.getAttribute('data-sort'))
+            this.stockTable.setSort(e.target.getAttribute('data-sort'))
+            this.#updateTable()
         })
         window.addEventListener('search', (e) => {
             this.#updateTable(e.detail.results)
@@ -28,7 +27,7 @@ export default class Table {
         })
         window.addEventListener('filter', (e) => {
             const data = e.detail.results
-            this.filters = data
+            this.stockTable.setFilters(data)
             this.#updateTable()
         })
     }
@@ -36,20 +35,20 @@ export default class Table {
     #header() {
         return `
             <tr class="label">
-                <td data-sort="ticker" data-tooltip="<span>ticker</span>The stock's ticker value; a shorthand code used to identify the stock." class="${this.sort === 'ticker' ? 'active' : ''} ${this.sortDirection === 'desc' ? 'desc' : 'asc'}">ticker</td>
-                <td class="d-none d-lg-table-cell ${this.sort === 'dividend_records' ? 'active' : ''} ${this.sortDirection === 'desc' ? 'desc' : 'asc'}" data-sort="dividend_records"
+                <td data-sort="ticker" data-tooltip="<span>ticker</span>The stock's ticker value; a shorthand code used to identify the stock." class="${this.stockTable.sort === 'ticker' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}">ticker</td>
+                <td class="d-none d-lg-table-cell ${this.stockTable.sort === 'dividend_records' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}" data-sort="dividend_records"
                 data-tooltip="<span>dividend records</span>The total number of historical dividend records in the database for this stock, taken at monthly intervals.">dividend records</td>
-                <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.sort === 'dividend_volatility' ? 'active' : ''} ${this.sortDirection === 'desc' ? 'desc' : 'asc'}"
+                <td data-sort="dividend_volatility" class="d-none d-md-table-cell ${this.stockTable.sort === 'dividend_volatility' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}"
                 data-tooltip="<span>dividend volatility</span>A numeric value representing the volatility of monthly dividend payments. Compare this value to the dividend yield charts to calibrate to it.">
                     <span class="d-inline-block d-xl-none">div volatility</span>
                     <span class="d-none d-xl-inline-block">dividend volatility</span>
                 </td>
-                <td data-sort="percentage_yield" class="${this.sort === 'percentage_yield' ? 'active' : ''} ${this.sortDirection === 'desc' ? 'desc' : 'asc'}"
+                <td data-sort="percentage_yield" class="${this.stockTable.sort === 'percentage_yield' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}"
                 data-tooltip="<span>annual percentage yield</span>The annual percentage yield, calculated by dividing the sum of dividend payments by the current stock price. See 'Guides > Glossary and methodology' for more information.">
                     <span class="d-inline-block d-xl-none">APY</span>
                     <span class="d-none d-xl-inline-block">annual percentage yield</span>
                 </td>
-                <td data-sort="median_percentage_yield" class="${this.sort === 'median_percentage_yield' ? 'active' : ''} ${this.sortDirection === 'desc' ? 'desc' : 'asc'}"
+                <td data-sort="median_percentage_yield" class="${this.stockTable.sort === 'median_percentage_yield' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}"
                 data-tooltip="<span>Median APY</span>A median variation of the APY, designed to be more representative of typical returns. See 'Guides > Glossary and methodology' for more information.">Median APY</td>
             </tr>
         `
@@ -73,29 +72,21 @@ export default class Table {
     #clearTable() {
         if (!this.table) throw Error('Table is not defined. Did you try and call this before initializing one?')
         const rows = this.table.querySelectorAll('tr')
-        this.page = 0
+        this.stockTable.resetPage()
         rows.forEach((row) => {
             row.remove()
         })
     }
 
-    async #updateTable() {
-        const thead = this.#header()
-        const data = await this.#getData()
-        this.#clearTable()
-        this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
-        this.#paginate(data)
-    }
-
-    async #getData() {
+    async #getData(tableType) {
         const requestObj = {
-            sort: this.sort,
-            sortDirection: this.sortDirection,
-            pagination: this.page,
+            sort: this.stockTable.sort,
+            sortDirection: this.stockTable.sortDirection,
+            pagination: this.stockTable.page,
         }
-        if (this.filters) { requestObj.filters = this.filters }
+        if (this.stockTable.filters) { requestObj.filters = this.stockTable.filters }
 
-        if (this.tableType === 'localstorage') {
+        if (tableType === 'localstorage') {
             const storage = new StorageManager('stocks')
             const tickers = storage.read.reduce((acc, cur) => { acc.push(cur.id); return acc }, [])
             requestObj.tickers = tickers
@@ -105,19 +96,25 @@ export default class Table {
         }
     }
 
-    #paginate(data) {
-        if (data.length === 0) return;
+    async #getSearchData(searchQuery) {
+        return await Utils.getRequest(`${Utils.getBaseUrl()}/api/search-stocks?search=${searchQuery}`)
+    }
+
+    async #updateTable(searchQuery) {
+        const thead = this.#header()
+        const data = searchQuery ? await this.#getSearchData(searchQuery) : await this.#getData()
+        this.#clearTable()
+        this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
+        this.#paginate(data)
+    }
+
+    async #paginate() {
+        const data = await this.#getData(this.tableType)
         data.forEach((d) => {
             if (!d.percentage_yield) return;
             this.table.querySelector('tbody').insertAdjacentHTML('beforeend', this.#row(d))
         })
-        this.page++
+        this.stockTable.paginate()
         this.freezeScroll = false
-    }
-
-    #setSort(sort) {
-        this.sort = sort
-        this.sortDirection = this.sortDirection === 'desc' ? 'asc' : 'desc'
-        this.#updateTable()
     }
 }
