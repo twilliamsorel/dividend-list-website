@@ -1,5 +1,5 @@
-import Utils from '/interfaces/Utils.js'
-import StorageManager from '/interfaces/StorageManager.js'
+import Utils from '/Utils.js'
+import StorageManager from '/models/StorageManager.js'
 
 // SAVE BUTTON
 (() => {
