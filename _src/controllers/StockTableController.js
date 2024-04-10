@@ -22,8 +22,13 @@ export default class StockTableController {
             this.#updateTable()
         })
         window.addEventListener('search', (e) => {
-            this.#updateTable(e.detail.results)
-            this.searchLengthRef = e.detail.length
+            if (e.detail.results.length > 0) {
+                this.#updateTable(e.detail.results)
+            } else {
+                this.stockTable.resetPage()
+                this.#updateTable()
+            }
+            this.searchLengthRef = e.detail.results.length
         })
         window.addEventListener('filter', (e) => {
             const data = e.detail.results
@@ -97,7 +102,7 @@ export default class StockTableController {
     }
 
     async #getSearchData(searchQuery) {
-        return await Utils.getRequest(`${Utils.getBaseUrl()}/api/search-stocks?search=${searchQuery}`)
+        return JSON.parse(await Utils.getRequest(`${Utils.getBaseUrl()}/api/search-stocks?search=${searchQuery}`))
     }
 
     async #updateTable(searchQuery) {
@@ -108,8 +113,7 @@ export default class StockTableController {
         this.#paginate(data)
     }
 
-    async #paginate() {
-        const data = await this.#getData(this.tableType)
+    async #paginate(data) {
         data.forEach((d) => {
             if (!d.percentage_yield) return;
             this.table.querySelector('tbody').insertAdjacentHTML('beforeend', this.#row(d))
