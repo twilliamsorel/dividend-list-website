@@ -1,6 +1,6 @@
 class Utils {
-    getRequest(url: string): Promise<any[]> {
-        return new Promise((resolve, reject) => {
+    async getRequest(url: string): Promise<any[]> {
+        const result: Promise<string> = new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
@@ -13,6 +13,7 @@ class Utils {
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send();
         })
+        return JSON.parse(await result)
     }
 
     async postRequest(url: string, data: object | any[]): Promise<any[]> {

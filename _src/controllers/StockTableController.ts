@@ -41,7 +41,7 @@ export default class StockTableController {
         this.searchLengthRef = 0
         this.updateTable()
         window.addEventListener('scroll', () => {
-            if (this.searchLengthRef > 0) return;
+            if (this.searchLengthRef > 0 || this.tableType === 'localstorage') return;
             if (window.scrollY + window.innerHeight + 1 >= document.body.clientHeight - 300) {
                 !this.freezeScroll && this.paginate()
                 this.freezeScroll = true
@@ -55,12 +55,18 @@ export default class StockTableController {
         })
         window.addEventListener('search', (e: CustomEvent) => {
             const searchQuery = e.detail.results as string
-            this.updateTable(searchQuery)
             this.searchLengthRef = searchQuery.length
+            if (searchQuery.length > 0) {
+                this.updateTable(searchQuery)
+            } else {
+                this.stockTable.resetPage()
+                this.updateTable()
+            }
         })
         window.addEventListener('filter', (e: CustomEvent) => {
             const filters = e.detail.results as object
             this.stockTable.setFilters(filters)
+            this.stockTable.resetPage()
             this.updateTable()
         })
     }
@@ -111,7 +117,7 @@ export default class StockTableController {
         })
     }
 
-    private async getData(tableType?: string | undefined | null) {
+    private async getData() {
         const requestObj: RequestObjectProps = {
             sort: this.stockTable.sort,
             sortDirection: this.stockTable.sortDirection,
@@ -121,7 +127,7 @@ export default class StockTableController {
         }
         if (this.stockTable.filters) { requestObj.filters = this.stockTable.filters }
 
-        if (tableType === 'localstorage') {
+        if (this.tableType === 'localstorage') {
             const storage = new StorageManager('stocks')
             const tickers = storage.read && storage.read.reduce((acc: string[], cur: { 'id': string }) => { acc.push(cur.id); return acc }, [])
             requestObj.tickers = tickers
@@ -141,11 +147,11 @@ export default class StockTableController {
         const data = searchQuery ? await this.getSearchData(searchQuery) : await this.getData()
         this.clearTable()
         this.table.querySelector('thead')?.insertAdjacentHTML('beforeend', thead)
-        this.paginate()
+        this.paginate(data)
     }
 
-    private async paginate() {
-        const data = await this.getData(this.tableType)
+    private async paginate(passedData?: any[]) {
+        const data = passedData ? passedData : await this.getData()
         data.forEach((d: StockProps) => {
             if (!d.percentage_yield) return;
             this.table?.querySelector('tbody')?.insertAdjacentHTML('beforeend', this.row(d))
