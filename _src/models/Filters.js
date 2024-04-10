@@ -1,2 +1,0 @@
-// TODO: Construct model here to allow for search persistence between page loads.
-// There is a risk here, however, in creating issues with local storage between versions -- may just want to do this on the BE later (if ever)
