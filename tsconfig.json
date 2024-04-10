@@ -4,10 +4,7 @@
         "strictNullChecks": true,
         "outDir": "_site",
         "target": "ESNext",
-        "baseUrl": "./_src",
-        "paths": {
-            "./_src": ["/"]
-        }
+        "moduleResolution": "node",
     },
     "include": [
         "_src/*",

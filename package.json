@@ -7,7 +7,7 @@
     "watch:sass": "sass --watch _src/_sass:_src/assets/css",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "build": "ENVIRONMENT='production' npx @11ty/eleventy",
-    "dev": "npx @11ty/eleventy --serve & npm run watch:sass",
+    "dev": "npx @11ty/eleventy --serve & npm run watch:sass & npx tsc --watch",
     "production": "npm run build:sass & ENVIRONMENT='production' npx @11ty/eleventy",
     "test": "echo 'fired test'"
   },
