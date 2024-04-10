@@ -1,6 +1,6 @@
 export default class StockTable {
     sort: string
-    sortDirection: string
+    sortDirection: 'asc' | 'desc'
     filters: object | undefined
     page: number
 

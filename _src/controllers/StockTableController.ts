@@ -1,11 +1,19 @@
-import StockTable from '/models/StockTable.ts'
-import StorageManager from '/models/StorageManager.ts'
-import Utils from '/Utils.ts'
+import StockTable from '../models/StockTable.js'
+import StorageManager from '../models/StorageManager.js'
+import Utils from '../Utils.js'
 
 interface CustomEvent extends Event {
     detail: {
-        results: string
+        results: string | object
     }
+}
+
+interface RequestObjectProps {
+    sort: string,
+    sortDirection: 'asc' | 'desc',
+    pagination: number,
+    filters: object | undefined,
+    tickers: string[] | undefined
 }
 
 interface StockProps {
@@ -41,16 +49,18 @@ export default class StockTableController {
         })
         this.table?.querySelector('thead')?.addEventListener('click', (e: MouseEvent) => {
             const targetElement = e.target as HTMLElement
-            this.stockTable && this.stockTable.setSort(targetElement.getAttribute('data-sort'))
+            const sort = targetElement.getAttribute('data-sort')
+            sort && this.stockTable && this.stockTable.setSort(sort)
             this.updateTable()
         })
         window.addEventListener('search', (e: CustomEvent) => {
-            this.updateTable(e.detail.results)
-            this.searchLengthRef = e.detail.results.length
+            const searchQuery = e.detail.results as string
+            this.updateTable(searchQuery)
+            this.searchLengthRef = searchQuery.length
         })
         window.addEventListener('filter', (e: CustomEvent) => {
-            const data = e.detail.results
-            this.stockTable.setFilters(data)
+            const filters = e.detail.results as object
+            this.stockTable.setFilters(filters)
             this.updateTable()
         })
     }
@@ -102,7 +112,7 @@ export default class StockTableController {
     }
 
     private async getData(tableType?: string | undefined | null) {
-        const requestObj = {
+        const requestObj: RequestObjectProps = {
             sort: this.stockTable.sort,
             sortDirection: this.stockTable.sortDirection,
             pagination: this.stockTable.page,
@@ -113,11 +123,11 @@ export default class StockTableController {
 
         if (tableType === 'localstorage') {
             const storage = new StorageManager('stocks')
-            const tickers = storage.read.reduce((acc: string[], cur: { 'id': string }) => { acc.push(cur.id); return acc }, [])
+            const tickers = storage.read && storage.read.reduce((acc: string[], cur: { 'id': string }) => { acc.push(cur.id); return acc }, [])
             requestObj.tickers = tickers
-            return JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-saved`, requestObj))
+            return await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-saved`, requestObj)
         } else {
-            return JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-stocks`, requestObj))
+            return await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-stocks`, requestObj)
         }
     }
 
