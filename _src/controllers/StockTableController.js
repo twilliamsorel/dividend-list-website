@@ -33,6 +33,7 @@ export default class StockTableController {
         window.addEventListener('filter', (e) => {
             const data = e.detail.results
             this.stockTable.setFilters(data)
+            this.stockTable.resetPage()
             this.#updateTable()
         })
     }
