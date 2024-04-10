@@ -11,7 +11,7 @@ export default class StockTableController {
         this.#updateTable()
         this.searchLengthRef = 0
         window.addEventListener('scroll', () => {
-            if (this.searchLengthRef > 0) return;
+            if (this.searchLengthRef > 0 || this.tableType === 'localstorage') return;
             if (window.scrollY + window.innerHeight + 1 >= document.body.clientHeight - 300) {
                 !this.freezeScroll && this.#paginate()
                 this.freezeScroll = true
