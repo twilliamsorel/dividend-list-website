@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "outDir": "_site",
+        "target": "ESNext",
+        "baseUrl": "./_src",
+        "paths": {
+            "./_src": ["/"]
+        }
+    },
+    "include": [
+        "_src/*",
+        "_src/models/*",
+        "_src/controllers/*",
+        "_src/assets/js/*",
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+}

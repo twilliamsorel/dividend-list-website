@@ -1,38 +1,61 @@
-import StockTable from '/models/StockTable.js'
-import StorageManager from '/models/StorageManager.js'
-import Utils from '/Utils.js'
+import StockTable from '/models/StockTable.ts'
+import StorageManager from '/models/StorageManager.ts'
+import Utils from '/Utils.ts'
+
+interface CustomEvent extends Event {
+    detail: {
+        results: string
+    }
+}
+
+interface StockProps {
+    ticker: string
+    company: string
+    dividend_records: number
+    dividend_volatility: number
+    percentage_yield: number
+    median_percentage_yield: number
+    frequency: string
+}
 
 export default class StockTableController {
-    constructor(selectorString) {
+    stockTable: StockTable
+    table: HTMLElement | null
+    tableType: string | null | undefined
+    freezeScroll: boolean
+    searchLengthRef: number
+
+    constructor(selectorString: string) {
         this.stockTable = new StockTable()
         this.table = document.querySelector(selectorString)
-        this.tableType = this.table.getAttribute('data-type') ? this.table.getAttribute('data-type') : undefined 
+        this.tableType = this.table?.getAttribute('data-type') ? this.table.getAttribute('data-type') : undefined
         this.freezeScroll = false
-        this.#updateTable()
         this.searchLengthRef = 0
+        this.updateTable()
         window.addEventListener('scroll', () => {
             if (this.searchLengthRef > 0) return;
             if (window.scrollY + window.innerHeight + 1 >= document.body.clientHeight - 300) {
-                !this.freezeScroll && this.#paginate()
+                !this.freezeScroll && this.paginate()
                 this.freezeScroll = true
             }
         })
-        this.table.querySelector('thead').addEventListener('click', (e) => {
-            this.stockTable.setSort(e.target.getAttribute('data-sort'))
-            this.#updateTable()
+        this.table?.querySelector('thead')?.addEventListener('click', (e: MouseEvent) => {
+            const targetElement = e.target as HTMLElement
+            this.stockTable && this.stockTable.setSort(targetElement.getAttribute('data-sort'))
+            this.updateTable()
         })
-        window.addEventListener('search', (e) => {
-            this.#updateTable(e.detail.results)
-            this.searchLengthRef = e.detail.length
+        window.addEventListener('search', (e: CustomEvent) => {
+            this.updateTable(e.detail.results)
+            this.searchLengthRef = e.detail.results.length
         })
-        window.addEventListener('filter', (e) => {
+        window.addEventListener('filter', (e: CustomEvent) => {
             const data = e.detail.results
             this.stockTable.setFilters(data)
-            this.#updateTable()
+            this.updateTable()
         })
     }
 
-    #header() {
+    private header() {
         return `
             <tr class="label">
                 <td data-sort="ticker" data-tooltip="<span>ticker</span>The stock's ticker value; a shorthand code used to identify the stock." class="${this.stockTable.sort === 'ticker' ? 'active' : ''} ${this.stockTable.sortDirection === 'desc' ? 'desc' : 'asc'}">ticker</td>
@@ -54,7 +77,7 @@ export default class StockTableController {
         `
     }
 
-    #row(d) {
+    private row(d: StockProps) {
         return `
         <tr>
             <td>
@@ -69,7 +92,7 @@ export default class StockTableController {
         `
     }
 
-    #clearTable() {
+    private clearTable() {
         if (!this.table) throw Error('Table is not defined. Did you try and call this before initializing one?')
         const rows = this.table.querySelectorAll('tr')
         this.stockTable.resetPage()
@@ -78,17 +101,19 @@ export default class StockTableController {
         })
     }
 
-    async #getData(tableType) {
+    private async getData(tableType?: string | undefined | null) {
         const requestObj = {
             sort: this.stockTable.sort,
             sortDirection: this.stockTable.sortDirection,
             pagination: this.stockTable.page,
+            filters: undefined,
+            tickers: undefined
         }
         if (this.stockTable.filters) { requestObj.filters = this.stockTable.filters }
 
         if (tableType === 'localstorage') {
             const storage = new StorageManager('stocks')
-            const tickers = storage.read.reduce((acc, cur) => { acc.push(cur.id); return acc }, [])
+            const tickers = storage.read.reduce((acc: string[], cur: { 'id': string }) => { acc.push(cur.id); return acc }, [])
             requestObj.tickers = tickers
             return JSON.parse(await Utils.postRequest(`${Utils.getBaseUrl()}/api/get-saved`, requestObj))
         } else {
@@ -96,23 +121,24 @@ export default class StockTableController {
         }
     }
 
-    async #getSearchData(searchQuery) {
+    async getSearchData(searchQuery: string) {
         return await Utils.getRequest(`${Utils.getBaseUrl()}/api/search-stocks?search=${searchQuery}`)
     }
 
-    async #updateTable(searchQuery) {
-        const thead = this.#header()
-        const data = searchQuery ? await this.#getSearchData(searchQuery) : await this.#getData()
-        this.#clearTable()
-        this.table.querySelector('thead').insertAdjacentHTML('beforeend', thead)
-        this.#paginate(data)
+    private async updateTable(searchQuery?: string) {
+        if (!this.table) return
+        const thead = this.header()
+        const data = searchQuery ? await this.getSearchData(searchQuery) : await this.getData()
+        this.clearTable()
+        this.table.querySelector('thead')?.insertAdjacentHTML('beforeend', thead)
+        this.paginate()
     }
 
-    async #paginate() {
-        const data = await this.#getData(this.tableType)
-        data.forEach((d) => {
+    private async paginate() {
+        const data = await this.getData(this.tableType)
+        data.forEach((d: StockProps) => {
             if (!d.percentage_yield) return;
-            this.table.querySelector('tbody').insertAdjacentHTML('beforeend', this.#row(d))
+            this.table?.querySelector('tbody')?.insertAdjacentHTML('beforeend', this.row(d))
         })
         this.stockTable.paginate()
         this.freezeScroll = false

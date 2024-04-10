@@ -1,4 +1,9 @@
 export default class StockTable {
+    sort: string
+    sortDirection: string
+    filters: object | undefined
+    page: number
+
     constructor() {
         this.sort = 'ticker'
         this.sortDirection = 'desc'
@@ -6,7 +11,7 @@ export default class StockTable {
         this.page = 0
     }
 
-    setFilters(filters) {
+    setFilters(filters: object) {
         this.filters = filters
     }
 
@@ -18,7 +23,7 @@ export default class StockTable {
         this.page = 0;
     }
 
-    setSort(sort) {
+    setSort(sort: string) {
         this.sort = sort
         this.sortDirection = this.sortDirection === 'desc' ? 'asc' : 'desc'
     }

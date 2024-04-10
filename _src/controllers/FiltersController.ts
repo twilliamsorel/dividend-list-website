@@ -1,31 +1,36 @@
 export default class FiltersController {
-    constructor(selectorString) {
+    form: HTMLFormElement | null
+    button: HTMLButtonElement | null
+    constructor(selectorString: string) {
         this.form = document.querySelector(selectorString)
         this.button = document.querySelector('#filter-toggle')
-        this.form.addEventListener('submit', (e) => {
+        this.form?.addEventListener('submit', (e) => {
             e.preventDefault()
             this.#updateFiltersCount()
             const rawData = new FormData(this.form)
             const formattedData = this.#formatFiltersData(rawData)
             const filterEvent = new CustomEvent('filter', { detail: { results: formattedData } })
             window.dispatchEvent(filterEvent)
-            this.form.parentElement.classList.toggle('open')
+            this.form?.parentElement?.classList.toggle('open')
         })
-        this.button.addEventListener('click', () => {
-            this.form.parentElement.classList.toggle('open')
+        this.button?.addEventListener('click', () => {
+            this.form?.parentElement?.classList.toggle('open')
         })
     }
 
-    #countFilters() {
-        const inputs = Array.from(this.form.querySelectorAll('input')).filter((input) => input.type != 'submit')
-        const selects = Array.from(this.form.querySelectorAll('select'))
-        const inputCount = inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
-        const selectsCount = selects.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0)
-        return inputCount + selectsCount
+    private countFilters() {
+        const inputs = this.form && Array.from(this.form.querySelectorAll('input')).filter((input) => input.type != 'submit')
+        const selects = this.form && Array.from(this.form.querySelectorAll('select'))
+        const inputCount = inputs?.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
+        const selectsCount = selects?.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0)
+        return (inputCount && selectsCount) && (inputCount + selectsCount)
     }
 
     #updateFiltersCount() {
-        this.button.querySelector('#filter-counter').innerHTML = this.#countFilters() > 0 ? `(${this.#countFilters()})` : ''
+        const filtersCounterHtml = this.button?.querySelector('#filter-counter')
+        if (filtersCounterHtml && this.countFilters() !== undefined) {
+            filtersCounterHtml.innerHTML = this.countFilters() > 0 ? `(${this.countFilters()})` : ''
+        }
     }
 
     #formatFiltersData(formData) {
@@ -42,7 +47,7 @@ export default class FiltersController {
             }
         })
         // COLLAPSE REPEAT DATA INTO SINGLE ARRAYS
-        return modifiedData.reduce((acc, data) => { 
+        return modifiedData.reduce((acc, data) => {
             if (acc[data[0]]) {
                 if (!Array.isArray(acc[data[0]])) {
                     acc[data[0]] = [acc[data[0]]]
