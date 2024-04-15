@@ -22,9 +22,9 @@ export default class FiltersController {
     private countFilters() {
         const inputs = this.form && Array.from(this.form.querySelectorAll('input')).filter((input) => input.type != 'submit')
         const selects = this.form && Array.from(this.form.querySelectorAll('select'))
-        const inputCount = inputs?.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0)
-        const selectsCount = selects?.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0)
-        return (inputCount && selectsCount) ? (inputCount + selectsCount) : 0
+        const inputCount = inputs ? inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0) : 0
+        const selectsCount = selects ? selects.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0) : 0
+        return inputCount + selectsCount
     }
 
     private updateFiltersCount() {
