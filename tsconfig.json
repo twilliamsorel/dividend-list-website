@@ -4,15 +4,15 @@
         "strictNullChecks": true,
         "outDir": "_site",
         "target": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "node"
     },
     "include": [
         "_src/*",
         "_src/models/*",
         "_src/controllers/*",
-        "_src/assets/js/*",
+        "_src/assets/js/*"
     ],
     "exclude": [
         "node_modules"
-    ],
+    ]
 }

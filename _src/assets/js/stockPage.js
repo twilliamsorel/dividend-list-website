@@ -37,7 +37,7 @@ export default async function initializeCharts() {
   const baseUrl = Utils.getBaseUrl()
   const ticker = document.querySelector('#ticker-interface').value
   const frequency = document.querySelector('#frequency-interface').value
-  const stockRes = JSON.parse(await Utils.getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`))
+  const stockRes = await Utils.getRequest(`${baseUrl}/api/get-stock-history?ticker=${ticker}`)
   const truncatedStocks = truncateRecords(stockRes)
   const dividend_yield = truncatedStocks.map((d) => d.cash_amount.toFixed(2)).reverse()
   const stock_price = truncatedStocks.map((d) => d.stock_price.toFixed(2)).reverse()
@@ -45,7 +45,7 @@ export default async function initializeCharts() {
   const labels = truncatedStocks.map((d) => d.pay_date).reverse()
   const yield_percent = truncatedStocks.map((d) => (d.cash_amount / d.stock_price)).reverse()
 
-  const dividendRes = JSON.parse(await Utils.getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`))
+  const dividendRes = await Utils.getRequest(`${baseUrl}/api/get-dividend-history?ticker=${ticker}`)
   const truncatedDividends = truncateRecords(dividendRes)
   const allDividends = truncatedDividends.map((d) => d.cash_amount.toFixed(2)).reverse()
   const allDividendDates = truncatedDividends.map((d) => d.pay_date).reverse()
