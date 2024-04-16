@@ -4,10 +4,12 @@ interface DataProps {
 
 export default class StorageManager {
     name: string | undefined
+    storageType: string
     data: any[] | undefined
 
-    constructor(name: string) {
+    constructor(name: string, type?: string) {
         this.name = name
+        this.storageType = type || 'localStorage'
         this.data = []
         this.fetchData()
     }
@@ -35,7 +37,11 @@ export default class StorageManager {
     }
 
     private setStorage() {
-        this.name && localStorage.setItem(this.name, JSON.stringify(this.data))
+        if (this.storageType === 'localStorage') {
+            this.name && localStorage.setItem(this.name, JSON.stringify(this.data))
+        } else if (this.storageType === 'sessionStorage') {
+            this.name && sessionStorage.setItem(this.name, JSON.stringify(this.data))
+        }
     }
 
     delete() {
@@ -46,7 +52,13 @@ export default class StorageManager {
 
     private fetchData() {
         if (!this.name) return;
-        const data = localStorage.getItem(this.name)
+        const data = ((name: string) => {
+            if (this.storageType === 'localStorage') {
+                return localStorage.getItem(name)
+            } else if (this.storageType === 'sessionStorage') {
+                return sessionStorage.getItem(name)
+            }
+        })(this.name)
         if (!data) return
         this.data = JSON.parse(data)
     }

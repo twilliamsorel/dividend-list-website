@@ -12,10 +12,10 @@ export default class FiltersController {
             const formattedData = this.formatFiltersData(rawData)
             const filterEvent = new CustomEvent('filter', { detail: { results: formattedData } })
             window.dispatchEvent(filterEvent)
-            this.form?.parentElement?.classList.toggle('open')
+            this.toggleVisibility()
         })
         this.button?.addEventListener('click', () => {
-            this.form?.parentElement?.classList.toggle('open')
+            this.toggleVisibility()
         })
     }
 
@@ -25,6 +25,10 @@ export default class FiltersController {
         const inputCount = inputs ? inputs.reduce((acc, input) => acc + (input.value.length > 0 ? 1 : 0), 0) : 0
         const selectsCount = selects ? selects.map((select) => !select.value.match(/^$|ALL/) ? 1 : 0).reduce((acc, c) => acc + c, 0) : 0
         return inputCount + selectsCount
+    }
+
+    private toggleVisibility() {
+        this.form && this.form.parentElement && this.form.parentElement.classList.toggle('open')
     }
 
     private updateFiltersCount() {
