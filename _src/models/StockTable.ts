@@ -11,19 +11,19 @@ export default class StockTable {
         this.page = 0
     }
 
-    setFilters(filters: object) {
+    public setFilters(filters: object) {
         this.filters = filters
     }
 
-    paginate() {
+    public paginate() {
         this.page++
     }
 
-    resetPage() {
+    public resetPage() {
         this.page = 0;
     }
 
-    setSort(sort: string) {
+    public setSort(sort: string) {
         this.sort = sort
         this.sortDirection = this.sortDirection === 'desc' ? 'asc' : 'desc'
     }

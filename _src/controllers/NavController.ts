@@ -5,8 +5,8 @@ export default class Nav {
     constructor(selectorString: string) {
         this.nav = document.querySelector(selectorString)
         this.navButtons = Array.from(document.querySelectorAll('[data-bind="mobile-nav-button"]'))
-        window.addEventListener('scroll', () => this.#triggerSticky())
-        document.addEventListener('load', () => this.#triggerSticky())
+        window.addEventListener('scroll', () => this.triggerSticky())
+        document.addEventListener('load', () => this.triggerSticky())
         this.navButtons.forEach((button) => {
             button.addEventListener('click', () => {
                 document.body.classList.toggle('open')
@@ -14,7 +14,7 @@ export default class Nav {
         })
     }
 
-    #triggerSticky() {
+    private triggerSticky() {
         if (window.scrollY > 0) {
             this.nav?.classList.add('sticky')
         } else {
