@@ -14,7 +14,7 @@ export default class StorageManager {
         this.fetchData()
     }
 
-    add(data: DataProps) {
+    public add(data: DataProps) {
         if (!(typeof data === 'object') || !data.id) throw Error("Storage manager must be of type Object[{ id: string ...}]. Please push data in the form of an object with an id.")
         if (this.getById(data.id) || !this.data) return
         this.data.push(data)
@@ -26,11 +26,11 @@ export default class StorageManager {
         return this.data
     }
 
-    getById(id: number) {
+    public getById(id: number) {
         return this.data?.filter((item) => item.id === id)[0]
     }
 
-    remove(id: number) {
+    public remove(id: number) {
         this.data = this.data?.filter((item) => !(item.id === id))
         this.setStorage()
         return this
@@ -44,7 +44,7 @@ export default class StorageManager {
         }
     }
 
-    delete() {
+    public delete() {
         this.name && localStorage.removeItem(this.name)
         this.data = undefined
         this.name = undefined
